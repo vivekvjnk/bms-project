@@ -59,7 +59,7 @@ The `bms-monitor-module` is a high-voltage (HV) domain component within the stac
 | BQ79616 | BQ79616PAPRQ1 | imported |
 | MJD44H11 | MJD44H11T4G | imported |
 | 100mA SMD Fuses | BSMD0603_010_33V | imported |
-| 20-pin Connector | PZ254V_11_20P | imported |
-| 10-pin Connector | ZX_XH2_54_10PZZ_GW | imported |
-| 4-pin Isolated Connectors | ZX_XH2_54_4PZZ | imported |
+| 20-pin Connector | | local |
+| 10-pin Connector | | local |
+| 4-pin Isolated Connectors | | local |
 

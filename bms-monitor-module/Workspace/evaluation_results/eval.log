@@ -1,0 +1,220 @@
+Building 1 file(s)...
+Building bms-monitor-module/Workspace/bms-monitor-module.tsx...
+Generating circuit JSON...
+Circuit JSON written to dist/bms-monitor-module/Workspace/bms-monitor-module/circuit.json
+[33mPort pin1 on R_CB16 is missing a trace[39m
+[33mPort pin2 on R_CB16 is missing a trace[39m
+[33mPort pin1 on R_VC16 is missing a trace[39m
+[33mPort pin2 on R_VC16 is missing a trace[39m
+[33mPort pin1 on C_VC16 is missing a trace[39m
+[33mPort pin2 on C_VC16 is missing a trace[39m
+[33mPort pin1 on R_CB15 is missing a trace[39m
+[33mPort pin2 on R_CB15 is missing a trace[39m
+[33mPort pin1 on R_VC15 is missing a trace[39m
+[33mPort pin2 on R_VC15 is missing a trace[39m
+[33mPort pin1 on C_VC15 is missing a trace[39m
+[33mPort pin2 on C_VC15 is missing a trace[39m
+[33mPort pin1 on R_CB14 is missing a trace[39m
+[33mPort pin2 on R_CB14 is missing a trace[39m
+[33mPort pin1 on R_VC14 is missing a trace[39m
+[33mPort pin2 on R_VC14 is missing a trace[39m
+[33mPort pin1 on C_VC14 is missing a trace[39m
+[33mPort pin2 on C_VC14 is missing a trace[39m
+[33mPort pin1 on R_CB13 is missing a trace[39m
+[33mPort pin2 on R_CB13 is missing a trace[39m
+[33mPort pin1 on R_VC13 is missing a trace[39m
+[33mPort pin2 on R_VC13 is missing a trace[39m
+[33mPort pin1 on C_VC13 is missing a trace[39m
+[33mPort pin2 on C_VC13 is missing a trace[39m
+[33mPort pin1 on R_CB12 is missing a trace[39m
+[33mPort pin2 on R_CB12 is missing a trace[39m
+[33mPort pin1 on R_VC12 is missing a trace[39m
+[33mPort pin2 on R_VC12 is missing a trace[39m
+[33mPort pin1 on C_VC12 is missing a trace[39m
+[33mPort pin2 on C_VC12 is missing a trace[39m
+[33mPort pin1 on R_CB11 is missing a trace[39m
+[33mPort pin2 on R_CB11 is missing a trace[39m
+[33mPort pin1 on R_VC11 is missing a trace[39m
+[33mPort pin2 on R_VC11 is missing a trace[39m
+[33mPort pin1 on C_VC11 is missing a trace[39m
+[33mPort pin2 on C_VC11 is missing a trace[39m
+[33mPort pin1 on R_CB10 is missing a trace[39m
+[33mPort pin2 on R_CB10 is missing a trace[39m
+[33mPort pin1 on R_VC10 is missing a trace[39m
+[33mPort pin2 on R_VC10 is missing a trace[39m
+[33mPort pin1 on C_VC10 is missing a trace[39m
+[33mPort pin2 on C_VC10 is missing a trace[39m
+[33mPort pin1 on R_CB9 is missing a trace[39m
+[33mPort pin2 on R_CB9 is missing a trace[39m
+[33mPort pin1 on R_VC9 is missing a trace[39m
+[33mPort pin2 on R_VC9 is missing a trace[39m
+[33mPort pin1 on C_VC9 is missing a trace[39m
+[33mPort pin2 on C_VC9 is missing a trace[39m
+[33mPort pin1 on R_CB8 is missing a trace[39m
+[33mPort pin2 on R_CB8 is missing a trace[39m
+[33mPort pin1 on R_VC8 is missing a trace[39m
+[33mPort pin2 on R_VC8 is missing a trace[39m
+[33mPort pin1 on C_VC8 is missing a trace[39m
+[33mPort pin2 on C_VC8 is missing a trace[39m
+[33mPort pin1 on R_CB7 is missing a trace[39m
+[33mPort pin2 on R_CB7 is missing a trace[39m
+[33mPort pin1 on R_VC7 is missing a trace[39m
+[33mPort pin2 on R_VC7 is missing a trace[39m
+[33mPort pin1 on C_VC7 is missing a trace[39m
+[33mPort pin2 on C_VC7 is missing a trace[39m
+[33mPort pin1 on R_CB6 is missing a trace[39m
+[33mPort pin2 on R_CB6 is missing a trace[39m
+[33mPort pin1 on R_VC6 is missing a trace[39m
+[33mPort pin2 on R_VC6 is missing a trace[39m
+[33mPort pin1 on C_VC6 is missing a trace[39m
+[33mPort pin2 on C_VC6 is missing a trace[39m
+[33mPort pin1 on R_CB5 is missing a trace[39m
+[33mPort pin2 on R_CB5 is missing a trace[39m
+[33mPort pin1 on R_VC5 is missing a trace[39m
+[33mPort pin2 on R_VC5 is missing a trace[39m
+[33mPort pin1 on C_VC5 is missing a trace[39m
+[33mPort pin2 on C_VC5 is missing a trace[39m
+[33mPort pin1 on R_CB4 is missing a trace[39m
+[33mPort pin2 on R_CB4 is missing a trace[39m
+[33mPort pin1 on R_VC4 is missing a trace[39m
+[33mPort pin2 on R_VC4 is missing a trace[39m
+[33mPort pin1 on C_VC4 is missing a trace[39m
+[33mPort pin2 on C_VC4 is missing a trace[39m
+[33mPort pin1 on R_CB3 is missing a trace[39m
+[33mPort pin2 on R_CB3 is missing a trace[39m
+[33mPort pin1 on R_VC3 is missing a trace[39m
+[33mPort pin2 on R_VC3 is missing a trace[39m
+[33mPort pin1 on C_VC3 is missing a trace[39m
+[33mPort pin2 on C_VC3 is missing a trace[39m
+[33mPort pin1 on R_CB2 is missing a trace[39m
+[33mPort pin2 on R_CB2 is missing a trace[39m
+[33mPort pin1 on R_VC2 is missing a trace[39m
+[33mPort pin2 on R_VC2 is missing a trace[39m
+[33mPort pin1 on C_VC2 is missing a trace[39m
+[33mPort pin2 on C_VC2 is missing a trace[39m
+[33mPort pin1 on R_CB1 is missing a trace[39m
+[33mPort pin2 on R_CB1 is missing a trace[39m
+[33mPort pin1 on R_VC1 is missing a trace[39m
+[33mPort pin2 on R_VC1 is missing a trace[39m
+[33mPort pin1 on C_VC1 is missing a trace[39m
+[33mPort pin2 on C_VC1 is missing a trace[39m
+[33mPort pin1 on R_CB0 is missing a trace[39m
+[33mPort pin2 on R_CB0 is missing a trace[39m
+[33mPort pin1 on C_BAT is missing a trace[39m
+[33mPort pin2 on C_BAT is missing a trace[39m
+[33mPort pin1 on C_LDOIN is missing a trace[39m
+[33mPort pin2 on C_LDOIN is missing a trace[39m
+[33mPort pin1 on C_AVDD is missing a trace[39m
+[33mPort pin2 on C_AVDD is missing a trace[39m
+[33mPort pin1 on C_DVDD is missing a trace[39m
+[33mPort pin2 on C_DVDD is missing a trace[39m
+[33mPort pin1 on C_CVDD is missing a trace[39m
+[33mPort pin2 on C_CVDD is missing a trace[39m
+[33mPort pin1 on C_REF is missing a trace[39m
+[33mPort pin2 on C_REF is missing a trace[39m
+[33mPort pin1 on C_BBP is missing a trace[39m
+[33mPort pin2 on C_BBP is missing a trace[39m
+[33mPort pin1 on C_NEG5V is missing a trace[39m
+[33mPort pin2 on C_NEG5V is missing a trace[39m
+[33mPort pin1 on C_COMHP is missing a trace[39m
+[33mPort pin2 on C_COMHP is missing a trace[39m
+[33mPort pin1 on C_COMHN is missing a trace[39m
+[33mPort pin2 on C_COMHN is missing a trace[39m
+[33mPort pin1 on C_COMLP is missing a trace[39m
+[33mPort pin2 on C_COMLP is missing a trace[39m
+[33mPort pin1 on C_COMLN is missing a trace[39m
+[33mPort pin2 on C_COMLN is missing a trace[39m
+[33mPort pin1 on R_FAULT_PU is missing a trace[39m
+[33mPort pin2 on R_FAULT_PU is missing a trace[39m
+[33mPort pin1 on R_PU_GPIO1 is missing a trace[39m
+[33mPort pin2 on R_PU_GPIO1 is missing a trace[39m
+[33mPort pin1 on R_PU_GPIO2 is missing a trace[39m
+[33mPort pin2 on R_PU_GPIO2 is missing a trace[39m
+[33mPort pin1 on R_PU_GPIO3 is missing a trace[39m
+[33mPort pin2 on R_PU_GPIO3 is missing a trace[39m
+[33mPort pin1 on R_PU_GPIO4 is missing a trace[39m
+[33mPort pin2 on R_PU_GPIO4 is missing a trace[39m
+[33mPort pin1 on R_PU_GPIO5 is missing a trace[39m
+[33mPort pin2 on R_PU_GPIO5 is missing a trace[39m
+[33mPort pin1 on R_PU_GPIO6 is missing a trace[39m
+[33mPort pin2 on R_PU_GPIO6 is missing a trace[39m
+[33mPort pin1 on R_PU_GPIO7 is missing a trace[39m
+[33mPort pin2 on R_PU_GPIO7 is missing a trace[39m
+[33mPort pin1 on R_PU_GPIO8 is missing a trace[39m
+[33mPort pin2 on R_PU_GPIO8 is missing a trace[39m
+[0m[31m[31mNo footprint specified for component: <resistor#113 name=".R_CB16" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#122 name=".R_VC16" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#127 name=".C_VC16" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#134 name=".R_CB15" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#143 name=".R_VC15" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#148 name=".C_VC15" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#155 name=".R_CB14" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#164 name=".R_VC14" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#169 name=".C_VC14" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#176 name=".R_CB13" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#185 name=".R_VC13" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#190 name=".C_VC13" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#197 name=".R_CB12" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#206 name=".R_VC12" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#211 name=".C_VC12" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#218 name=".R_CB11" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#227 name=".R_VC11" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#232 name=".C_VC11" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#239 name=".R_CB10" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#248 name=".R_VC10" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#253 name=".C_VC10" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#260 name=".R_CB9" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#269 name=".R_VC9" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#274 name=".C_VC9" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#281 name=".R_CB8" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#290 name=".R_VC8" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#295 name=".C_VC8" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#302 name=".R_CB7" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#311 name=".R_VC7" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#316 name=".C_VC7" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#323 name=".R_CB6" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#332 name=".R_VC6" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#337 name=".C_VC6" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#344 name=".R_CB5" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#353 name=".R_VC5" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#358 name=".C_VC5" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#365 name=".R_CB4" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#374 name=".R_VC4" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#379 name=".C_VC4" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#386 name=".R_CB3" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#395 name=".R_VC3" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#400 name=".C_VC3" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#407 name=".R_CB2" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#416 name=".R_VC2" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#421 name=".C_VC2" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#428 name=".R_CB1" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#437 name=".R_VC1" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#442 name=".C_VC1" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#449 name=".R_CB0" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#468(.bms-monitor-module>.C_BAT) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#476(.bms-monitor-module>.C_LDOIN) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#481(.bms-monitor-module>.C_AVDD) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#486(.bms-monitor-module>.C_DVDD) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#491(.bms-monitor-module>.C_CVDD) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#496(.bms-monitor-module>.C_REF) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#502(.bms-monitor-module>.C_BBP) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#507(.bms-monitor-module>.C_NEG5V) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#512(.bms-monitor-module>.C_COMHP) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#517(.bms-monitor-module>.C_COMHN) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#522(.bms-monitor-module>.C_COMLP) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <capacitor#527(.bms-monitor-module>.C_COMLN) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#534(.bms-monitor-module>.R_FAULT_PU) />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#540 name=".R_PU_GPIO1" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#547 name=".R_PU_GPIO2" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#554 name=".R_PU_GPIO3" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#561 name=".R_PU_GPIO4" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#568 name=".R_PU_GPIO5" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#575 name=".R_PU_GPIO6" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#582 name=".R_PU_GPIO7" />[39m[0m
+[0m[31m[31mNo footprint specified for component: <resistor#589 name=".R_PU_GPIO8" />[39m[0m
+[1mBuild complete[22m
+Circuits  [32m1 passed[39m
+Output    [2m../../dist[22m
+[33m
+⚠ Build completed with errors[39m
+[2mBuild exiting with code 0: build finished successfully[22m
