@@ -1,0 +1,5 @@
+.vhl/
+.claude/
+node-modules/
+.tscircuit/
+.conversation/
