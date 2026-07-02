@@ -51,3 +51,15 @@ The `bms-monitor-module` is a high-voltage (HV) domain component within the stac
 - **Uncertainty:** Exact daisy chain connector model remains "TBD" but is assumed to be a 4-pin differential-rated connector.
 - **Assumption:** Balancing current is targeted at ~240mA as per datasheet, requiring 22Ω resistors assuming ~5V max cell voltage, but this may be adjusted based on thermal dissipation limits (P3.4).
 - **Assumption:** NFAULT is an open-drain output requiring an external pull-up if monitored locally, though it is also communicated via the daisy chain heartbeat.
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| BQ79616 | BQ79616PAPRQ1 | imported |
+| MJD44H11 | MJD44H11T4G | imported |
+| 100mA SMD Fuses | BSMD0603_010_33V | imported |
+| 20-pin Connector | PZ254V_11_20P | imported |
+| 10-pin Connector | ZX_XH2_54_10PZZ_GW | imported |
+| 4-pin Isolated Connectors | ZX_XH2_54_4PZZ | imported |
+
