@@ -1,0 +1,72 @@
+# SCUD: communication-bridge
+
+## 1. Module Overview & System Context
+The `communication-bridge` module serves as the critical translation layer between the Low-Voltage (LV) microcontroller domain and the High-Voltage (HV) battery monitor daisy chain. Centered around the TI BQ79600-Q1, it converts standard UART or SPI signals from the MCU into isolated, differential signals suitable for the robust communication required by the stackable BMS monitor modules (BQ79616). 
+
+The module is positioned in the "Isolation Boundary" zone, providing galvanic isolation (rated for 400V system voltage) between the logic/host side and the high-voltage daisy chain.
+
+**Primary functional blocks:**
+- **Host Interface:** Level-shifted SPI/UART communication with the MCU.
+- **ASIC Core:** BQ79600-Q1 for protocol translation and system wakeup.
+- **Isolated Daisy Chain Interface:** Transformer or capacitor coupled differential lines (COMH/COML).
+- **Power Management:** Internal regulators (CVDD, DVDD) and external supply filtering.
+
+## 2. Architectural Deviations (Baseline vs. Target)
+*Baseline: BQ79600EVM Reference Schematic*
+*Target: communication-bridge-boundary.md*
+
+- **Removed components/blocks:**
+    - Evaluation-specific headers (J4 10-pin header, J1, J2, J3) removed in favor of direct system-level port mappings.
+    - Evaluation mode selection jumpers (J12, J13) replaced with hardwired configuration (nCS pulled high via R1 for SPI mode).
+    - Test points and non-essential evaluation LEDs.
+- **Added components/blocks:**
+    - High-isolation transformers (Pulse HX1188NL) for COMH and COML to meet 400V system isolation requirements.
+    - Common-mode chokes (optional, based on EMC requirements) and differential termination (100-ohm) for daisy chain integrity.
+    - Dedicated INH output path to the PMIC/LVPS for system wake-up.
+
+## 3. Components Inventory
+
+| RefDes | Component | Value/Part No. | Package | Description |
+|:---|:---|:---|:---|:---|
+| U1 | Bridge IC | BQ79600-Q1 | TSSOP-16 | Automotive SPI/UART Bridge IC |
+| T1 | Transformer | HX1188NL | SMD | Isolation for COMH daisy chain (1kV+ isolation) |
+| T2 | Transformer | HX1188NL | SMD | Isolation for COML daisy chain (1kV+ isolation) |
+| C1 | Capacitor | 0.1uF, 50V | 0603 | BAT Pin Decoupling |
+| C2 | Capacitor | 10uF, 50V | 0805 | BAT Pin Bulk Storage |
+| C10 | Capacitor | 4.7uF, 10V | 0603 | CVDD Output Decoupling |
+| C11 | Capacitor | 0.1uF, 10V | 0402 | VIO Pin Decoupling |
+| C12 | Capacitor | 1uF, 10V | 0402 | DVDD Output Decoupling |
+| R1 | Resistor | 10k | 0402 | nCS Pull-up to VIO |
+| R2 | Resistor | 10k | 0402 | RX/MOSI Pull-up to VIO |
+| R3 | Resistor | 10k | 0402 | SCLK Pull-down to GND |
+| L1, L2 | Choke | ACT45B-101 | SMD | Common-mode chokes for daisy chain (Optional/EMC) |
+| R4, R5 | Resistor | 49.9 | 0402 | COMH Differential Termination (Pin side) |
+| R6, R7 | Resistor | 49.9 | 0402 | COML Differential Termination (Pin side) |
+
+## 4. Connectivity & Signal Flow
+*Internal connectivity follows the BQ79600-Q1 functional requirements.*
+
+**Host Side (Cold Side):**
+- **MCU_SPI/UART:** Connects to SCLK, nCS, RX/MOSI, TX/MISO, and nUART/SPI pins.
+- **System Control:** NFAULT and INH provide status and wakeup signals to the MCU and Power Supply.
+
+**Isolated Side (Hot Side):**
+- **COMH_P/N:** High-side differential pair connected to the next node in the daisy chain via isolation transformer T1.
+- **COML_P/N:** Low-side differential pair for ring architecture support, connected via isolation transformer T2.
+
+**Signal Mapping to Ports:**
+- **P1.1 (COMHP/N):** BQ79600 COMHP/N -> Isolation T1 -> Connector.
+- **P1.2 (COMLP/N):** BQ79600 COMLP/N -> Isolation T2 -> Connector.
+- **P2.1 (BAT):** System 12V -> Filtering -> Pin 1 (BAT).
+- **P2.2 (VIO):** System 3.3V/5V -> Pin 11 (VIO).
+- **P2.4 - P2.7 (SPI):** MCU SPI Bus -> BQ79600 Host Pins (SCLK, nCS, MOSI, MISO).
+- **P2.8 (nUART/SPI):** Configuration signal/SPI_RDY -> MCU Pin.
+- **P2.9 (NFAULT):** BQ79600 NFAULT -> MCU Interrupt Pin.
+
+- **P2.10 (INH):** BQ79600 INH -> P2.10 Connector (to PMIC/LVPS Enable).
+- **P2.11 (DVDD):** Internal 1.8V Output -> Decoupling -> Test Point/Internal use.
+
+## 5. Uncertainties, Assumptions & Confidence
+- **Uncertainty:** Final connector selection for the Daisy Chain (P1.1, P1.2) is not defined in the module boundary but inferred as high-voltage rated automotive connectors.
+- **Assumption:** SPI interface is the primary host communication protocol (nCS pulled high, nUART/SPI used for mode selection/SPI_RDY).
+- **Confidence:** High for core functional blocks and ASIC implementation. Medium for EMC-specific component values (chokes, TVS) which are not explicitly detailed in the baseline schematic segments but are standard for automotive bridge designs.
