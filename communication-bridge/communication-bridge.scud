@@ -70,3 +70,12 @@ The module is positioned in the "Isolation Boundary" zone, providing galvanic is
 - **Uncertainty:** Final connector selection for the Daisy Chain (P1.1, P1.2) is not defined in the module boundary but inferred as high-voltage rated automotive connectors.
 - **Assumption:** SPI interface is the primary host communication protocol (nCS pulled high, nUART/SPI used for mode selection/SPI_RDY).
 - **Confidence:** High for core functional blocks and ASIC implementation. Medium for EMC-specific component values (chokes, TVS) which are not explicitly detailed in the baseline schematic segments but are standard for automotive bridge designs.
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| BQ79600-Q1 | BQ79600PWRQ1 | imported |
+| HX1188NL | HX1188NLT | imported |
+| ACT45B-101 | ACT45B_101_2P_TL003 | imported |
+
