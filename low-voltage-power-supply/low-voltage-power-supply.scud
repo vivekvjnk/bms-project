@@ -1,0 +1,57 @@
+# low-voltage-power-supply.scud
+
+## 1. Module Overview & System Context
+The `low-voltage-power-supply` (LVPS) is a singleton module responsible for generating the regulated logic rails (12V, 5V, 3.3V, and 1.2V) required by the `stackable-bms` control and sensing modules. It operates in the Low-Voltage (LV) Zone but provides the critical 1000V DC isolation barrier between the Vehicle Auxiliary power (12V) / LV Pack Bus (64V) and the internal isolated logic domain.
+
+The core of the module is an isolated flyback converter using the UCC287501 current-mode controller. This controller is selected for its Secondary-Side Regulation (SSR) capability and integrated brownout protection, ensuring the BMS logic remains powered and stable across vehicle supply fluctuations.
+
+## 2. Architectural Deviations (Baseline vs. Target)
+The design synthesizes requirements from the `stackable-bms` system boundary with the UCC28750 baseline from the EVM-071:
+*   **Input Stage Adaptation**: 
+    *   **Removed**: AC bridge rectifier (D1), MOV (RV1), and high-voltage X/Y safety capacitors.
+    *   **Added**: DC-link EMI filter, reverse polarity protection (P-MOSFET), and 100V TVS for vehicle-grade transient suppression.
+    *   **Modified**: Bulk capacitors (C9-C12) changed to 100V/220µF low-ESR electrolytic types to accommodate the 12V-64V DC input.
+*   **Controller Power (VDD) Modification**:
+    *   **Added**: A high-voltage start-up resistor (R_start ~100kΩ) connected to the 64V LV Pack Bus to ensure U1 VDD exceeds the 15.3V UVLO(on) threshold. 
+    *   **Added**: A 12V-to-18V low-power charge pump to enable start-up from the 12V Aux supply alone when the 64V bus is inactive.
+*   **Power Stage Adaptation**:
+    *   **Modified**: Transformer (T1) designed for 1:1.2 turns ratio (Pri:Sec) to provide a nominal 12.5V secondary output from a 12V-64V primary range, maintaining 1000V DC isolation.
+    *   **Modified**: MOSFET (Q1) replaced with a 100V Vds, 25A Id (e.g., CSD19532KTT) to handle higher primary currents at 12V input.
+*   **Multi-Rail Generation (Delta from Baseline)**:
+    *   **Added**: Synchronous Buck regulators (TPS62130) for the 5V, 3.3V, and 1.2V rails, using the 12V SSR-regulated output as the intermediate bus.
+    *   **Modified**: SSR Feedback loop target set to 12.0V using a TL431 and optocoupler (U2).
+
+## 3. Components Inventory
+*   **Controller (U1)**: UCC287501 Current-Mode Controller (Auto-restart, Brownout mode).
+*   **Primary Switch (Q1)**: N-Channel MOSFET, 100V, 25A, TO-220 or D2PAK.
+*   **Isolation Transformer (T1)**: Custom 60W Flyback Transformer, 1000V DC Isolation, PQ2620 core.
+*   **Secondary Rectifier (D4)**: 60V, 10A Schottky Diode (e.g., MBRB1060).
+*   **SSR Feedback**: 
+    *   **U2**: LTV-817S Optocoupler (5kV Isolation).
+    *   **U3**: TL431ACDBZR Voltage Reference.
+    *   **R_up**: 38.3kΩ (0.1%); **R_low**: 10kΩ (0.1%) - Targeted for 12.0V output.
+*   **Post-Regulators**:
+    *   **U4**: TPS62130 (12V to 5V, 3A).
+    *   **U5**: TPS62130 (12V to 3.3V, 3A).
+    *   **U6**: TPS62133 (5V to 1.2V, 2A).
+*   **Current Sensing (R_cs)**: Parallel 0.1Ω resistors (R12, R13 in baseline) for 2.0A primary current limit protection.
+
+## 4. Connectivity & Signal Flow
+*   **Input Filter / Protection**: `VIN_AUX` / `VIN_LVBUS` -> Reverse Polarity P-FET -> PI-Filter -> T1 Primary Dot.
+*   **Primary Switching**: T1 Primary -> Q1 Drain; Q1 Source -> R_cs -> Chassis GND. U1 DRV -> Q1 Gate (via 10Ω resistor).
+*   **Controller Bias**: 64V Bus / Charge Pump -> U1 VDD (C_vdd = 10µF). U1 FLT -> 12V Aux divider for Brownout sensing (9.0V threshold).
+*   **Secondary Isolation Barrier**: T1 Secondary -> D4 -> `SYS_12V` Cap Bank. `SYS_12V` Ground is `ISO_GND`.
+*   **Isolated Feedback**: `SYS_12V` -> TL431 / R_up / R_low -> Opto-LED -> Opto-Transistor (Isolated) -> U1 FB Pin.
+*   **Post-Regulation Tree**:
+    *   `SYS_12V` -> U4 (Buck) -> `SYS_5V`.
+    *   `SYS_12V` -> U5 (Buck) -> `SYS_3.3V`.
+    *   `SYS_5V` -> U6 (Buck) -> `SYS_1.2V`.
+*   **External Interfaces**:
+    *   **Input Connector**: 12V Aux, 64V Bus, Chassis GND.
+    *   **Output Connectors**: Isolated 12V, 5V, 3.3V, 1.2V, and ISO_GND to MCU, CB, and CS modules.
+
+## 5. Uncertainties, Assumptions & Confidence
+*   **Assumption**: The 1000V DC isolation rating applies to the transformer and the optocoupler, separating the vehicle chassis ground from the internal system ground (`ISO_GND`).
+*   **Uncertainty**: The exact Efficiency at 12V input for a 60W load. High primary currents may necessitate thermal management (heatsinking) for Q1 and T1.
+*   **Assumption**: The UCC287501's internal slope compensation is sufficient for stable CCM operation across the wide 12V-64V input range.
+*   **Confidence**: High for architectural layout and component selection; Medium for specific EMI filter component values without enclosure data.
