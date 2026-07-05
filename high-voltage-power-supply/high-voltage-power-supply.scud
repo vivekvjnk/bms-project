@@ -38,8 +38,24 @@ Synthesized from the UCC28881EVM-680 reference design and tailored for the BMS H
 *   **F1:** 500mA / 500VDC Fuse.
 *   **D_IN:** 600V/1A Diode (Reverse Polarity Protection).
 
-## 4. Connectivity & Signal Flow
-**Internal Signal Flow:**
+## 4. Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| UCC28881DR | UCC28881DR | imported |
+| 1 mH Power Inductor | PK0608-102MB | imported |
+| STTH1R06 | STTH1R06 | imported |
+| MMSZ5232B | MMSZ5232B | imported |
+| 330 µF / 10V Electrolytic | RVT1A331M0607 | imported |
+| 10 µF / 450V Electrolytic | EGD2WM100G16OT | imported |
+| 1 mH Differential Mode Choke | ZECD43-102K | imported |
+| 500mA / 500VDC Fuse | F0603FA0500V063TM | imported |
+| 600V/1A Diode (D_IN) | STTH1R06 | imported |
+| 15 nF / 100V Ceramic | | local |
+| 40.2 kΩ Resistor | | local |
+| 10.0 kΩ Resistor | | local |
+
+## 5. Connectivity & Signal Flow
 1.  **HV Input Stage:** HV_IN+ (P1.1) flows through Fuse F1 and Diode D_IN to the LC filter (C1-L1-C2).
 2.  **Conversion Stage:** Filtered HV enters U1 (DRAIN/HVIN). U1 performs high-side switching to the SOURCE node (Switch Node).
 3.  **Output Stage:** The Switch Node drives Inductor L2 and is clamped by D4. L2 and C5 filter the pulses into a stable 5.0V DC rail (VDD1).
