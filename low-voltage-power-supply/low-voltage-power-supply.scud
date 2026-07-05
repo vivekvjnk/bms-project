@@ -35,6 +35,19 @@ The design synthesizes requirements from the `stackable-bms` system boundary wit
     *   **U5**: TPS62130 (12V to 3.3V, 3A).
     *   **U6**: TPS62133 (5V to 1.2V, 2A).
 *   **Current Sensing (R_cs)**: Parallel 0.1Ω resistors (R12, R13 in baseline) for 2.0A primary current limit protection.
+	
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| UCC287501 | UCC287506DBVR | imported |
+| CSD19532KTT | CSD19532KTT | imported |
+| PQ2620 | | missing |
+| MBRB1060 | MBR1060CT | imported |
+| LTV-817S | LTV-817S-TA1-C | imported |
+| TL431ACDBZR | TL431ACDBZR | imported |
+| TPS62130 | TPS62130RGTR | imported |
+| TPS62133 | TPS62133RGTR | imported |
 
 ## 4. Connectivity & Signal Flow
 *   **Input Filter / Protection**: `VIN_AUX` / `VIN_LVBUS` -> Reverse Polarity P-FET -> PI-Filter -> T1 Primary Dot.
