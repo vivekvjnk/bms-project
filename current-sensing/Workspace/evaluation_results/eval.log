@@ -1,0 +1,38 @@
+Building 1 file(s)...
+Building current-sensing/Workspace/current-sensing.tsx...
+Generating circuit JSON...
+Circuit JSON written to dist/current-sensing/Workspace/current-sensing/circuit.json
+[33mPort pin1 on R1 is missing a trace[39m
+[33mPort pin2 on R1 is missing a trace[39m
+[33mPort pin1 on R2 is missing a trace[39m
+[33mPort pin2 on R2 is missing a trace[39m
+[33mPort pin1 on C5 is missing a trace[39m
+[33mPort pin2 on C5 is missing a trace[39m
+[33mPort pin1 on C4 is missing a trace[39m
+[33mPort pin2 on C4 is missing a trace[39m
+[33mPort pin1 on C8 is missing a trace[39m
+[33mPort pin2 on C8 is missing a trace[39m
+[33mPort pin1 on C7 is missing a trace[39m
+[33mPort pin2 on C7 is missing a trace[39m
+[33mPort pin1 on C10 is missing a trace[39m
+[33mPort pin2 on C10 is missing a trace[39m
+[33mPort pin1 on C9 is missing a trace[39m
+[33mPort pin2 on C9 is missing a trace[39m
+[33mPort pin1 on C11 is missing a trace[39m
+[33mPort pin2 on C11 is missing a trace[39m
+[33mAll pins on U2 are underspecified (no pinAttributes set)[39m
+[33mU2 has no pin with requires_power=true[39m
+[33mU2 has no pin with requires_ground=true[39m
+[0m[31m[31mpcb_smtpad U2.VINN overlaps with pcb_smtpad C5.pin2[39m[0m
+[0m[31m[31mpcb_smtpad U2.VINP overlaps with pcb_smtpad C5.pin1[39m[0m
+[0m[31m[31mPads pcb_port[.U2 > .VINN] and pcb_port[.C5 > .pin2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U2 > .VINP] and pcb_port[.C5 > .pin1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mCourtyard of U2 overlaps with courtyard of R1[39m[0m
+[0m[31m[31mCourtyard of U2 overlaps with courtyard of R2[39m[0m
+[0m[31m[31mCourtyard of U2 overlaps with courtyard of C5[39m[0m
+[1mBuild complete[22m
+Circuits  [32m1 passed[39m
+Output    [2m../../dist[22m
+[33m
+⚠ Build completed with errors[39m
+[2mBuild exiting with code 0: build finished successfully[22m
