@@ -25,6 +25,12 @@ The module bridges the High-Voltage (HV) and Low-Voltage (LV) domains, providing
 *   **C5: 1nF / 50V** - C0G/NP0 Ceramic capacitor, differential input filter.
 *   **C4, C8: 100pF / 50V** - C0G/NP0 Ceramic capacitor, common-mode input filter (Datasheet Rev G best practice).
 
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| AMC1301DWV | AMC1301DWVR | imported |
+
 ## 4. Connectivity & Signal Flow
 *   **External Port Mapping:**
     *   **HV Domain (Primary Side):**
