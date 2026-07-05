@@ -1,0 +1,60 @@
+# high-voltage-power-supply (HVPS) - SCUD
+
+## 1. Module Overview & System Context
+The `high-voltage-power-supply` (HVPS) is a non-isolated DC-DC buck converter situated in the High-Voltage (HV) domain. It is designed to step down the Traction Pack HV Bus voltage (85V - 400V DC) to a stable 5.0V DC rail (VDD1). This rail provides bias power for the "hot-side" logic of the `current-sensing` module (specifically the AMC1301 isolated amplifier).
+
+**System Context:**
+*   **Input Interface (P1.1, P1.2):** Connects to the Traction Pack HV Bus. P1.1 is HV+, P1.2 is HV- (Reference).
+*   **Output Interface (P1.3, P1.2):** Provides the regulated 5.0V rail (VDD1) relative to HV- (GND_HV).
+*   **Feedback (P1.4):** Internal feedback node for output regulation.
+*   **Isolation:** Non-isolated topology (referenced to HV-). Galvanic isolation is provided downstream by the `current-sensing` module.
+
+## 2. Architectural Deviations (Baseline vs. Target)
+Synthesized from the UCC28881EVM-680 reference design and tailored for the BMS HV domain.
+
+*   **Removed Components/Blocks:**
+    *   **AC Rectification:** D1 and D2 half-wave stage removed; replaced with a single DC-input protection diode.
+    *   **EVM Connectors/Test Points:** P1, P2 (EVM headers) and TP1-TP5 removed for integrated system headers.
+    *   **13V Control Loop:** R3/R4 feedback network modified to target 5.0V.
+
+*   **Added/Modified Components/Blocks:**
+    *   **DC Input Protection:** Added a 500VDC rated fuse (F1) and a reverse polarity protection diode (D_IN).
+    *   **Output Voltage Regulation:** Feedback resistors optimized for 5.0V (R3=40.2kΩ, R4=10.0kΩ).
+    *   **Overvoltage Clamp:** Replaced 16V Zener (D5) with a 5.6V Zener to protect the 5V rail during no-load conditions.
+    *   **Filter Retention:** LC filter (L1, C1, C2) retained to suppress HV bus transients.
+
+## 3. Components Inventory
+*   **U1:** UCC28881DR (SOIC-7), 700V Off-line Switcher.
+*   **L2:** 1 mH Power Inductor (Rating > 225mA).
+*   **D4:** STTH1R06 (600V, 1A) Ultra-fast Freewheeling Diode.
+*   **D3:** STTH1R06 (600V, 1A) Feedback Rectifier.
+*   **D5:** 5.6V Zener Diode (SOD-123, e.g., MMSZ5232B) for no-load protection.
+*   **C5:** 330 µF / 10V Low ESR Electrolytic Capacitor (Output Filter).
+*   **C1, C2:** 10 µF / 450V Electrolytic Capacitors (Input Bulk Filter).
+*   **L1:** 1 mH Differential Mode Choke (Input EMI Filter).
+*   **C4:** 15 nF / 100V Ceramic Capacitor (Feedback Compensation).
+*   **R3 (R_upper):** 40.2 kΩ, 0805, 1% (Feedback).
+*   **R4 (R_lower):** 10.0 kΩ, 0805, 1% (Feedback).
+*   **F1:** 500mA / 500VDC Fuse.
+*   **D_IN:** 600V/1A Diode (Reverse Polarity Protection).
+
+## 4. Connectivity & Signal Flow
+**Internal Signal Flow:**
+1.  **HV Input Stage:** HV_IN+ (P1.1) flows through Fuse F1 and Diode D_IN to the LC filter (C1-L1-C2).
+2.  **Conversion Stage:** Filtered HV enters U1 (DRAIN/HVIN). U1 performs high-side switching to the SOURCE node (Switch Node).
+3.  **Output Stage:** The Switch Node drives Inductor L2 and is clamped by D4. L2 and C5 filter the pulses into a stable 5.0V DC rail (VDD1).
+4.  **Feedback Loop:** VDD1 is rectified by D3, smoothed by C4, and divided by R3/R4 to the FB pin of U1 to maintain regulation.
+
+**External Port Mapping:**
+| Port ID | Port Name | Direction | Level | Description |
+|:---|:---|:---|:---|:---|
+| P1.1 | HV_IN+ | Input | 85-400V | Traction Bus Positive. |
+| P1.2 | HV_IN- | Passive | 0V (Ref) | Traction Bus Negative / GND_HV. |
+| P1.3 | VDD1 | Output | 5.0V | Regulated Output for Current Sensing. |
+| P1.4 | FB | Internal/Input | ~1.0V | Feedback Control Node. |
+
+## 5. Uncertainties, Assumptions & Confidence
+*   **Output Voltage Selection:** Confirmed 5.0V to satisfy the AMC1301 requirement in the `current-sensing` module. Confidence: High.
+*   **Minimum Load Requirements:** The UCC28881 typically requires a small load for regulation at high input voltages. The 5.6V Zener (D5) is included to prevent overvoltage if the `current-sensing` module is disconnected. Confidence: Medium.
+*   **Inductor Selection:** 1mH is used as per EVM baseline. Final efficiency may benefit from optimization if the typical HV bus voltage is consistently at the higher end (400V). Confidence: Medium.
+*   **Grounding:** Confirmed that HV- and VDD1-return are common (GND_HV) as per the non-isolated buck topology. Confidence: High.
