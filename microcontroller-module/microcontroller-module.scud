@@ -36,19 +36,6 @@ Synthesized from TMS570LS12 LaunchPad (LAUNCHXL2-TMS57012) baseline:
     *   I/O decoupling: 0.1uF and 4.7uF ceramic caps for VCCIO (3.3V).
     *   Analog decoupling: 0.1uF and 10uF ceramic caps for VCCAD/VSSAD.
 
-
-## Library Mapping
-
-| Component Name | Imported Component Name | Status |
-|---|---|---|
-| TMS570LS1227CPGEQQ1 | | missing |
-| SN65HVD230DR | SN65HVD230DR | imported |
-| 16.000 MHz Crystal | X49SM16MSD2SC | imported |
-| 2x7 14-pin Header | | local |
-| BSS138 | BSS138 | imported |
-| AO3400A | AO3400A | imported |
-| Passive components | | local |
-
 # 4. Connectivity & Signal Flow
 *   **Module Power (from LVPS):**
     *   **1.2V Rail:** Supplies MCU Core (VCC pins).
