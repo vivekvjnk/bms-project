@@ -1,0 +1,27 @@
+Building 1 file(s)...
+Building low-voltage-power-supply/Workspace/low-voltage-power-supply.tsx...
+Generating circuit JSON...
+[0m[1m34195 |[0m     [0m[35mconst[0m { dirPath, contentFormat = [0m[32m"string"[0m } = opts[0m[2m;[0m
+[0m[1m34196 |[0m     [0m[35mconst[0m filePaths = [0m[35mawait[0m getMatchingFilePaths(opts)[0m[2m;[0m
+[0m[1m34197 |[0m     [0m[35mconst[0m vfs = {}[0m[2m;[0m
+[0m[1m34198 |[0m     [0m[35mfor[0m ([0m[35mconst[0m filePath of filePaths) {
+[0m[1m34199 |[0m       [0m[35mconst[0m fullPath = import_path.[0m[35mdefault[0m[0m[3m[1m.join[0m(dirPath, filePath)[0m[2m;[0m
+[0m[1m34200 |[0m       [0m[35mconst[0m content = [0m[35mawait[0m import_promises4.[0m[35mdefault[0m[0m[3m[1m.readFile[0m(fullPath)[0m[2m;[0m
+[31m[1m^[0m
+[0m[31mEACCES[0m[2m:[0m [1mpermission denied, open '/home/vivekv/Documents/VHL-System/sample-projects/bms-experiments-milestone-1/bms-project_e0505ca9/bms-project_e0505ca9_low-voltage-power-supply/low-voltage-power-supply/Workspace/low-voltage-power-supply.tsx'[0m
+path[0m[2m:[0m [0m[32m"/home/vivekv/Documents/VHL-System/sample-projects/bms-experiments-milestone-1/bms-project_e0505ca9/bms-project_e0505ca9_low-voltage-power-supply/low-voltage-power-supply/Workspace/low-voltage-power-supply.tsx"[0m[0m[2m,[0m
+syscall[0m[2m:[0m [0m[32m"open"[0m[0m[2m,[0m
+errno[0m[2m:[0m [0m[33m-13[0m[0m[2m,[0m
+code[0m[2m:[0m [32m"EACCES"[0m
+[0m      [2mat [0m[0m[2masync <anonymous>[0m[2m ([0m[0m[36m/app/node_modules/.pnpm/@tscircuit+cli@0.1.1537_tscircuit@0.0.1927_@gltf-transform+core@4.4.0_@gltf-transform+e_bfdf9d8479d8765792a50f948927cc19/node_modules/@tscircuit/cli/dist/cli/main.js[0m[2m:[0m[33m34200[0m[2m:[33m54[0m[2m)[0m
+[0m      [2mat [0m[0m[1m[3masync generateCircuitJson[0m[2m ([0m[0m[36m/app/node_modules/.pnpm/@tscircuit+cli@0.1.1537_tscircuit@0.0.1927_@gltf-transform+core@4.4.0_@gltf-transform+e_bfdf9d8479d8765792a50f948927cc19/node_modules/@tscircuit/cli/dist/cli/main.js[0m[2m:[0m[33m111574[0m[2m:[33m30[0m[2m)[0m
+[0m      [2mat [0m[0m[2masync <anonymous>[0m[2m ([0m[0m[36m/app/node_modules/.pnpm/@tscircuit+cli@0.1.1537_tscircuit@0.0.1927_@gltf-transform+core@4.4.0_@gltf-transform+e_bfdf9d8479d8765792a50f948927cc19/node_modules/@tscircuit/cli/dist/cli/main.js[0m[2m:[0m[33m111720[0m[2m:[33m28[0m[2m)[0m
+[0m      [2mat [0m[0m[2masync <anonymous>[0m[2m ([0m[0m[36m/app/node_modules/.pnpm/@tscircuit+cli@0.1.1537_tscircuit@0.0.1927_@gltf-transform+core@4.4.0_@gltf-transform+e_bfdf9d8479d8765792a50f948927cc19/node_modules/@tscircuit/cli/dist/cli/main.js[0m[2m:[0m[33m116366[0m[2m:[33m38[0m[2m)[0m
+[0m      [2mat [0m[0m[2masync <anonymous>[0m[2m ([0m[0m[36m/app/node_modules/.pnpm/@tscircuit+cli@0.1.1537_tscircuit@0.0.1927_@gltf-transform+core@4.4.0_@gltf-transform+e_bfdf9d8479d8765792a50f948927cc19/node_modules/@tscircuit/cli/dist/cli/main.js[0m[2m:[0m[33m116472[0m[2m:[33m15[0m[2m)[0m
+[0m[31m[31mFatal error [circuit_generation_failed]: EACCES: permission denied, open '/home/vivekv/Documents/VHL-System/sample-projects/bms-experiments-milestone-1/bms-project_e0505ca9/bms-project_e0505ca9_low-voltage-power-supply/low-voltage-power-supply/Workspace/low-voltage-power-supply.tsx'[39m[0m
+[1mBuild complete[22m
+Circuits  [32m0 passed[39m[31m 1 failed[39m
+Output    [2m../../dist[22m
+[33m
+⚠ Build completed with errors[39m
+[0m[31m[33mBuild exiting with code 1: fatal circuit build errors occurred[39m[0m
