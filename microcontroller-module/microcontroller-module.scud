@@ -30,3 +30,9 @@ The `microcontroller-module` acts as the central intelligence of the Battery Man
 *   **Assumptions:** Assuming standard automotive-grade decoupling and passive components. Pin mapping will be optimized based on STM32F411 peripheral capabilities. Passive filtering is sufficient for the AMC1301 interface.
 *   **Confidence:** High regarding all design aspects.
 
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| STM32F411CEU6 | STM32F411CEU6 | imported |
+
