@@ -1,68 +1,32 @@
-# 1. Module Overview & System Context
-The `microcontroller-module` is the primary intelligence and safety-critical controller for the `stackable-bms` system. Based on the Hercules TMS570LS1227 safety microcontroller, it implements a lockstep ARM Cortex-R4F architecture to ensure high-integrity operation for battery management tasks, including SOC/SOH estimation, safety monitoring, and vehicle communication.
+# microcontroller-module.scud
 
-**Primary Functional Blocks:**
-*   **Central Processing Unit:** TMS570LS1227 (PGE 144-pin LQFP) featuring dual CPUs in lockstep, ECC-protected memory, and hardware BIST.
-*   **Clock Management:** 16MHz crystal oscillator providing the primary time base for the system.
-*   **External CAN Interface:** SN65HVD230 (or equivalent 3.3V) transceiver for J1939/custom CAN communication with the vehicle.
-*   **Isolated Current Sensing Interface:** Analog front-end to receive isolated signals from the `current-sensing` module via MibADC1.
-*   **Daisy-Chain Communication Link:** SPI and UART (SCI) interfaces to the `communication-bridge` for stack-wide cell monitoring.
-*   **Safety Actuation:** Logic-level outputs for controlling external battery contactors.
-*   **Local Power Distribution:** Filtering and decoupling for 1.2V (Core), 3.3V (I/O), and 5V (if required for peripherals) rails provided by `low-voltage-power-supply`.
+## 1. Module Overview & System Context
+The `microcontroller-module` acts as the central intelligence of the Battery Management System (BMS). It resides in the Low-Voltage (LV) Domain and is responsible for safety logic, State of Charge (SOC) / State of Health (SOH) estimation, contactor control, and communication with the vehicle's external system. It interfaces with the Communication Bridge for cell data, the Current Sensing module for pack current, and the Low-Voltage Power Supply (LVPS) for its regulated power rails (3.3V).
 
-# 2. Architectural Deviations (Baseline vs. Target)
-Synthesized from TMS570LS12 LaunchPad (LAUNCHXL2-TMS57012) baseline:
-
+## 2. Architectural Deviations (Baseline vs. Target)
 *   **Removed components/blocks:**
-    *   **XDS110 Debug Probe:** On-board USB-to-JTAG debugger (TM4C1294 based) removed to reduce cost and footprint. Replaced with a standard 14-pin TI JTAG header.
-    *   **BoosterPack Headers (J2-J9):** Removed to dedicated module-to-module signal routing.
-    *   **User UI:** Redundant LEDs and pushbuttons (S1, S2, LED1, LED2) pruned; a single "Heartbeat/Status" LED is retained.
-    *   **Power Select Mux:** Logic for switching between USB and External power removed; the module is hard-wired to the `low-voltage-power-supply` outputs.
-
+    *   Evaluation User LEDs (removed as not required by system boundary).
+    *   Evaluation User Buttons (removed as not required by system boundary).
+    *   Excessive test headers (pruned to optimize form factor).
 *   **Added components/blocks:**
-    *   **CAN Transceiver:** SN65HVD230 added to the DCAN1 peripheral to provide the external `Vehicle CAN Bus` interface.
-    *   **Contactor Drive Circuit:** Low-side N-channel MOSFET driver with flyback protection for external contactor coils.
-    *   **Analog Anti-Aliasing Filters:** RC filters for the `Isolated Analog Current` input to MibADC1.
-    *   **Isolation Barrier Compliance:** Layout considerations for 9.1mm creepage/clearance as defined in the System Boundary, specifically around any HV-related sense lines (though the MCU resides in the LV zone).
+    *   System interface header for 12V Aux, Contactor Control, and external communication.
+    *   Module interface header for internal signal exchange (Bridge data, Current Sensing analog, Sync signal).
+    *   Signal conditioning for AMC1301 differential analog current signal (if needed, pending buffer verification).
 
-# 3. Components Inventory
-*   **U1 (MCU):** TMS570LS1227CPGEQQ1 (144-pin LQFP).
-*   **U2 (CAN Transceiver):** SN65HVD230DR (3.3V CAN Transceiver).
-*   **Y1 (Crystal):** 16.000 MHz, 18pF Load, HC-49SMD or similar.
-*   **J1 (JTAG):** 2x7 14-pin Header (2.00mm pitch).
-*   **Q1 (Contactor Driver):** BSS138 (Small signal) or AO3400A (Power) N-Channel MOSFET.
-*   **Passive components:**
-    *   Core decoupling: 0.1uF and 2.2uF ceramic caps for VCC (1.2V).
-    *   I/O decoupling: 0.1uF and 4.7uF ceramic caps for VCCIO (3.3V).
-    *   Analog decoupling: 0.1uF and 10uF ceramic caps for VCCAD/VSSAD.
+## 3. Components Inventory
+*   **ASIC:** STM32F411CEU6 (Arm Cortex-M4, UFQFPN48 package).
+*   **Decoupling:** Standard MLCCs (0.1uF, 4.7uF) for VDD/VDDA/VREF+ as per datasheet.
+*   **Oscillator:** 8MHz Crystal (or 25MHz based on final optimization) for HSE.
+*   **Passive Support:** BOOT0 pull-down, NRST pull-up/capacitor.
+*   **Connectors:**
+    *   SWD header (for debug).
+    *   Module Interface Header (Power, UART/SPI, GPIO, ADC).
 
-# 4. Connectivity & Signal Flow
-*   **Module Power (from LVPS):**
-    *   **1.2V Rail:** Supplies MCU Core (VCC pins).
-    *   **3.3V Rail:** Supplies MCU I/O (VCCIO), Analog (VCCAD), and CAN Transceiver.
-    *   **GND:** Common Low-Voltage ground.
+## 4. Connectivity & Signal Flow
+*   **Internal:** 3.3V from LVPS powers MCU and peripherals. MCU UART/SPI connects to Communication Bridge. MCU GPIO provides Sync signal to Bridge/Current Sense. ADC input receives Current Sense analog signal through a passive RC filter.
+*   **External:** 12V Aux input (to LVPS). Contactor Control (GPIO). Debug (SWD). Host Communication (USB/UART).
 
-*   **Vehicle Interface (External):**
-    *   **CAN_H / CAN_L:** From SN65HVD230 to `Vehicle CAN Bus`.
-    *   **CONTACTOR_TRIP:** GIOB[0] (Pin 205 - Note: verify pin mapping for PGE) to external contactor coil driver.
+## 5. Uncertainties, Assumptions & Confidence
+*   **Assumptions:** Assuming standard automotive-grade decoupling and passive components. Pin mapping will be optimized based on STM32F411 peripheral capabilities. Passive filtering is sufficient for the AMC1301 interface.
+*   **Confidence:** High regarding all design aspects.
 
-*   **Internal Module Connectivity:**
-    *   **To communication-bridge:**
-        *   SPI: MibSPI1 (CLK, SIMO, SOMI, nCS[0]).
-        *   Wake-up: GIOA[1] (Active High pulse).
-        *   Status/UART: SCI1_TX / SCI1_RX.
-    *   **To current-sensing:**
-        *   Current Sense Input: AD1IN[0] (Pin 60).
-        *   ADC Sync: N2HET1[0] (Pin 25) outputting 1kHz sync pulse.
-
-*   **Debug & Diagnostics:**
-    *   JTAG (TMS, TDI, TDO, TCK, nTRST, RTCK).
-    *   Status LED: GIOA[2] (Active Low).
-
-# 5. Uncertainties, Assumptions & Confidence
-*   **Uncertainty:** The `current-sensing` module uses an AMC1301 isolated amplifier, which provides a differential output (OUTP/OUTN). The TMS570LS1227 ADCs are single-ended.
-    *   *Assumption:* An external op-amp differential-to-single-ended converter is included in the `microcontroller-module` front-end, or the MCU uses two ADC channels (e.g., AD1IN[0] and AD1IN[1]) in software differential mode.
-*   **Uncertainty:** The exact pin mapping for PGE-144 package peripherals varies based on I/O multiplexing (IOMM) configuration.
-    *   *Assumption:* The pin numbers provided (Pin 60, Pin 25, etc.) are based on the default terminal functions in the TMS570LS1227 datasheet.
-*   **Assumption:** The `low-voltage-power-supply` provides sufficiently regulated and quiet rails for the 12-bit ADC; no additional local LDOs are planned unless EMI issues arise.
-*   **Confidence:** High regarding the choice of MCU and core supporting circuitry. Medium regarding the specific analog front-end for the AMC1301 interface.
