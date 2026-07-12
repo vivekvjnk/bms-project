@@ -61,5 +61,5 @@ The `bms-monitor-module` is a high-voltage (HV) domain component within the stac
 | 100mA SMD Fuses | BSMD0603_010_33V | imported |
 | 20-pin Connector | | local |
 | 10-pin Connector | | local |
-| 4-pin Isolated Connectors | | local |
+| 4-pin Isolated Connectors | Molex_901303120 | imported |
 

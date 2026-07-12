@@ -2,8 +2,8 @@ import type { ChipProps } from "@tscircuit/props"
 
 const pinLabels = {
   pin1: ["B"],
-  pin3: ["E"],
-  pin4: ["C"]
+  pin2: ["C"],
+  pin3: ["E"]
 } as const
 
 export const MJD44H11T4G = (props: ChipProps<typeof pinLabels>) => {
@@ -17,7 +17,7 @@ export const MJD44H11T4G = (props: ChipProps<typeof pinLabels>) => {
 }}
       manufacturerPartNumber="MJD44H11T4G"
       footprint={<footprint>
-        <smtpad portHints={["pin4"]} pcbX="2.5500965mm" pcbY="0.01139825mm" width="6.5000124mm" height="5.999988mm" shape="rect" />
+        <smtpad portHints={["pin2"]} pcbX="2.5500965mm" pcbY="0.01139825mm" width="6.5000124mm" height="5.999988mm" shape="rect" />
 <smtpad portHints={["pin1"]} pcbX="-4.4001055mm" pcbY="2.31848025mm" width="2.7999944mm" height="1.35001mm" shape="rect" />
 <smtpad portHints={["pin3"]} pcbX="-4.4001055mm" pcbY="-2.26139375mm" width="2.7999944mm" height="1.499997mm" shape="rect" />
 <silkscreenpath route={[{"x":-2.2728554999999915,"y":-1.8748057500000073},{"x":-2.8291154999999435,"y":-1.8748057500000073},{"x":-2.8291154999999435,"y":-2.6164857500000096},{"x":-2.2728554999999915,"y":-2.6164857500000096},{"x":-2.2728554999999915,"y":-2.606071749999984}]} />

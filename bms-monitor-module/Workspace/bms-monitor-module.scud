@@ -40,14 +40,26 @@ The `bms-monitor-module` is a high-voltage (HV) domain component within the stac
     - 4-pin Isolated Connectors for Daisy Chain (In/Out).
 
 ## 4. Connectivity & Signal Flow
-- **Cell Voltage Sensing:** VC0-VC16 pins are connected to the battery cell terminals via 100mA fuses and RC filters. VC0 is the reference (HV-).
-- **Passive Balancing:** CB0-CB16 pins connect to the cell nodes to enable discharge through internal MOSFETs and external balancing resistors.
-- **Power Path:** BAT pin draws power from the top of the 16-cell stack. The NPN transistor (Q1) driven by the NPN pin regulates LDOIN to approximately 6V. Internal LDOs then generate AVDD (5V), DVDD (1.8V), and CVDD (5V).
-- **Daisy Chain:** COML (Low-side) connects to the Communication Bridge or the preceding module. COMH (High-side) connects to the next module in the stack. All signals are AC-coupled via 2kV capacitors.
-- **Thermistor Network:** GPIO1-GPIO8 are configured as analog inputs. Each NTC is connected between a GPIO pin and AGND, with a pull-up resistor to TSREF.
+- **Cell Voltage Sensing:** A trace connects each VC pin (VC0-VC16) to its respective battery cell terminal. Each trace path includes a 100mA SMD fuse at the source and an RC filter (1kΩ/100nF) placed near the IC pins.
+- **Passive Balancing:** A trace connects each CB pin (CB0-CB16) to the corresponding cell tap point through a 22Ω balancing resistor. 
+- **Power Path:** A trace connects the BAT pin to the top of the 16-cell stack. Trace paths connect the NPN pin to the base of Q1, and the emitter of Q1 to the LDOIN pin. Internal LDO outputs (AVDD, DVDD, CVDD) are routed via traces to their respective local decoupling capacitors and external interface ports.
+- **Daisy Chain:** Differential traces connect COMHP/N and COMLP/N to their respective isolated connectors. These traces are AC-coupled through 100nF, 2kV-rated capacitors.
+- **Thermistor Network:** Traces connect GPIO1-GPIO8 to the thermistor interface header. Each GPIO trace incorporates a pull-up resistor to the TSREF trace.
 
 ## 5. Uncertainties, Assumptions & Confidence
 - **Confidence:** High for core ASIC functionality and cell sensing.
 - **Uncertainty:** Exact daisy chain connector model remains "TBD" but is assumed to be a 4-pin differential-rated connector.
-- **Assumption:** Balancing current is targeted at ~240mA as per datasheet, requiring 22Ω resistors assuming ~5V max cell voltage, but this may be adjusted based on thermal dissipation limits (P3.4).
+- **Assumption:** Balancing current is targeted at ~240mA as per datasheet, requiring 22Ω resistors (rated for 2W) to handle ~1.13W dissipation at 5V, balancing speed vs. thermal dissipation requirements (P3.4).
 - **Assumption:** NFAULT is an open-drain output requiring an external pull-up if monitored locally, though it is also communicated via the daisy chain heartbeat.
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| BQ79616 | BQ79616PAPRQ1 | imported |
+| MJD44H11 | MJD44H11T4G | imported |
+| 100mA SMD Fuses | BSMD0603_010_33V | imported |
+| 20-pin Connector | Molex_901303120 | imported |
+| 10-pin Connector | SH1_0mm_10P_WT | imported |
+| 4-pin Isolated Connectors | SH1_0_4P_S__ | imported |
+
