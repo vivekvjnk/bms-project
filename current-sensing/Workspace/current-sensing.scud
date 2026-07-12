@@ -1,47 +1,55 @@
 # current-sensing.scud
 
 ## 1. Module Overview & System Context
-The `current-sensing` module is a high-precision sensing block within the `Isolation Boundary` zone of the `stackable-bms` system. Its primary function is to measure the total battery pack current via an external shunt resistor (±250mV full-scale range) and provide an isolated, differential analog signal to the `microcontroller-module`. This data is essential for SOC/SOH estimation, internal resistance calculation, and safety-critical over-current protection.
+The `current-sensing` module is a high-precision, isolated sensing block within the `Isolation Boundary` zone of the `stackable-bms` system. Its primary role is to measure the total battery pack traction current via an external low-side sub-milliohm Manganin shunt resistor (typically 0.1mΩ to 0.5mΩ) providing a ±250mV signal. It provides a real-time, isolated differential analog signal (210kHz bandwidth) to the `microcontroller-module` for SOC/SOH estimation, coulomb counting, and fast over-current protection.
 
-The module bridges the High-Voltage (HV) and Low-Voltage (LV) domains, providing reinforced galvanic isolation (1000V DC working voltage, 7070V PK per DIN EN IEC 60747-17) using the AMC1301 isolated amplifier (SiO2 barrier). 
+The module spans the High-Voltage (HV) and Low-Voltage (LV) domains, providing reinforced galvanic isolation (1000V DC working voltage, 7070V PK reinforced per VDE 0884-17 / DIN EN IEC 60747-17) using the AMC1301 isolated amplifier (SiO2 barrier). 
 
 ## 2. Architectural Deviations (Baseline vs. Target)
 *   **Removed Components/Blocks (Evaluation Features):**
-    *   **Isolated Power Generation:** The SN6501 transformer driver (U3), DA2303-ALB isolation transformer (T1), and TPS76350 5V LDO (U1) are removed. VDD1 is now supplied directly by the `high-voltage-power-supply` module.
-    *   **Power Selection Logic:** Jumper JP1 and associated selection circuitry are removed; VDD1 is hard-wired to the HVPS output.
-    *   **Evaluation Interfaces:** Screw terminals J1, J2, J3, J4 and all test points are removed in favor of system-level board-to-board or cable interfaces.
+    *   **Isolated Power Generation:** The SN6501 transformer driver (U3), DA2303-ALB isolation transformer (T1), and TPS76350 5V LDO (U1) are removed. VDD1 is now supplied by the `BMS Monitor Module` (VREG5 from BQ79616) or the `High-Voltage Power Supply` (UCC28881 output).
+    *   **Power Selection Logic:** Jumper JP1 and associated selection circuitry are removed; VDD1 is hard-wired to the selected isolated source.
+    *   **Evaluation Interfaces:** Screw terminals J1, J2, J3, J4 and all test points are removed in favor of integrated system interconnects (Kelvin sense terminals for shunt connection).
 *   **Added/Modified Components/Blocks (Target Synthesis):**
-    *   **Optimized Input Filter:** The baseline placeholders (R1, R2, C4, C5, C8) are populated with active values (10Ω/1nF/100pF) to implement a differential and common-mode anti-aliasing filter for the external shunt.
-    *   **Interface to MCU:** A dedicated differential analog port is established for the `microcontroller-module` ADC interface.
-    *   **Power Domain Mapping:** Dedicated power ports are defined for VDD1 (HV-side, from HVPS) and VDD2 (LV-side, from LVPS).
+    *   **Optimized Input Filter:** The baseline placeholders (R1, R2, C4, C5, C8) are populated with active values (typically 10Ω/1nF/100pF), specifically tuned for inverter noise suppression.
+    *   **Interface to MCU:** A dedicated differential analog port is established. A signal scaling buffer (Op-Amp) may be required depending on the MCU ADC full-scale range (Open Item).
+    *   **Direct Port Mapping:** Signals and power are mapped to specific ports (P1.x for HV, P2.x for LV) as defined in the Module Boundary.
 
 ## 3. Components Inventory
-*   **U2: AMC1301DWV** - Precision Isolated Amplifier, ±250-mV Input Range, Fixed Gain 8.2 V/V. Package: SOIC-8 (DWV).
+*   **U2: AMC1301DWV** - Precision Isolated Amplifier, ±250-mV Input Range, Fixed Gain 8.2 V/V. Package: Wide-body SOIC-8 (DWV).
 *   **C7: 0.1µF / 50V** - X7R Ceramic capacitor, VDD1 local bypass.
 *   **C10: 1.0µF / 16V** - X7R Ceramic capacitor, VDD1 bulk bypass.
 *   **C9: 0.1µF / 50V** - X7R Ceramic capacitor, VDD2 local bypass.
 *   **C11: 10µF / 10V** - X7R Ceramic capacitor, VDD2 bulk bypass.
-*   **R1, R2: 10Ω / 0.1W** - 1% Thick film resistors, input filter.
+*   **R1, R2: 10Ω / 0.1W** - 1% Thick film resistors, input filter (Tuned for inverter noise suppression).
 *   **C5: 1nF / 50V** - C0G/NP0 Ceramic capacitor, differential input filter.
-*   **C4, C8: 100pF / 50V** - C0G/NP0 Ceramic capacitor, common-mode input filter (Datasheet Rev G best practice).
+*   **C4, C8: 100pF / 50V** - C0G/NP0 Ceramic capacitor, common-mode input filter.
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| AMC1301DWV | AMC1301DWVR | local |
 
 ## 4. Connectivity & Signal Flow
-*   **External Port Mapping:**
-    *   **HV Domain (Primary Side):**
-        *   `INP / INN`: Differential analog input from external shunt (±250mV full-scale).
-        *   `VDD1`: 5V Isolated Supply from `high-voltage-power-supply`.
-        *   `GND1`: Isolated HV Ground.
-    *   **LV Domain (Secondary Side):**
-        *   `VDD2`: 3.3V or 5V Supply from `low-voltage-power-supply`.
-        *   `GND2`: Low-Voltage Logic Ground (System GND).
-        *   `OUTP / OUTN`: Differential Analog Output to `microcontroller-module`.
+*   **External Port Mapping (Ref: current-sensing-boundary.md):**
+    *   **Domain: High-Voltage / Hot Side (HV- Ref)**
+        *   **P1.1 (INP/INN)**: Input | Analog | ±250mV | Kelvin sense connection to External Shunt.
+        *   **P1.2 (VDD1)**: Input | Power | 3.3V - 5.5V | Sourced from BQ79616 (VREG5) or UCC28881.
+        *   **P1.3 (GND1)**: Ground | HV- Ref | Isolated reference ground.
+    *   **Domain: Low-Voltage / Cold Side (LV GND)**
+        *   **P2.1 (OUTP/OUTN)**: Output | Diff Analog | 0V - 5V | Proportional to shunt current (Fixed Gain 8.2x). Updated real-time (210kHz BW).
+        *   **P2.2 (VDD2)**: Input | Power | 3.3V / 5V | Logic supply from Microcontroller Module / PMIC.
+        *   **P2.3 (GND2)**: Ground | LV GND | System digital ground reference.
 *   **Internal Signal Path:**
-    *   [External Shunt] ➔ [Ports: INP/INN] ➔ [RC Filter: R1, R2, C5, C4, C8] ➔ [U2 (Pins 2, 3)] ➔ [Isolation Barrier] ➔ [U2 (Pins 7, 6)] ➔ [Port: OUTP/OUTN] ➔ [MCU ADC].
+    *   [External Shunt] ➔ [Ports: P1.1 (INP/INN)] ➔ [RC Filter: R1, R2, C5, C4, C8] ➔ [U2 (Pins 2, 3)] ➔ [Isolation Barrier] ➔ [U2 (Pins 7, 6)] ➔ [Port: P2.1 (OUTP/OUTN)] ➔ [MCU ADC].
 *   **Signal Transfer Function:** Vout(diff) = 8.2 * Vin(diff). Output common-mode is VDD2/2.
 *   **Diagnostics:** Missing VDD1 detection is integrated; output OUTP/OUTN will transition to a detectable fail-safe state if high-side power is lost.
 
 ## 5. Uncertainties, Assumptions & Confidence
-*   **Sync Command Resolution:** Confirmed that the "Sync Command: ADC Trigger" defined in the system boundary refers to the MCU's internal ADC sampling timing. No physical sync/trigger pin is required on the `current-sensing` module.
-*   **Zero-Point Calibration Resolution:** Confirmed that zero-point calibration is performed at the software level by the `microcontroller-module`. The `current-sensing` module provides the raw isolated analog signal for this process.
-*   **MCU Input Stage:** The design assumes the `microcontroller-module` includes a differential ADC input or appropriate signal conditioning to accept the ±2.05V differential output from the AMC1301.
-*   **Creepage/Clearance Confidence:** High confidence in the 9.1mm spacing requirement; this is a critical layout constraint for the SOIC-8 (DWV) package to meet safety standards.
+*   **VDD1 Power Source:** Selection between `BMS Monitor Module` (VREG5) and `High-Voltage Power Supply` (UCC28881) is a design decision based on pack voltage and power architecture (Open Item).
+*   **Signal Scaling Buffer:** An Op-Amp buffer may be required at the LV output to match the full MCU ADC range (Open Item).
+*   **RC Filter Tuning:** Resistor/Capacitor values (R1/R2/C5/C4/C8) must be finalized based on inverter noise characteristics in the target vehicle environment.
+*   **Sync Command Resolution:** Confirmed that the "Sync Command: ADC Trigger" refers to the MCU's internal ADC sampling timing (e.g., 1kHz Global Cell Sample Sync).
+*   **Zero-Point Calibration:** Confirmed as a software-level Firmware Calibration by the MCU during Power-On Self-Test (POST).
+*   **Creepage/Clearance Confidence:** High confidence in the 9.1mm spacing requirement; this is a critical layout constraint for the SOIC-8 (DWV) package.
