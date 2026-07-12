@@ -16,32 +16,35 @@ The module is positioned in the "Isolation Boundary" zone, providing galvanic is
 *Target: communication-bridge-boundary.md*
 
 - **Removed components/blocks:**
-    - Evaluation-specific headers (J4 10-pin header, J1, J2, J3) removed in favor of direct system-level port mappings.
-    - Evaluation mode selection jumpers (J12, J13) replaced with hardwired configuration (nCS pulled high via R1 for SPI mode).
+    - Evaluation-specific headers (J4, J1, J2, J3) removed in favor of direct system-level port mappings.
+    - Evaluation mode selection jumpers (J12, J13) replaced with hardwired configuration.
+    - Common-mode chokes (omitted in favor of simpler differential filtering).
     - Test points and non-essential evaluation LEDs.
 - **Added components/blocks:**
-    - High-isolation transformers (Pulse HX1188NL) for COMH and COML to meet 400V system isolation requirements.
-    - Common-mode chokes (optional, based on EMC requirements) and differential termination (100-ohm) for daisy chain integrity.
-    - Dedicated INH output path to the PMIC/LVPS for system wake-up.
+    - High-isolation transformers (HMU1228NLT_CND) for COMH and COML.
+    - TVS Protection diodes (PESD5V0L2BTN) on daisy chain lines for ESD protection.
+    - Differential termination/matching resistors (R4-R7, R16-R19) for signal integrity.
+    - Dedicated INH output path and NFAULT pull-up.
 
 ## 3. Components Inventory
 
 | RefDes | Component | Value/Part No. | Package | Description |
 |:---|:---|:---|:---|:---|
 | U1 | Bridge IC | BQ79600-Q1 | TSSOP-16 | Automotive SPI/UART Bridge IC |
-| T1 | Transformer | HX1188NL | SMD | Isolation for COMH daisy chain (1kV+ isolation) |
-| T2 | Transformer | HX1188NL | SMD | Isolation for COML daisy chain (1kV+ isolation) |
+| T1, T2 | Transformer | HMU1228NLT_CND | SMD | Isolation for COMH/COML (1kV+) |
 | C1 | Capacitor | 0.1uF, 50V | 0603 | BAT Pin Decoupling |
-| C2 | Capacitor | 10uF, 50V | 0805 | BAT Pin Bulk Storage |
-| C10 | Capacitor | 4.7uF, 10V | 0603 | CVDD Output Decoupling |
+| C10 | Capacitor | 0.47uF, 10V | 0603 | CVDD Output Decoupling |
 | C11 | Capacitor | 0.1uF, 10V | 0402 | VIO Pin Decoupling |
-| C12 | Capacitor | 1uF, 10V | 0402 | DVDD Output Decoupling |
-| R1 | Resistor | 10k | 0402 | nCS Pull-up to VIO |
-| R2 | Resistor | 10k | 0402 | RX/MOSI Pull-up to VIO |
-| R3 | Resistor | 10k | 0402 | SCLK Pull-down to GND |
-| L1, L2 | Choke | ACT45B-101 | SMD | Common-mode chokes for daisy chain (Optional/EMC) |
-| R4, R5 | Resistor | 49.9 | 0402 | COMH Differential Termination (Pin side) |
-| R6, R7 | Resistor | 49.9 | 0402 | COML Differential Termination (Pin side) |
+| C12 | Capacitor | 0.47uF, 10V | 0402 | DVDD Output Decoupling |
+| C3-C6 | Capacitor | 100pF | 0402 | Differential Filtering (Daisy Chain) |
+| D1, D3 | TVS Diode | PESD5V0L2BTN | - | Daisy Chain ESD Protection |
+| R1, R2, R12 | Resistor | 10k | 0402 | Pull-ups (nCS, MOSI, nUART_SPI) |
+| R3 | Resistor | 10k | 0402 | SCLK Pull-down |
+| R13 | Resistor | 10k | 0402 | NFAULT Pull-up |
+| R20 | Resistor | 100k | 0402 | INH Pull-down |
+| R15 | Resistor | 10 | 0402 | BAT Current Limiting |
+| R16-R19 | Resistor | 51 | 0402 | Daisy Chain Series Matching |
+| R4-R7 | Resistor | 499 | 0402 | Daisy Chain Differential Termination |
 
 ## 4. Connectivity & Signal Flow
 *Internal connectivity follows the BQ79600-Q1 functional requirements.*
@@ -63,8 +66,8 @@ The module is positioned in the "Isolation Boundary" zone, providing galvanic is
 - **P2.8 (nUART/SPI):** Configuration signal/SPI_RDY -> MCU Pin.
 - **P2.9 (NFAULT):** BQ79600 NFAULT -> MCU Interrupt Pin.
 
-- **P2.10 (INH):** BQ79600 INH -> P2.10 Connector (to PMIC/LVPS Enable).
-- **P2.11 (DVDD):** Internal 1.8V Output -> Decoupling -> Test Point/Internal use.
+- **P2.10 (INH):** BQ79600 INH -> P1.pin6 (to PMIC/LVPS Enable).
+- **P2.11 (DVDD):** Internal 1.8V Output -> C12 -> Test Point/Internal use.
 
 ## 5. Uncertainties, Assumptions & Confidence
 - **Uncertainty:** Final connector selection for the Daisy Chain (P1.1, P1.2) is not defined in the module boundary but inferred as high-voltage rated automotive connectors.
