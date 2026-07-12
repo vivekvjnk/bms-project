@@ -30,6 +30,22 @@ The low-voltage-power-supply (LVPS) is a singleton module in the Low-Voltage (LV
 - **Input Connectors:** HV DC terminals for 64V-400V input.
 - **Output Connectors:** Terminals/headers for 12V, 5V, 3.3V, 1.2V rails and LV GND.
 
+## Library Mapping
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| UCC28750 | UCC287506DBVR | imported |
+| Custom isolated flyback transformer | | missing |
+| FODM217CR2V | FODM217AR2 | imported |
+| IPA65R400CE | IPA65R400CE | imported |
+| SBR20U150CT | SBR20U150CT | imported |
+| TL431LI | ATL431LIBQDBZR | imported |
+| 5V Buck/LDO | L78L05ACD13TR | imported |
+| 3.3V Buck/LDO | LM1117S_3_3 | imported |
+| 1.2V Buck/LDO | TLV70012DDCR | imported |
+| HV DC terminals | KF128_5_08_2P_AA | imported |
+| Output terminals (12V, 5V, 3.3V, 1.2V) | KF128_5_08_3P_AA | imported |
+| MMSZ4707T1G | MMSZ4707T1G | imported |
+
 ## 4. Connectivity & Signal Flow
 - **Primary Input:** The module receives 64V to 400V DC at the input terminals (VIN+, VIN-). 
 - **Power Conversion:** The DC input voltage is applied to the primary winding of transformer T1. The UCC28750 (U1) controls the primary MOSFET (Q1) via the DRV pin (through R13 and R14).

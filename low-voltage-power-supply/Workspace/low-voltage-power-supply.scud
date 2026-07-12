@@ -22,8 +22,19 @@ The low-voltage-power-supply (LVPS) is a singleton module in the Low-Voltage (LV
 - **Optocoupler:** U2 (FODM217CR2V) or equivalent for isolated voltage feedback.
 - **Primary Side MOSFET:** Q1. Must be rated for >650V (e.g., IPA65R400CE or higher) to safely handle the 400V DC maximum input plus the reflected secondary voltage and leakage spikes.
 - **Current Sense Resistor:** R15 (0.390 Ohm) in the source leg of Q1.
-- **Snubber Circuit:** D1, R6 (100k), C5 (330pF) across the primary winding to clamp turn-off spikes.
-- **Auxiliary Winding Components:** D2, R7 (4.99 Ohm), C6 (1.0uF), C7 (47uF) for controller VDD generation.
+- **Snubber Circuit:** D1, R6, C5 across the primary winding to clamp turn-off spikes. Baseline values from eval board (100k, 330pF) are used as initial placeholders; these must be re-optimized based on the final transformer leakage inductance and peak current.
+- **Auxiliary Winding Components:** D2, R7, C6, C7, and ZD1 for controller VDD generation. 
+    - **Engineering Rationale & Calculations (per Datasheet Section 8.2.3.5 & 7.3.1):**
+        - **C7 (47uF) - VDD Capacitance:**
+            - **Constraint:** C7 must store enough energy to power the IC during the startup soft-start period ($t_{ss} \approx 4ms$) and the output voltage rise time ($t_{rise}$), until the auxiliary winding voltage exceeds $V_{UVLO(off)}$.
+            - **Calculation:** $C_{VDD} \ge \frac{(I_{VDD(on)} + Q_g \cdot f_{sw}) \cdot (t_{ss} + t_{rise})}{V_{UVLO(on)} - V_{UVLO(off)}}$
+            - **Assumptions:** $I_{VDD(on)} \approx 2.5mA$ (max), $f_{sw} = 65kHz$, $Q_g \approx 20nC$ (typ power MOSFET), $t_{ss} = 4.3ms$, $t_{rise} \approx 5ms$, $V_{UVLO(on)} = 15.3V$, $V_{UVLO(off)} = 8.1V$.
+            - **Result:** $C_{VDD} \ge \frac{(2.5mA + 20nC \cdot 65kHz) \cdot (9.3ms)}{15.3V - 8.1V} \approx 4.9\mu F$.
+            - **Design Choice:** 47uF is selected (approx. 10x margin) to account for worst-case load startup, electrolytic tolerance, and aging.
+        - **C6 (1.0uF):** High-frequency ceramic bypass capacitor located <2mm from the VDD pin to provide low-impedance decoupling for gate drive transients.
+        - **D2:** High-speed switching diode (e.g., 1N4148 or BAS16) to rectify auxiliary winding pulses.
+        - **R7 (4.99 Ohm):** Current-limiting damping resistor to suppress high-frequency ringing caused by the interaction of auxiliary leakage inductance and diode junction capacitance.
+        - **ZD1:** Zener diode (e.g., 30V-33V) connected in parallel with C7 to provide overvoltage protection for the VDD pin, preventing it from exceeding the absolute maximum rating (typically 35V) during transient conditions or if the feedback loop is lost.
 - **Output Rectifier:** D3 (SBR20U150CT or similar) and output capacitors (e.g., C9-C12 scaled for 12V ripple requirements).
 - **Feedback Network:** U3 (TL431LI or equivalent) adjustable shunt regulator, R21, R24 (voltage divider sized for 12V output), R23, C15 (compensation network).
 - **Secondary Regulators:** Buck converters or LDOs to derive 5V, 3.3V, and 1.2V rails from the 12V output.
