@@ -2,15 +2,20 @@ import type { DiodeProps } from "@tscircuit/props"
 
 export const STTH1R06 = (props: DiodeProps) => {
   const { name = "D1", ...restProps } = props
-
+  
   return (
     <diode
       name={name}
+      schematicSymbol="diode_right"
+      pinLabels={{
+        pin1: ["anode"],
+        pin2: ["cathode"]
+      }}
       supplierPartNumbers={{
-  "jlcpcb": [
-    "C2971307"
-  ]
-}}
+        "jlcpcb": [
+          "C2971307"
+        ]
+      }}
       manufacturerPartNumber="STTH1R06"
       footprint={<footprint>
         <platedhole  portHints={["pin1","anode"]} pcbX="4.350004mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.0499852mm" shape="circle" />

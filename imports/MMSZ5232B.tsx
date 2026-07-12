@@ -6,11 +6,16 @@ export const MMSZ5232B = (props: DiodeProps) => {
   return (
     <diode
       name={name}
+      schematicSymbol="diode_right"
+      pinLabels={{
+        pin1: ["cathode"],
+        pin2: ["anode"]
+      }}
       supplierPartNumbers={{
-  "jlcpcb": [
-    "C19077423"
-  ]
-}}
+        "jlcpcb": [
+          "C19077423"
+        ]
+      }}
       manufacturerPartNumber="MMSZ5232B"
       footprint={<footprint>
         <smtpad portHints={["pin2"]} pcbX="1.6350996mm" pcbY="0mm" width="0.9100058mm" height="1.2199874mm" shape="rect" />

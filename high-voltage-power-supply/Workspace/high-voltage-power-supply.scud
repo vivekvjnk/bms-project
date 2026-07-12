@@ -13,14 +13,14 @@ The `high-voltage-power-supply` (HVPS) is a non-isolated DC-DC buck converter si
 Synthesized from the UCC28881EVM-680 reference design and tailored for the BMS HV domain.
 
 *   **Removed Components/Blocks:**
-    *   **AC Rectification:** D1 and D2 half-wave stage removed; replaced with a single DC-input protection diode.
+    *   **AC Rectification:** D1 and D2 half-wave stage removed and replaced with a single DC-input protection diode (D_IN). The EVM required AC rectification, but the system's DC Traction Bus renders this redundant. D_IN provides necessary reverse polarity protection with minimal power dissipation.
     *   **EVM Connectors/Test Points:** P1, P2 (EVM headers) and TP1-TP5 removed for integrated system headers.
     *   **13V Control Loop:** R3/R4 feedback network modified to target 5.0V.
 
 *   **Added/Modified Components/Blocks:**
     *   **DC Input Protection:** Added a 500VDC rated fuse (F1) and a reverse polarity protection diode (D_IN).
-    *   **Output Voltage Regulation:** Feedback resistors optimized for 5.0V (R3=40.2kΩ, R4=10.0kΩ).
-    *   **Overvoltage Clamp:** Replaced 16V Zener (D5) with a 5.6V Zener to protect the 5V rail during no-load conditions.
+    *   **Output Voltage Regulation:** Feedback resistors optimized for 5.0V using $V_{OUT} = V_{FB} \times (1 + R3/R4)$, where $V_{FB}=1.0V$, $R4=10.0k\Omega$, and $R3=40.2k\Omega$ (Standard E96 value for ~5.02V output).
+    *   **Overvoltage Clamp:** 5.6V Zener Diode (MMSZ5232B) selected to provide a voltage clamp just above the 5.0V regulation target during no-load conditions.
     *   **Filter Retention:** LC filter (L1, C1, C2) retained to suppress HV bus transients.
 
 ## 3. Components Inventory
