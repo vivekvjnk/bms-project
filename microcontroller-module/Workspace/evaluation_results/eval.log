@@ -1,144 +1,40 @@
 Building 1 file(s)...
 Building microcontroller-module/Workspace/microcontroller-module.tsx...
 Generating circuit JSON...
-(source_port_id: source_port_77) for trace source_trace_10 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_78) for trace source_trace_11 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_91) for trace source_trace_12 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_92) for trace source_trace_13 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_93) for trace source_trace_14 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_94) for trace source_trace_15 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_95) for trace source_trace_16 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_96) for trace source_trace_17 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_97) for trace source_trace_18 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_98) for trace source_trace_19 does not have x/y coordinates. Skipping this trace.
+MultiOffsetIrlsSolver ran out of iterations
+MultiOffsetIrlsSolver ran out of iterations
+(source_port_id: source_port_63) for trace source_trace_27 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_63) for trace source_trace_28 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_64) for trace source_trace_29 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_64) for trace source_trace_30 does not have x/y coordinates. Skipping this trace.
 Circuit JSON written to dist/microcontroller-module/Workspace/microcontroller-module/circuit.json
-<trace#274 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#275 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#276 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#277 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#278 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#279 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#280 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#281 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#288 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#290 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#293 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#294 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#297 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#298 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#299 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#300 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#301 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#302 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#303 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#304 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#313 /> is missing a name. Add a name prop to make the trace easier to identify.
-<trace#315 /> is missing a name. Add a name prop to make the trace easier to identify.
-Port pin1 on C8 is missing a trace
-Port pin2 on C8 is missing a trace
-Port pin1 on C9 is missing a trace
-Port pin2 on C9 is missing a trace
-Port pin2 on R1 is missing a trace
-Port pin2 on R2 is missing a trace
-Port pin2 on C10 is missing a trace
-Port pin1 on J1 is missing a trace
-Port pin2 on J1 is missing a trace
-Port pin3 on J1 is missing a trace
-Port pin4 on J1 is missing a trace
-Port GND on J1 is missing a trace
-Port 3V3 on J1 is missing a trace
-Port pin1 on J2 is missing a trace
-Port pin2 on J2 is missing a trace
-Port pin3 on J2 is missing a trace
-Port pin4 on J2 is missing a trace
-Port pin5 on J2 is missing a trace
-Port pin6 on J2 is missing a trace
-Port pin7 on J2 is missing a trace
-Port pin8 on J2 is missing a trace
-Port pin9 on J2 is missing a trace
-Port pin10 on J2 is missing a trace
-Port GND on J2 is missing a trace
-Port 3V3 on J2 is missing a trace
-component is facing x- but should face y- so the connector is accessible from the board edge
+<resistor#174 name=".R2" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
+<capacitor#187 name=".C10" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
+<capacitor#74 name=".C3" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
+<resistor#161 name=".R1" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
+<capacitor#50 name=".C1" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
+<pinheader#217 name=".J2" /> footprint "pinrow10" does not match supplier footprint jlcpcb:C7501608 (copper IoU 0.2618).
+<capacitor#98 name=".C5" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
+<capacitor#149 name=".C9" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).
+<capacitor#137 name=".C8" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).
 All pins on U1 are underspecified (no pinAttributes set)
 U1 has no pin with requires_power=true
 U1 has no pin with requires_ground=true
-<capacitor#98 name=".C5" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
-<capacitor#148 name=".C9" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).
-<capacitor#186 name=".C10" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
-<capacitor#50 name=".C1" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
-<resistor#173 name=".R2" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
-<resistor#160 name=".R1" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
-<capacitor#136 name=".C8" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).
-<capacitor#74 name=".C3" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
-Could not create crystal "X1". Invalid props for crystal "X1": loadCapacitance (Required) Details: Props: {
-"name": "X1",
-"frequency": "8MHz",
-"componentType": "crystal",
-"error": {
-"componentName": "crystal",
-"originalProps": {
-"name": "X1",
-"frequency": "8MHz"
-},
-"formattedError": {
-"_errors": [],
-"loadCapacitance": {
-"_errors": [
-"Required",
-"Required"
-]
-}
-}
-},
-"type": "unknown",
-"component_name": "X1",
-"error_type": "source_failed_to_create_component_error",
-"message": "Invalid props for crystal \"X1\": loadCapacitance (Required)",
-"pcbX": 0,
-"pcbY": 0
-}
-Could not find port for selector "X1.1". Component "X1" found, but does not have pin "1". It has no ports
-Could not find port for selector "X1.2". Component "X1" found, but does not have pin "2". It has no ports
-Could not find port for selector "X1.1". Component "X1" found, but does not have pin "1". It has no ports
-Could not find port for selector "X1.2". Component "X1" found, but does not have pin "2". It has no ports
-Could not find port for selector "GND"
-Could not find port for selector "GND"
-Could not find port for selector "GND"
-Could not find port for selector "3V3"
-Could not find port for selector "GND"
-Could not find port for selector "GND"
-Could not find port for selector "3V3"
-Could not find port for selector "GND"
-Could not find port for selector "3V3"
-Could not find port for selector "X1.1". Component "X1" found, but does not have pin "1". It has no ports
-Could not find port for selector "X1.2". Component "X1" found, but does not have pin "2". It has no ports
-Could not find port for selector "X1.1". Component "X1" found, but does not have pin "1". It has no ports
-Could not find port for selector "X1.2". Component "X1" found, but does not have pin "2". It has no ports
-Could not find port for selector "GND"
-Could not find port for selector "GND"
-Could not find port for selector "GND"
-Could not find port for selector "3V3"
-Could not find port for selector "GND"
-Invalid pin label: pin5 = 'PH0-OSC_IN' - excluding from component. Pin labels can only contain letters, numbers and underscores.
-Invalid pin label: pin6 = 'PH1-OSC_OUT' - excluding from component. Pin labels can only contain letters, numbers and underscores.
-Trace [J1.SWDIO to U1.pin34] is not connected (it has no PCB trace)
-Trace [J1.SWCLK to U1.pin37] is not connected (it has no PCB trace)
-Trace [J2.ADC_IN to U1.pin10] is not connected (it has no PCB trace)
-Trace [J2.UART_TX to U1.pin30] is not connected (it has no PCB trace)
-Trace [J2.UART_RX to U1.pin31] is not connected (it has no PCB trace)
-Trace [J2.SPI_SCK to U1.pin15] is not connected (it has no PCB trace)
-Trace [J2.SPI_MISO to U1.pin16] is not connected (it has no PCB trace)
-Trace [J2.SPI_MOSI to U1.pin17] is not connected (it has no PCB trace)
-Trace [J2.SYNC_GPIO to U1.pin21] is not connected (it has no PCB trace)
-Trace [J2.CONTACTOR_GPIO to U1.pin42] is not connected (it has no PCB trace)
-Trace [trace[.U1 > port.pin7, .R2 > port.anode]] is missing a connection to smtpad[.C10 > .pin1]
-Trace [trace[.U1 > port.pin47, .C5 > port.neg]] is missing a connection to smtpad[.C6 > .pin2]
-Trace [trace[.U1 > port.pin48, .C5 > port.pos]] is missing a connection to smtpad[.C6 > .pin1]
-Trace [trace[.U1 > port.pin35, .C3 > port.neg]] is missing a connection to smtpad[.C4 > .pin2]
-Trace [trace[.U1 > port.pin36, .C3 > port.pos]] is missing a connection to smtpad[.C4 > .pin1]
-Trace [trace[.C7 > port.neg, .C1 > port.neg]] is missing a connection to smtpad[.C2 > .pin2]
-Trace [trace[.U1 > port.pin24, .C1 > port.pos]] is missing a connection to smtpad[.C2 > .pin1]
+Invalid footprint prop on crystal "X1": "crystal_smd_3225". Parser details: Invalid footprint function, got "crystal", from string "crystal_smd_3225"
+Trace [U1.pin5 to X1.pin1] is not connected (it has no PCB trace)
+Trace [X1.pin1 to C8.pin1] is not connected (it has no PCB trace)
+Trace [U1.pin6 to X1.pin2] is not connected (it has no PCB trace)
+Trace [X1.pin2 to C9.pin1] is not connected (it has no PCB trace)
+Trace [trace[.C1 > port.neg, .J2 > port.pin9]] is missing a connection to plated_hole[.J1 > .GND]
+Trace [trace[.C1 > port.pos, .J2 > port.pin10]] is missing a connection to plated_hole[.J1 > .3V3]
+pcb_plated_hole J1.NRST overlaps with pcb_plated_hole J2.ADC_IN
+pcb_plated_hole J1.GND overlaps with pcb_plated_hole J2.UART_TX
+pcb_plated_hole J1.3V3 overlaps with pcb_plated_hole J2.UART_RX
+Pads pcb_plated_hole[#pcb_plated_hole_2] and pcb_plated_hole[#pcb_plated_hole_5] are too close (clearance: 0mm, minimum: 0.1mm)
+Pads pcb_plated_hole[#pcb_plated_hole_3] and pcb_plated_hole[#pcb_plated_hole_6] are too close (clearance: 0mm, minimum: 0.1mm)
+Pads pcb_plated_hole[#pcb_plated_hole_4] and pcb_plated_hole[#pcb_plated_hole_7] are too close (clearance: 0mm, minimum: 0.1mm)
+Courtyard of C1 overlaps with courtyard of J2
+Courtyard of J1 overlaps with courtyard of J2
 Build complete
 Circuits  1 passed
 Output    ../../dist

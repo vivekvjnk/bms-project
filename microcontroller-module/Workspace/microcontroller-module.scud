@@ -15,16 +15,23 @@ The `microcontroller-module` acts as the central intelligence of the Battery Man
 
 ## 3. Components Inventory
 *   **ASIC:** STM32F411CEU6 (Arm Cortex-M4, UFQFPN48 package).
-*   **Decoupling:** Standard MLCCs (0.1uF, 4.7uF) for VDD/VDDA/VREF+ as per datasheet.
-*   **Oscillator:** 8MHz Crystal (or 25MHz based on final optimization) for HSE.
-*   **Passive Support:** BOOT0 pull-down, NRST pull-up/capacitor.
+*   **Power Filtering:** Standard decoupling (0.1uF, 4.7uF) for VDD; Ferrite Bead + 0.1uF for VDDA/VREF+ as per datasheet (removes noise).
+*   **Oscillator:** 8MHz Crystal (or 25MHz) for HSE, with 20pF load capacitors.
+*   **Passive Support:** BOOT0 pull-down (10k); NRST pull-up (10k) and capacitor (100nF) for stable reset.
 *   **Connectors:**
-    *   SWD header (for debug).
+    *   SWD header (5-pin: VCC, GND, SWDIO, SWCLK, NRST).
     *   Module Interface Header (Power, UART/SPI, GPIO, ADC).
 
 ## 4. Connectivity & Signal Flow
-*   **Internal:** 3.3V from LVPS powers MCU and peripherals. MCU UART/SPI connects to Communication Bridge. MCU GPIO provides Sync signal to Bridge/Current Sense. ADC input receives Current Sense analog signal through a passive RC filter.
+*   **Internal:** 3.3V from LVPS powers MCU and peripherals. MCU UART/SPI connects to Communication Bridge. MCU GPIO provides Sync signal (Output) to Bridge/Current Sense. ADC input receives Current Sense analog signal through a passive RC filter (to be implemented on-module, e.g., 1k/100nF).
+*   **Interface Mapping (Optimal):**
+    *   PA9/PA10: USART1 (Communication Bridge)
+    *   PA5/PA6/PA7: SPI1 (Backup/Alternative Bridge)
+    *   PA1: GPIO (Contactor Control)
+    *   PA2: GPIO (Sync Signal)
+    *   PA0: ADC1 (Isolated Current Input)
 *   **External:** 12V Aux input (to LVPS). Contactor Control (GPIO). Debug (SWD). Host Communication (USB/UART).
+
 
 ## 5. Uncertainties, Assumptions & Confidence
 *   **Assumptions:** Assuming standard automotive-grade decoupling and passive components. Pin mapping will be optimized based on STM32F411 peripheral capabilities. Passive filtering is sufficient for the AMC1301 interface.
