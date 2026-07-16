@@ -1,9 +1,9 @@
 # Module Boundary: high-voltage-power-supply
 
 > **System:** BMS (Battery Management System)  
-> **Document Version:** 1.0  
+> **Document Version:** 1.1  
 > **Source Documents Ingested:** [BMS-design.md, ucc28881-datasheet.md, ucc28881-eval-board.md]  
-> **Last Updated:** 2025-05-14
+> **Last Updated:** 2026-07-16
 
 ---
 
@@ -29,7 +29,6 @@
 | **P1.1** | Input | Power | 85V - 400V (700V Max) | HVIN / DRAIN | Input from High-Voltage Bus (+). |
 | **P1.2** | Passive | Ground | HV- Ref | GND | High-Voltage Return (HV-) reference. |
 | **P1.3** | Output | Power | 3.3V / 5V | VOUT / VDD | Regulated output to power current-sensing "hot side." |
-| **P1.4** | Input | Analog | Variable | FB | Feedback terminal for output regulation. |
 
 
 ## 3. Consumed Resources _(what this module needs)_

@@ -1,13 +1,13 @@
 # Module Boundary: stm32-microcontroller-module
 
 > **System:** Battery Management System (BMS)  
-> **Document Version:** 1.0.0  
+> **Document Version:** 1.1.0  
 > **Source Documents Ingested:** 
 > - BMS-design.md
 > - stm32f411ce_datasheet.md
 > - STM32F411CEU6_manual.md
 > - STM32F411_pin_functions_map.csv
-> **Last Updated:** 2025-05-24
+> **Last Updated:** 2026-07-16
 
 ---
 
@@ -41,7 +41,7 @@
 | **P2.1** | Input | Power | 1.7V - 3.6V | VDD | Main logic supply (typically 3.3V) from PMIC. |
 | **P2.2** | Passive | Ground | LV GND | VSS | Ground reference for the MCU and local peripherals. |
 | **P2.3** | Bi-Di | Digital Bus | 3.3V | UART/SPI | Data link to Communication Bridge (BQ79600). |
-| **P2.4** | Input | Diff Analog | 0V - 3.3V | Isolated Current | Current measurement signal from Current Sensing module (AMC1301). |
+| **P2.4** | Input | Analog | 0V - 3.3V | Isolated Current | Single-ended current measurement signal from Current Sensing module. |
 | **P2.5** | Output | Digital | 3.3V | Sync Signal | Synchronization trigger for BQ79616 "Global Cell Sample". |
 
 
@@ -57,7 +57,7 @@
 | Signal / Bus | Direction | Protocol / Format | Timing Constraint | Provider |
 |:---|:---|:---|:---|:---|
 | Cell Data | Input | UART/SPI | Periodic Update | Communication Bridge |
-| Current Sample | Input | Differential Analog | 1kHz Sampling | Current Sensing Module |
+| Current Sample | Input | Single-ended Analog | 1kHz Sampling | Current Sensing Module |
 | Fault Signal | Input | Discrete (Low) | Asynchronous | Communication Bridge (NFAULT) |
 
 ### 3.3 Clock & Synchronisation
@@ -122,7 +122,7 @@
 |:---|:---|:---|:---|
 | Low-Voltage Power Supply | Power (VDD) | Input | PCB Trace |
 | Communication Bridge | Data, Faults, Wakeup | Bi-Di | UART/SPI / Discrete |
-| Current Sensing | Isolated Current | Input | Differential Analog |
+| Current Sensing | Isolated Current | Input | Single-ended Analog |
 | External Contactors | Safety Trip | Output | Digital/Discrete |
 
 ---
@@ -155,6 +155,5 @@
 
 | Item | Type (Dependency / Constraint / Decision) | Status |
 |:---|:---|:---|
-| CAN Bus Implementation | Hardware Constraint | STM32F411CE lacks native CAN; requires external controller (e.g., MCP2515) if CAN is mandatory. |
 | Specific Pin Mapping | Decision | Final GPIO assignment for contactors and sync signal pending. |
-| ADC Buffer Scaling | Hardware Constraint | May require external Op-Amp to match AMC1301 output to MCU ADC range. |
+| ADC Input Scaling | Hardware Constraint | Ensure signal conditioning in Current Sensing module matches MCU ADC range (0-3.3V). |
