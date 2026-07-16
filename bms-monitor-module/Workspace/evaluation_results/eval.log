@@ -1,0 +1,334 @@
+Building 1 file(s)...
+Building bms-monitor-module/Workspace/bms-monitor-module.tsx...
+Generating circuit JSON...
+Dispatch phase complete. Created 14 sub-solvers.
+[0m[31mMultiOffsetIrlsSolver ran out of iterations[0m
+[0m[31mMultiOffsetIrlsSolver ran out of iterations[0m
+[0m[31mMultiOffsetIrlsSolver ran out of iterations[0m
+Circuit JSON written to dist/bms-monitor-module/Workspace/bms-monitor-module/circuit.json
+[33mAll pins on U1 are underspecified (no pinAttributes set)[39m
+[33mAll pins on Q1 are underspecified (no pinAttributes set)[39m
+[33mAll pins on P1 are underspecified (no pinAttributes set)[39m
+[33mAll pins on P2 are underspecified (no pinAttributes set)[39m
+[33mAll pins on P3 are underspecified (no pinAttributes set)[39m
+[33mAll pins on P4 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F17 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F16 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F15 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F14 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F13 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F12 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F11 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F10 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F9 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F8 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F7 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F6 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F5 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F4 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F3 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F2 are underspecified (no pinAttributes set)[39m
+[33mAll pins on F1 are underspecified (no pinAttributes set)[39m
+[33mU1 has no pin with requires_power=true[39m
+[33mQ1 has no pin with requires_power=true[39m
+[33mP1 has no pin with requires_power=true[39m
+[33mP2 has no pin with requires_power=true[39m
+[33mP3 has no pin with requires_power=true[39m
+[33mP4 has no pin with requires_power=true[39m
+[33mF17 has no pin with requires_power=true[39m
+[33mF16 has no pin with requires_power=true[39m
+[33mF15 has no pin with requires_power=true[39m
+[33mF14 has no pin with requires_power=true[39m
+[33mF13 has no pin with requires_power=true[39m
+[33mF12 has no pin with requires_power=true[39m
+[33mF11 has no pin with requires_power=true[39m
+[33mF10 has no pin with requires_power=true[39m
+[33mF9 has no pin with requires_power=true[39m
+[33mF8 has no pin with requires_power=true[39m
+[33mF7 has no pin with requires_power=true[39m
+[33mF6 has no pin with requires_power=true[39m
+[33mF5 has no pin with requires_power=true[39m
+[33mF4 has no pin with requires_power=true[39m
+[33mF3 has no pin with requires_power=true[39m
+[33mF2 has no pin with requires_power=true[39m
+[33mF1 has no pin with requires_power=true[39m
+[33mU1 has no pin with requires_ground=true[39m
+[33mQ1 has no pin with requires_ground=true[39m
+[33mP1 has no pin with requires_ground=true[39m
+[33mP2 has no pin with requires_ground=true[39m
+[33mP3 has no pin with requires_ground=true[39m
+[33mP4 has no pin with requires_ground=true[39m
+[33mF17 has no pin with requires_ground=true[39m
+[33mF16 has no pin with requires_ground=true[39m
+[33mF15 has no pin with requires_ground=true[39m
+[33mF14 has no pin with requires_ground=true[39m
+[33mF13 has no pin with requires_ground=true[39m
+[33mF12 has no pin with requires_ground=true[39m
+[33mF11 has no pin with requires_ground=true[39m
+[33mF10 has no pin with requires_ground=true[39m
+[33mF9 has no pin with requires_ground=true[39m
+[33mF8 has no pin with requires_ground=true[39m
+[33mF7 has no pin with requires_ground=true[39m
+[33mF6 has no pin with requires_ground=true[39m
+[33mF5 has no pin with requires_ground=true[39m
+[33mF4 has no pin with requires_ground=true[39m
+[33mF3 has no pin with requires_ground=true[39m
+[33mF2 has no pin with requires_ground=true[39m
+[33mF1 has no pin with requires_ground=true[39m
+[0m[31m[31mComponent U1 extends outside board boundaries by 8.24mm. Try moving it 6.29mm right and 14.74mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent Q1 extends outside board boundaries by 15.03mm. Try moving it 18.04mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent P2 extends outside board boundaries by 7.75mm. Try moving it 5.38mm left and 14.85mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent P3 extends outside board boundaries by 3.51mm. Try moving it 6.79mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent P4 extends outside board boundaries by 4.87mm. Try moving it 11.17mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB16 extends outside board boundaries by 0.11mm. Try moving it 1.34mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC16 extends outside board boundaries by 0.11mm. Try moving it 1.34mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC16 extends outside board boundaries by 4.07mm. Try moving it 5.3mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB15 extends outside board boundaries by 6.22mm. Try moving it 7.44mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent F16 extends outside board boundaries by 0.37mm. Try moving it 1.52mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC15 extends outside board boundaries by 6.22mm. Try moving it 7.44mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC15 extends outside board boundaries by 10.18mm. Try moving it 11.4mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB13 extends outside board boundaries by 3.83mm. Try moving it 4.3mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent F14 extends outside board boundaries by 1.62mm. Try moving it 2.06mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC13 extends outside board boundaries by 1.62mm. Try moving it 2.1mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC13 extends outside board boundaries by 1.62mm. Try moving it 2.1mm right to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC12 extends outside board boundaries by 0.29mm. Try moving it 1.51mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB10 extends outside board boundaries by 3.88mm. Try moving it 5.1mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC10 extends outside board boundaries by 3.88mm. Try moving it 5.1mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC10 extends outside board boundaries by 7.84mm. Try moving it 9.06mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB9 extends outside board boundaries by 4.24mm. Try moving it 5.46mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC9 extends outside board boundaries by 4.24mm. Try moving it 5.46mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC9 extends outside board boundaries by 8.2mm. Try moving it 9.42mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB7 extends outside board boundaries by 1.85mm. Try moving it 2.32mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent F8 extends outside board boundaries by 0.07mm. Try moving it 0.07mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC7 extends outside board boundaries by 0.12mm. Try moving it 0.12mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC7 extends outside board boundaries by 0.41mm. Try moving it 0.39mm left and 0.12mm up to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB6 extends outside board boundaries by 3.8mm. Try moving it 5.03mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC6 extends outside board boundaries by 3.8mm. Try moving it 5.03mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC6 extends outside board boundaries by 7.76mm. Try moving it 8.99mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB5 extends outside board boundaries by 0.19mm. Try moving it 1.41mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC5 extends outside board boundaries by 0.19mm. Try moving it 1.41mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC5 extends outside board boundaries by 4.15mm. Try moving it 5.37mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC4 extends outside board boundaries by 0.25mm. Try moving it 1.48mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent F4 extends outside board boundaries by 1.63mm. Try moving it 2.06mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC3 extends outside board boundaries by 1.63mm. Try moving it 2.1mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC3 extends outside board boundaries by 1.63mm. Try moving it 2.1mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB2 extends outside board boundaries by 9.42mm. Try moving it 10.65mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent F3 extends outside board boundaries by 3.57mm. Try moving it 4.73mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC2 extends outside board boundaries by 9.42mm. Try moving it 10.65mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC2 extends outside board boundaries by 13.38mm. Try moving it 14.61mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_CB1 extends outside board boundaries by 5.01mm. Try moving it 5.48mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent F2 extends outside board boundaries by 7.21mm. Try moving it 7.65mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_VC1 extends outside board boundaries by 7.21mm. Try moving it 7.69mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_VC1 extends outside board boundaries by 7.21mm. Try moving it 7.69mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_BAT extends outside board boundaries by 3.86mm. Try moving it 4.34mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_LDOIN extends outside board boundaries by 6.32mm. Try moving it 6.8mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_AVDD extends outside board boundaries by 8.78mm. Try moving it 9.26mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_DVDD extends outside board boundaries by 12.68mm. Try moving it 13.9mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_CVDD extends outside board boundaries by 12.68mm. Try moving it 13.9mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_REF extends outside board boundaries by 12.68mm. Try moving it 13.9mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_BBP extends outside board boundaries by 16.64mm. Try moving it 17.86mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_NEG5V extends outside board boundaries by 5.44mm. Try moving it 6.66mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_COMHP extends outside board boundaries by 17.58mm. Try moving it 18.81mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_COMHN extends outside board boundaries by 5.42mm. Try moving it 6.65mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_COMLP extends outside board boundaries by 9.38mm. Try moving it 10.61mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent C_COMLN extends outside board boundaries by 1.08mm. Try moving it 1.56mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_FAULT_PU extends outside board boundaries by 11.2mm. Try moving it 12.42mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_PU_GPIO1 extends outside board boundaries by 3.15mm. Try moving it 4.37mm down to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_PU_GPIO2 extends outside board boundaries by 8.77mm. Try moving it 9.99mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_PU_GPIO3 extends outside board boundaries by 12.73mm. Try moving it 13.95mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_PU_GPIO4 extends outside board boundaries by 15.95mm. Try moving it 17.17mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_PU_GPIO5 extends outside board boundaries by 19.91mm. Try moving it 21.13mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_PU_GPIO6 extends outside board boundaries by 19.86mm. Try moving it 21.08mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_PU_GPIO7 extends outside board boundaries by 20.6mm. Try moving it 21.82mm left to fit within the board edge.[39m[0m
+[0m[31m[31mComponent R_PU_GPIO8 extends outside board boundaries by 23.41mm. Try moving it 24.64mm left to fit within the board edge.[39m[0m
+[0m[31m[31mpcb_smtpad F12.pin1 overlaps with pcb_smtpad F9.pin2[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .BAT] and pcb_port[.U1 > .CB16] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .BAT] and pcb_port[.U1 > .VC16] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .BAT] and pcb_port[.U1 > .CB15] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB16] and pcb_port[.U1 > .VC16] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB16] and pcb_port[.U1 > .CB15] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB16] and pcb_port[.U1 > .VC15] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC16] and pcb_port[.U1 > .CB15] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC16] and pcb_port[.U1 > .VC15] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC16] and pcb_port[.U1 > .CB14] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB15] and pcb_port[.U1 > .VC15] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB15] and pcb_port[.U1 > .CB14] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB15] and pcb_port[.U1 > .VC14] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC15] and pcb_port[.U1 > .CB14] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC15] and pcb_port[.U1 > .VC14] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC15] and pcb_port[.U1 > .CB13] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB14] and pcb_port[.U1 > .VC14] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB14] and pcb_port[.U1 > .CB13] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB14] and pcb_port[.U1 > .VC13] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC14] and pcb_port[.U1 > .CB13] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC14] and pcb_port[.U1 > .VC13] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC14] and pcb_port[.U1 > .CB12] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB13] and pcb_port[.U1 > .VC13] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB13] and pcb_port[.U1 > .CB12] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB13] and pcb_port[.U1 > .VC12] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC13] and pcb_port[.U1 > .CB12] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC13] and pcb_port[.U1 > .VC12] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC13] and pcb_port[.U1 > .CB11] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB12] and pcb_port[.U1 > .VC12] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB12] and pcb_port[.U1 > .CB11] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB12] and pcb_port[.U1 > .VC11] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC12] and pcb_port[.U1 > .CB11] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC12] and pcb_port[.U1 > .VC11] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC12] and pcb_port[.U1 > .CB10] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB11] and pcb_port[.U1 > .VC11] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB11] and pcb_port[.U1 > .CB10] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB11] and pcb_port[.U1 > .VC10] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC11] and pcb_port[.U1 > .CB10] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC11] and pcb_port[.U1 > .VC10] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC11] and pcb_port[.U1 > .CB9] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB10] and pcb_port[.U1 > .VC10] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB10] and pcb_port[.U1 > .CB9] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC10] and pcb_port[.U1 > .CB9] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC9] and pcb_port[.U1 > .CB8] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC9] and pcb_port[.U1 > .VC8] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC9] and pcb_port[.U1 > .CB7] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB8] and pcb_port[.U1 > .VC8] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB8] and pcb_port[.U1 > .CB7] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB8] and pcb_port[.U1 > .VC7] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC8] and pcb_port[.U1 > .CB7] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC8] and pcb_port[.U1 > .VC7] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC8] and pcb_port[.U1 > .CB6] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB7] and pcb_port[.U1 > .VC7] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB7] and pcb_port[.U1 > .CB6] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB7] and pcb_port[.U1 > .VC6] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC7] and pcb_port[.U1 > .CB6] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC7] and pcb_port[.U1 > .VC6] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC7] and pcb_port[.U1 > .CB5] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB6] and pcb_port[.U1 > .VC6] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB6] and pcb_port[.U1 > .CB5] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB6] and pcb_port[.U1 > .VC5] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC6] and pcb_port[.U1 > .CB5] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC6] and pcb_port[.U1 > .VC5] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC6] and pcb_port[.U1 > .CB4] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB5] and pcb_port[.U1 > .VC5] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB5] and pcb_port[.U1 > .CB4] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB5] and pcb_port[.U1 > .VC4] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC5] and pcb_port[.U1 > .CB4] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC5] and pcb_port[.U1 > .VC4] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC5] and pcb_port[.U1 > .CB3] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB4] and pcb_port[.U1 > .VC4] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB4] and pcb_port[.U1 > .CB3] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB4] and pcb_port[.U1 > .VC3] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC4] and pcb_port[.U1 > .CB3] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC4] and pcb_port[.U1 > .VC3] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC4] and pcb_port[.U1 > .CB2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB3] and pcb_port[.U1 > .VC3] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB3] and pcb_port[.U1 > .CB2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB3] and pcb_port[.U1 > .VC2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC3] and pcb_port[.U1 > .CB2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC3] and pcb_port[.U1 > .VC2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC3] and pcb_port[.U1 > .CB1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB2] and pcb_port[.U1 > .VC2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB2] and pcb_port[.U1 > .CB1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC2] and pcb_port[.U1 > .CB1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC1] and pcb_port[.U1 > .CB0] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC1] and pcb_port[.U1 > .VC0] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC1] and pcb_port[.U1 > .REFHM] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB0] and pcb_port[.U1 > .VC0] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB0] and pcb_port[.U1 > .REFHM] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CB0] and pcb_port[.U1 > .REFHP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC0] and pcb_port[.U1 > .REFHM] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC0] and pcb_port[.U1 > .REFHP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .VC0] and pcb_port[.U1 > .AVDD] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .REFHM] and pcb_port[.U1 > .REFHP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .REFHM] and pcb_port[.U1 > .AVDD] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .REFHP] and pcb_port[.U1 > .AVDD] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .REFHP] and pcb_port[.U1 > .AVSS] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .REFHP] and pcb_port[.U1 > .COMLP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .AVDD] and pcb_port[.U1 > .AVSS] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .AVDD] and pcb_port[.U1 > .COMLP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .AVDD] and pcb_port[.U1 > .COMLN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .AVSS] and pcb_port[.U1 > .COMLP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .AVSS] and pcb_port[.U1 > .COMLN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .AVSS] and pcb_port[.U1 > .COMHN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMLP] and pcb_port[.U1 > .COMLN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMLP] and pcb_port[.U1 > .COMHN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMLP] and pcb_port[.U1 > .COMHP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMLN] and pcb_port[.U1 > .COMHN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMLN] and pcb_port[.U1 > .COMHP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMLN] and pcb_port[.U1 > .NEG5V] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMHN] and pcb_port[.U1 > .COMHP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMHN] and pcb_port[.U1 > .NEG5V] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMHN] and pcb_port[.U1 > .CVDD] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMHP] and pcb_port[.U1 > .NEG5V] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMHP] and pcb_port[.U1 > .CVDD] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .COMHP] and pcb_port[.U1 > .CVSS] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .NEG5V] and pcb_port[.U1 > .CVDD] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .NEG5V] and pcb_port[.U1 > .CVSS] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .NEG5V] and pcb_port[.U1 > .LDOIN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CVDD] and pcb_port[.U1 > .CVSS] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CVDD] and pcb_port[.U1 > .LDOIN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CVDD] and pcb_port[.U1 > .NPNB] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CVSS] and pcb_port[.U1 > .LDOIN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .CVSS] and pcb_port[.U1 > .NPNB] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .LDOIN] and pcb_port[.U1 > .NPNB] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .DVDD] and pcb_port[.U1 > .DVSS] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .DVDD] and pcb_port[.U1 > .TSREF] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .DVDD] and pcb_port[.U1 > .RX] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .DVSS] and pcb_port[.U1 > .TSREF] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .DVSS] and pcb_port[.U1 > .RX] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .DVSS] and pcb_port[.U1 > .TX] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .TSREF] and pcb_port[.U1 > .RX] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .TSREF] and pcb_port[.U1 > .TX] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .TSREF] and pcb_port[.U1 > .GPIO8] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .RX] and pcb_port[.U1 > .TX] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .RX] and pcb_port[.U1 > .GPIO8] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .RX] and pcb_port[.U1 > .GPIO7] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .TX] and pcb_port[.U1 > .GPIO8] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .TX] and pcb_port[.U1 > .GPIO7] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .TX] and pcb_port[.U1 > .GPIO6] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO8] and pcb_port[.U1 > .GPIO7] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO8] and pcb_port[.U1 > .GPIO6] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO8] and pcb_port[.U1 > .GPIO5] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO7] and pcb_port[.U1 > .GPIO6] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO7] and pcb_port[.U1 > .GPIO5] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO7] and pcb_port[.U1 > .GPIO4] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO6] and pcb_port[.U1 > .GPIO5] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO6] and pcb_port[.U1 > .GPIO4] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO6] and pcb_port[.U1 > .GPIO3] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO5] and pcb_port[.U1 > .GPIO4] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO5] and pcb_port[.U1 > .GPIO3] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO5] and pcb_port[.U1 > .GPIO2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO4] and pcb_port[.U1 > .GPIO3] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO4] and pcb_port[.U1 > .GPIO2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO4] and pcb_port[.U1 > .GPIO1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO3] and pcb_port[.U1 > .GPIO2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO3] and pcb_port[.U1 > .GPIO1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO3] and pcb_port[.U1 > .NFAULT] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO2] and pcb_port[.U1 > .GPIO1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO2] and pcb_port[.U1 > .NFAULT] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO2] and pcb_port[.U1 > .BBN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO1] and pcb_port[.U1 > .NFAULT] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO1] and pcb_port[.U1 > .BBN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .GPIO1] and pcb_port[.U1 > .BBP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .NFAULT] and pcb_port[.U1 > .BBN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .NFAULT] and pcb_port[.U1 > .BBP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U1 > .BBN] and pcb_port[.U1 > .BBP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.F12 > .pin1] and pcb_port[.F9 > .pin2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mCourtyard of U1 overlaps with courtyard of R_CB9[39m[0m
+[0m[31m[31mCourtyard of P1 overlaps with courtyard of F16[39m[0m
+[0m[31m[31mCourtyard of P1 overlaps with courtyard of F15[39m[0m
+[0m[31m[31mCourtyard of P1 overlaps with courtyard of R_CB11[39m[0m
+[0m[31m[31mCourtyard of P1 overlaps with courtyard of F10[39m[0m
+[0m[31m[31mCourtyard of P1 overlaps with courtyard of F9[39m[0m
+[0m[31m[31mCourtyard of P1 overlaps with courtyard of R_CB3[39m[0m
+[0m[31m[31mCourtyard of P3 overlaps with courtyard of F8[39m[0m
+[0m[31m[31mCourtyard of P4 overlaps with courtyard of F8[39m[0m
+[0m[31m[31mCourtyard of R_CB11 overlaps with courtyard of F1[39m[0m
+[0m[31m[31mCourtyard of F12 overlaps with courtyard of F9[39m[0m
+[0m[31m[31mCourtyard of R_VC11 overlaps with courtyard of F1[39m[0m
+[0m[31m[31mCourtyard of C_VC11 overlaps with courtyard of R_CB0[39m[0m
+[0m[31m[31mCourtyard of C_VC11 overlaps with courtyard of F1[39m[0m
+[0m[31m[31mCourtyard of R_CB5 overlaps with courtyard of R_CB0[39m[0m
+[0m[31m[31mCourtyard of R_CB2 overlaps with courtyard of F2[39m[0m
+[1mBuild complete[22m
+Circuits  [32m1 passed[39m
+Output    [2m../../dist[22m
+[33m
+⚠ Build completed with errors[39m
+[2mBuild exiting with code 0: build finished successfully[22m
