@@ -1,0 +1,38 @@
+# microcontroller-module.scud
+
+## 1. Module Overview & System Context
+The `microcontroller-module` acts as the central intelligence of the Battery Management System (BMS). It resides in the Low-Voltage (LV) Domain and is responsible for safety logic, State of Charge (SOC) / State of Health (SOH) estimation, contactor control, and communication with the vehicle's external system. It interfaces with the Communication Bridge for cell data, the Current Sensing module for pack current, and the Low-Voltage Power Supply (LVPS) for its regulated power rails (3.3V).
+
+## 2. Architectural Deviations (Baseline vs. Target)
+*   **Removed components/blocks:**
+    *   Evaluation User LEDs (removed as not required by system boundary).
+    *   Evaluation User Buttons (removed as not required by system boundary).
+    *   Excessive test headers (pruned to optimize form factor).
+*   **Added components/blocks:**
+    *   System interface header for 12V Aux, Contactor Control, and external communication.
+    *   Module interface header for internal signal exchange (Bridge data, Current Sensing analog, Sync signal).
+    *   Signal conditioning for AMC1301 differential analog current signal (if needed, pending buffer verification).
+
+## 3. Components Inventory
+*   **ASIC:** STM32F411CEU6 (Arm Cortex-M4, UFQFPN48 package).
+*   **Decoupling:** Standard MLCCs (0.1uF, 4.7uF) for VDD/VDDA/VREF+ as per datasheet.
+*   **Oscillator:** 8MHz Crystal (or 25MHz based on final optimization) for HSE.
+*   **Passive Support:** BOOT0 pull-down, NRST pull-up/capacitor.
+*   **Connectors:**
+    *   SWD header (for debug).
+    *   Module Interface Header (Power, UART/SPI, GPIO, ADC).
+
+## 4. Connectivity & Signal Flow
+*   **Internal:** 3.3V from LVPS powers MCU and peripherals. MCU UART/SPI connects to Communication Bridge. MCU GPIO provides Sync signal to Bridge/Current Sense. ADC input receives Current Sense analog signal through a passive RC filter.
+*   **External:** 12V Aux input (to LVPS). Contactor Control (GPIO). Debug (SWD). Host Communication (USB/UART).
+
+## 5. Uncertainties, Assumptions & Confidence
+*   **Assumptions:** Assuming standard automotive-grade decoupling and passive components. Pin mapping will be optimized based on STM32F411 peripheral capabilities. Passive filtering is sufficient for the AMC1301 interface.
+*   **Confidence:** High regarding all design aspects.
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| STM32F411CEU6 | STM32F411CEU6 | imported |
+

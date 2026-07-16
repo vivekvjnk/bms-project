@@ -1,0 +1,45 @@
+Building 1 file(s)...
+Building high-voltage-power-supply/Workspace/high-voltage-power-supply.tsx...
+Generating circuit JSON...
+[0m[31mAsync effect error in PcbTraceRender "capacity-mesh-autorouting":
+AutorouterError: oz ran out of iterations (capacity-autorouter@0.0.640)
+at runCycleAndQueueNextCycle (/app/node_modules/.pnpm/@tscircuit+core@0.0.1403_82d8d0a66294d6326ce8a9a23c002eda/node_modules/@tscircuit/core/dist/index.js:15448:24)
+at <anonymous> (/app/node_modules/.pnpm/@tscircuit+core@0.0.1403_82d8d0a66294d6326ce8a9a23c002eda/node_modules/@tscircuit/core/dist/index.js:15483:27)[0m
+Circuit JSON written to dist/high-voltage-power-supply/Workspace/high-voltage-power-supply/circuit.json
+[33mPort pin1 on J_IN is missing a trace[39m
+[33mPort pin2 on J_IN is missing a trace[39m
+[33mPort pin1 on J_OUT is missing a trace[39m
+[33mPort pin2 on J_OUT is missing a trace[39m
+[33mPort pin1 on F1 is missing a trace[39m
+[33mPort pin2 on F1 is missing a trace[39m
+[33mPort anode on D_IN is missing a trace[39m
+[33mPort cathode on D_IN is missing a trace[39m
+[33mPort pin1 on C1 is missing a trace[39m
+[33mPort pin2 on C1 is missing a trace[39m
+[33mPort pin1 on C2 is missing a trace[39m
+[33mPort pin2 on C2 is missing a trace[39m
+[33mPort anode on D4 is missing a trace[39m
+[33mPort cathode on D4 is missing a trace[39m
+[33mPort pin1 on L2 is missing a trace[39m
+[33mPort pin2 on L2 is missing a trace[39m
+[33mPort pin1 on C5 is missing a trace[39m
+[33mPort pin2 on C5 is missing a trace[39m
+[33mPort cathode on D5 is missing a trace[39m
+[33mPort anode on D5 is missing a trace[39m
+[33mPort anode on D3 is missing a trace[39m
+[33mPort cathode on D3 is missing a trace[39m
+[33mPort pin1 on C4 is missing a trace[39m
+[33mPort pin2 on C4 is missing a trace[39m
+[33mPort pin1 on R3 is missing a trace[39m
+[33mPort pin2 on R3 is missing a trace[39m
+[33mPort pin1 on R4 is missing a trace[39m
+[33mPort pin2 on R4 is missing a trace[39m
+[33mPort pin1 on C_VDD is missing a trace[39m
+[33mPort pin2 on C_VDD is missing a trace[39m
+[0m[31m[31moz ran out of iterations (capacity-autorouter@0.0.640)[39m[0m
+[1mBuild complete[22m
+Circuits  [32m1 passed[39m
+Output    [2m../../dist[22m
+[33m
+⚠ Build completed with errors[39m
+[2mBuild exiting with code 0: build finished successfully[22m
