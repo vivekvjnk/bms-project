@@ -1,0 +1,65 @@
+# Shared Circuit Understanding Document (SCUD): bms-monitor-module
+
+## 1. Module Overview & System Context
+The `bms-monitor-module` is a high-voltage (HV) domain component within the stackable BMS architecture. Its primary purpose is to monitor cell voltages, manage passive cell balancing, and sense local temperatures for a 16-series lithium-ion battery stack. Multiple modules are connected in a daisy-chain configuration to scale up to the full battery pack voltage (e.g., 400V).
+
+**Primary Functional Blocks:**
+- **Cell Sensing & Balancing:** 16-channel ADC interface with internal MOSFETs for passive balancing.
+- **Temperature Sensing:** 8-channel GPIO interface for external NTC thermistors.
+- **Isolated Communication:** Bidirectional differential daisy chain for data exchange with the Communication Bridge and other monitor modules.
+- **Power Management:** Internal LDOs and a pre-regulator circuit to derive logic power from the cell stack.
+
+**External Interfaces:**
+- **Cell Tap Interface (P1):** Connections to 16 series cells (VC0-VC16) and balancing taps (CB0-CB16).
+- **Thermistor Interface:** 8 GPIO lines and a reference voltage (TSREF).
+- **Daisy Chain (P2):** Isolated differential ports (COMH and COML).
+- **Ancillary (P3):** CVDD 5V output and NFAULT signal.
+
+## 2. Architectural Deviations (Baseline vs. Target)
+- **Added Fuse Protection:** To meet the safety requirement of the Module Boundary (P3.4), 100mA SMD fuses are added to each cell sense tap (VC0-VC16) at the point of contact. This is a deviation from the reference schematic which only showed RC filtering.
+- **Isolated Daisy Chain Configuration:** Capacitor-based isolation is used for COMH and COML ports, following the reference schematic's baseline for a cost-effective stackable architecture.
+- **Dedicated Power Delivery (CVDD):** The CVDD (5V) rail is explicitly brought to the external interface (P3.1) to power the "hot side" of the current sensing module's isolator (AMC1301), as required by the system boundary.
+- **Thermistor Interface:** Standardizes the 8 GPIOs (GPIO1-GPIO8) specifically for NTC thermistor inputs with TSREF as the bias source, pruning other potential GPIO uses present in the generic ASIC description.
+
+## 3. Components Inventory
+- **U1:** BQ79616 16-Series Battery Monitor (64-pin HTQFP).
+- **Q1:** NPN Transistor (e.g., MJD44H11 or equivalent) for LDOIN pre-regulator.
+- **F1-F17:** 100mA SMD Fuses (Fast-acting) on all VC tap lines.
+- **Cell Input Filters:** 1kΩ / 100nF RC filters for each VC channel (VC1-VC16). VC0 uses a direct connection with fuse.
+- **Balancing Resistors:** 22Ω (or as per desired balancing current) on each CB line.
+- **Decoupling Capacitors:**
+    - AVDD: 1µF
+    - DVDD: 1µF
+    - CVDD: 1µF
+    - LDOIN: 0.1µF
+    - BAT: 10µF (HV rated)
+- **Isolation Capacitors:** 100nF (2kV rated) for daisy chain signals (COMHP, COMHN, COMLP, COMLN).
+- **Connectors:** 
+    - 20-pin Header/Connector for Cell Taps (VC0-16, CB0-16).
+    - 10-pin Header/Connector for Thermistors (8x GPIO, TSREF, AGND).
+    - 4-pin Isolated Connectors for Daisy Chain (In/Out).
+
+## 4. Connectivity & Signal Flow
+- **Cell Voltage Sensing:** VC0-VC16 pins are connected to the battery cell terminals via 100mA fuses and RC filters. VC0 is the reference (HV-).
+- **Passive Balancing:** CB0-CB16 pins connect to the cell nodes to enable discharge through internal MOSFETs and external balancing resistors.
+- **Power Path:** BAT pin draws power from the top of the 16-cell stack. The NPN transistor (Q1) driven by the NPN pin regulates LDOIN to approximately 6V. Internal LDOs then generate AVDD (5V), DVDD (1.8V), and CVDD (5V).
+- **Daisy Chain:** COML (Low-side) connects to the Communication Bridge or the preceding module. COMH (High-side) connects to the next module in the stack. All signals are AC-coupled via 2kV capacitors.
+- **Thermistor Network:** GPIO1-GPIO8 are configured as analog inputs. Each NTC is connected between a GPIO pin and AGND, with a pull-up resistor to TSREF.
+
+## 5. Uncertainties, Assumptions & Confidence
+- **Confidence:** High for core ASIC functionality and cell sensing.
+- **Uncertainty:** Exact daisy chain connector model remains "TBD" but is assumed to be a 4-pin differential-rated connector.
+- **Assumption:** Balancing current is targeted at ~240mA as per datasheet, requiring 22Ω resistors assuming ~5V max cell voltage, but this may be adjusted based on thermal dissipation limits (P3.4).
+- **Assumption:** NFAULT is an open-drain output requiring an external pull-up if monitored locally, though it is also communicated via the daisy chain heartbeat.
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| BQ79616 | BQ79616PAPRQ1 | imported |
+| MJD44H11 | MJD44H11T4G | imported |
+| 100mA SMD Fuses | BSMD0603_010_33V | imported |
+| 20-pin Connector | | local |
+| 10-pin Connector | | local |
+| 4-pin Isolated Connectors | Molex_901303120 | imported |
+
