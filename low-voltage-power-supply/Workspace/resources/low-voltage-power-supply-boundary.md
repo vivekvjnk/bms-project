@@ -1,9 +1,9 @@
 # Module Boundary: low-voltage-power-supply
 
 > **System:** BMS (Battery Management System)  
-> **Document Version:** 1.0  
+> **Document Version:** 1.1  
 > **Source Documents Ingested:** [BMS-design.md, ucc28750-datasheet.md, ucc28750-eval-board.md]  
-> **Last Updated:** 2025-05-14
+> **Last Updated:** 2026-07-16
 
 ---
 
@@ -12,7 +12,7 @@
 | Field | Value |
 |:---|:---|
 | **Module Name** | low-voltage-power-supply |
-| **Role** | Converts input power (external 12V auxiliary or low-voltage pack bus) into regulated DC rails (12V, 5V, 3.3V, 1.2V) to power the BMS logic and communication modules. |
+| **Role** | Converts input power (external 12V auxiliary or low-voltage pack bus) into regulated DC rails (12V, 5V, 3.3V) to power the BMS logic and communication modules. |
 | **Domain / Zone** | Low-Voltage (LV) Domain |
 | **Instantiation** | Singleton |
 | **Primary Component(s)** | UCC28750 (Current-Mode Flyback Controller) |
@@ -28,18 +28,14 @@
 |:---|:---|:---|:---|:---|:---|
 | **P1.1** | Input | Power | 12V / 64V / 85V-265V RMS | VIN+ | Main DC or AC rectified input. |
 | **P1.2** | Passive | Ground | Primary GND | VIN- / GND | Primary side return reference. |
-| **P1.3** | Input | Analog | Variable | FB | Voltage feedback from secondary side (via opto-coupler). |
-| **P1.4** | Input | Analog | 0V - 5V | FLT | Fault sensing (Brownout / OTP / OVP). |
-| **P1.5** | Input | Analog | 0V - 5V | CS | Primary-side current sense. |
 
 ### 2.2 Domain: Secondary / Output Side
 | Port ID | Direction | Signal Type | Voltage Level | Mapped Resource | Function & Logic |
 |:---|:---|:---|:---|:---|:---|
 | **P2.1** | Output | Power | 12V DC | VOUT_12V | Primary 12V regulated rail (2A capability). |
-| **P2.2** | Output | Power | 5V DC | VOUT_5V | Regulated rail for TMS57012 and peripherals. |
-| **P2.3** | Output | Power | 3.3V DC | VOUT_3V3 | Regulated rail for TMS57012 and peripherals. |
-| **P2.4** | Output | Power | 1.2V DC | VOUT_1V2 | Regulated rail for TMS57012 core. |
-| **P2.5** | Passive | Ground | LV GND | GND_SEC | System-level digital ground reference. |
+| **P2.2** | Output | Power | 5V DC | VOUT_5V | Regulated rail for system peripherals. |
+| **P2.3** | Output | Power | 3.3V DC | VOUT_3V3 | Regulated rail for MCU and peripherals. |
+| **P2.4** | Passive | Ground | LV GND | GND_SEC | System-level digital ground reference. |
 
 
 ## 3. Consumed Resources _(what this module needs)_
@@ -55,7 +51,7 @@ For each entry: name the resource, classify it, specify its requirement, and sta
 ### 3.2 Signals & Data
 | Signal / Bus | Direction | Protocol / Format | Timing Constraint | Provider |
 |:---|:---|:---|:---|:---|
-| Feedback Signal | Input | Opto-isolated Analog | Fast loop response | Output Stage (Internal) |
+| N/A | | | | |
 
 ### 3.3 Clock & Synchronisation
 | Clock / Trigger | Frequency / Period | Edge / Polarity | Provider |
@@ -92,7 +88,6 @@ For each entry: name the resource, classify it, specify its requirement, and sta
 | 12V Rail | 12V DC | 2.0 A | +/- 5% | communication-bridge, auxiliary loads |
 | 5V Rail | 5V DC | TBD | High stability | microcontroller-module, current-sensing |
 | 3.3V Rail | 3.3V DC | TBD | High stability | microcontroller-module, current-sensing, communication-bridge |
-| 1.2V Rail | 1.2V DC | TBD | High stability | microcontroller-module (Core) |
 
 ### 4.2 Signals & Data Outputs
 | Signal / Bus | Direction | Protocol / Format | Update Rate | Consumer(s) |
@@ -120,7 +115,7 @@ For each entry: name the resource, classify it, specify its requirement, and sta
 
 | Connected Module | Resource Exchanged | Direction | Interface Type |
 |:---|:---|:---|:---|
-| microcontroller-module | 5V, 3.3V, 1.2V DC Power | Output | PCB Trace |
+| microcontroller-module | 3.3V / 5V DC Power | Output | PCB Trace |
 | communication-bridge | 12V, 3.3V/5V DC Power | Output | PCB Trace |
 | current-sensing | 3.3V/5V DC Power (Cold Side) | Output | PCB Trace |
 | External 12V Aux / Pack Bus | 12V / 64V DC Power | Input | Terminal Connectors |
@@ -131,7 +126,7 @@ For each entry: name the resource, classify it, specify its requirement, and sta
 
 ### 5.1 Initialisation Contract
 - Preconditions: Input voltage (12V or 64V) must be within the UVLO/OVLO range.
-- Guarantees: Stable 12V, 5V, 3.3V, and 1.2V rails within 4ms (soft-start).
+- Guarantees: Stable 12V, 5V, and 3.3V rails within 4ms (soft-start).
 
 ### 5.2 Steady-State Contract
 - Continuously produces regulated DC rails for all logic-domain components.
@@ -159,6 +154,6 @@ For each entry: name the resource, classify it, specify its requirement, and sta
 
 | Item | Type (Dependency / Constraint / Decision) | Status |
 |:---|:---|:---|
-| Specific 5V/3.3V/1.2V Regulators | Design Detail | Choice of LDOs or secondary buck converters for derived rails. |
+| Specific 5V/3.3V Regulators | Design Detail | Choice of LDOs or secondary buck converters for derived rails. |
 | Input Voltage for 64V case | Constraint | Verification of UCC28750 performance at 64V DC input. |
-| Max current for 5V/3.3V/1.2V rails | Constraint | Total power budget for TMS57012 and peripherals to be finalized. |
+| Max current for 5V/3.3V rails | Constraint | Total power budget for MCU and peripherals to be finalized. |
