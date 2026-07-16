@@ -1,0 +1,62 @@
+# Shared Circuit Understanding Document (SCUD)
+## low-voltage-power-supply
+
+## 1. Module Overview & System Context
+The low-voltage-power-supply (LVPS) is a singleton module in the Low-Voltage (LV) domain of the stackable-bms system. It converts high-voltage DC from the traction pack bus (ranging from 64V to 400V DC) into regulated low-voltage DC rails (12V, 5V, 3.3V, 1.2V) to power the BMS logic and communication modules. The primary component is the UCC28750 Current-Mode Flyback Controller. The LVPS must provide strict galvanic isolation (1000V DC minimum) between the high-voltage primary/input side and the low-voltage secondary/output logic ground.
+
+## 2. Architectural Deviations (Baseline vs. Target)
+
+*Removed components/blocks:*
+- AC rectification stage (diode bridge BD1, large bulk AC capacitors) from the evaluation board baseline, as the module requires a direct DC input.
+- AC input filtering and protection elements (CX1, L1, L2, F1, RV1) are removed or substituted with DC-appropriate equivalents.
+- Output voltage setting components for the 24V evaluation board output. The design is adapted for a primary 12V output instead.
+- Evaluation-specific test points and headers.
+
+*Added components/blocks:*
+- High-Voltage DC input connectors, protection, and filtering suitable for a 64V-400V DC bus.
+- Secondary step-down regulators (LDOs or buck converters) to derive 5V, 3.3V, and 1.2V from the main 12V isolated flyback output to meet the system boundary logic rail requirements.
+
+## 3. Components Inventory
+- **Controller:** UCC28750 (U1). Variant to be confirmed depending on required protection features and switching frequency (65kHz or 100kHz).
+- **Transformer:** Custom isolated flyback transformer (T1) with primary, secondary, and auxiliary windings. Must meet >1000V DC reinforced isolation.
+- **Optocoupler:** U2 (FODM217CR2V) or equivalent for isolated voltage feedback.
+- **Primary Side MOSFET:** Q1. Must be rated for >650V (e.g., IPA65R400CE or higher) to safely handle the 400V DC maximum input plus the reflected secondary voltage and leakage spikes.
+- **Current Sense Resistor:** R15 (0.390 Ohm) in the source leg of Q1.
+- **Snubber Circuit:** D1, R6 (100k), C5 (330pF) across the primary winding to clamp turn-off spikes.
+- **Auxiliary Winding Components:** D2, R7 (4.99 Ohm), C6 (1.0uF), C7 (47uF) for controller VDD generation.
+- **Output Rectifier:** D3 (SBR20U150CT or similar) and output capacitors (e.g., C9-C12 scaled for 12V ripple requirements).
+- **Feedback Network:** U3 (TL431LI or equivalent) adjustable shunt regulator, R21, R24 (voltage divider sized for 12V output), R23, C15 (compensation network).
+- **Secondary Regulators:** Buck converters or LDOs to derive 5V, 3.3V, and 1.2V rails from the 12V output.
+- **Input Connectors:** HV DC terminals for 64V-400V input.
+- **Output Connectors:** Terminals/headers for 12V, 5V, 3.3V, 1.2V rails and LV GND.
+
+## Library Mapping
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| UCC28750 | UCC287506DBVR | imported |
+| Custom isolated flyback transformer | | missing |
+| FODM217CR2V | FODM217AR2 | imported |
+| IPA65R400CE | IPA65R400CE | imported |
+| SBR20U150CT | SBR20U150CT | imported |
+| TL431LI | ATL431LIBQDBZR | imported |
+| 5V Buck/LDO | L78L05ACD13TR | imported |
+| 3.3V Buck/LDO | LM1117S_3_3 | imported |
+| 1.2V Buck/LDO | TLV70012DDCR | imported |
+| HV DC terminals | KF128_5_08_2P_AA | imported |
+| Output terminals (12V, 5V, 3.3V, 1.2V) | KF128_5_08_3P_AA | imported |
+| MMSZ4707T1G | MMSZ4707T1G | imported |
+
+## 4. Connectivity & Signal Flow
+- **Primary Input:** The module receives 64V to 400V DC at the input terminals (VIN+, VIN-). 
+- **Power Conversion:** The DC input voltage is applied to the primary winding of transformer T1. The UCC28750 (U1) controls the primary MOSFET (Q1) via the DRV pin (through R13 and R14).
+- **Current Sensing:** Primary current is sensed by R15 and fed to the CS pin of U1 through an RC filter (R11, C8).
+- **Auxiliary Power (VDD):** The auxiliary winding of T1 provides operating power to the VDD pin of U1 once switching commences, rectified by D2 and filtered by C6/C7.
+- **Output Rectification:** The isolated secondary winding output is rectified by D3 and filtered by output capacitors to generate the main 12V DC logic rail.
+- **Voltage Feedback:** The 12V output is divided by R21 and R24, feeding the reference pin of the TL431 (U3). The TL431 sinks current through the LED of the optocoupler (U2). The U2 phototransistor pulls down the FB pin of U1 to close the regulation loop.
+- **Derived Rails:** The 12V rail is routed to downstream secondary regulators to generate the 5V, 3.3V, and 1.2V rails required by the MCU and sensing modules.
+- **Protection:** The FLT pin on U1 provides brownout protection or OVP depending on the configured resistor divider (R8, R9, R10) from the bulk input.
+
+## 5. Uncertainties, Assumptions & Confidence
+- **Assumption:** The user confirmed the boundary document is outdated regarding the 12V input; the true input is a high-voltage DC bus ranging from 64V to 400V. This perfectly aligns with the capabilities of the UCC28750 offline controller and resolves previous startup uncertainties.
+- **Uncertainty:** Startup resistor sizing. Since the input bus can be as low as 64V and as high as 400V, the startup trickle-charge resistors for the UCC28750 VDD capacitor must be carefully sized to guarantee reliable startup at 64V without excessive power dissipation at 400V.
+- **Uncertainty:** The specific topologies for the secondary regulators (5V, 3.3V, 1.2V) are not defined. Assuming standard integrated buck converters or LDOs will be used depending on thermal constraints and current draws.
