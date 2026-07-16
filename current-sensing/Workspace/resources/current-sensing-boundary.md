@@ -1,12 +1,12 @@
 # Module Boundary: current-sensing
 
 > **System:** BMS High Level Design (MVP Architecture)  
-> **Document Version:** 1.0  
+> **Document Version:** 1.1  
 > **Source Documents Ingested:** 
 > - BMS-design.md
 > - amc1301-datasheet.md
 > - amc130x-eval-board.md
-> **Last Updated:** 2024-05-22  
+> **Last Updated:** 2026-07-16  
 
 ---
 
@@ -15,7 +15,7 @@
 | Field | Value |
 |:---|:---|
 | **Module Name** | current-sensing |
-| **Role** | Measures pack current via a low-side shunt resistor and provides an isolated differential analog signal for SOC/SOH estimation and over-current protection. |
+| **Role** | Measures pack current via a low-side shunt resistor and provides an isolated single-ended analog signal for SOC/SOH estimation and over-current protection. |
 | **Domain / Zone** | Spans High-Voltage (HV) and Low-Voltage (LV) domains. |
 | **Instantiation** | Singleton (Pack-level sensing) |
 | **Primary Component(s)** | AMC1301 (Isolated Amplifier), Sub-milliohm Manganin Shunt resistor (0.1m$\Omega$ to 0.5m$\Omega$) |
@@ -36,7 +36,7 @@
 ### 2.2 Domain: Low-Voltage / Cold Side
 | Port ID | Direction | Signal Type | Voltage Level | Mapped Resource | Function & Logic |
 |:---|:---|:---|:---|:---|:---|
-| **P2.1** | Output | Diff Analog | 0V - 5V | Isolated Current (OUTP/OUTN) | Output proportional to shunt current (Fixed Gain 8.2x). |
+| **P2.1** | Output | Analog | 0V - 3.3V | Isolated Current | Single-ended output proportional to shunt current (Buffered/Conditioned). |
 | **P2.2** | Input | Power | 3.3V / 5V | VDD2 | Logic supply for the LV output stage. |
 | **P2.3** | Passive | Ground | LV GND | GND2 | System-level digital ground reference. |
 
@@ -89,7 +89,7 @@
 ### 4.2 Signals & Data Outputs
 | Signal / Bus | Direction | Protocol / Format | Update Rate | Consumer(s) |
 |:---|:---|:---|:---|:---|
-| Isolated Current | Output | Diff Analog | Real-time (210kHz BW) | Microcontroller Module (ADC) |
+| Isolated Current | Output | Single-ended Analog | Real-time (210kHz BW) | Microcontroller Module (ADC) |
 
 ### 4.3 Capability Outputs
 | Capability | Trigger Condition | Effect on System | Consumer(s) |
@@ -110,7 +110,7 @@
 |:---|:---|:---|:---|
 | BMS Monitor Module | VDD1 Power (optional) | Input | 5V Regulated (VREG5) |
 | High-Voltage Power Supply | VDD1 Power (optional) | Input | UCC28881 Buck Output |
-| Microcontroller Module | Isolated Current Signal | Output | Differential Analog |
+| Microcontroller Module | Isolated Current Signal | Output | Single-ended Analog |
 | Microcontroller Module | VDD2 Power | Input | 3.3V/5V Rail |
 | Microcontroller Module | Sync Command | Input | ADC Trigger |
 
@@ -120,11 +120,11 @@
 
 ### 5.1 Initialisation Contract
 - **Preconditions:** VDD1 and VDD2 must be within specified range (3.3V to 5.5V). Shunt current must be zero for calibration.
-- **Guarantees:** Differential output centered at VDD2/2 after startup.
+- **Guarantees:** Single-ended output centered at VDD2/2 (approx 1.65V) after startup.
 
 ### 5.2 Steady-State Contract
 - **Guarantees:** Continuous measurement with <0.5% accuracy (post-calibration).
-- **Latency:** Differential signal updated in real-time with 210 kHz bandwidth.
+- **Latency:** Single-ended signal updated in real-time with 210 kHz bandwidth.
 
 ### 5.3 Fault Contract
 - **Supply Fault:** AMC1301 provides system-level diagnostic features for missing high-side supply voltage detection.
@@ -144,6 +144,5 @@
 
 | Item | Type (Dependency / Constraint / Decision) | Status |
 |:---|:---|:---|
-| Selection of VDD1 source | Design Decision | Depends on whether BMS IC or dedicated HV Buck is preferred for power |
-| Signal Scaling Buffer | Hardware Constraint | Op-Amp buffer may be needed for full MCU ADC range |
+| Selection of VDD1 source | Design Decision | Ambiguous: BMM (VREG5) or HV Buck (UCC28881). Preferred source selection pending. |
 | RC Filter tuning | Constraint | RC low-pass filter to be tuned for inverter noise suppression |
