@@ -7,6 +7,7 @@ const pinLabels = {
   pin4: ["VDD"],
   pin5: ["HVIN"],
   pin6: ["NC"],
+  pin7: ["NC"],
   pin8: ["DRAIN"]
 } as const
 
@@ -27,6 +28,7 @@ export const UCC28881DR = (props: ChipProps<typeof pinLabels>) => {
 <smtpad portHints={["pin4"]} pcbX="1.905mm" pcbY="-2.77241mm" width="0.58801mm" height="2.0450048mm" radius="0.294005mm" shape="pill" />
 <smtpad portHints={["pin8"]} pcbX="-1.905mm" pcbY="2.77241mm" width="0.58801mm" height="2.0450048mm" radius="0.294005mm" shape="pill" />
 <smtpad portHints={["pin6"]} pcbX="0.635mm" pcbY="2.77241mm" width="0.58801mm" height="2.0450048mm" radius="0.294005mm" shape="pill" />
+<smtpad portHints={["pin7"]} pcbX="0.635mm" pcbY="2.77241mm" width="0.58801mm" height="2.0450048mm" radius="0.294005mm" shape="pill" />
 <smtpad portHints={["pin5"]} pcbX="1.905mm" pcbY="2.77241mm" width="0.58801mm" height="2.0450048mm" radius="0.294005mm" shape="pill" />
 <silkscreenpath route={[{"x":-2.449982400000067,"y":-0.47571659999994154},{"x":-2.449982400000067,"y":-1.5999967999999853}]} />
 <silkscreenpath route={[{"x":-2.449982400000067,"y":0.4649977999999919},{"x":-2.449982400000067,"y":1.5899891999999909}]} />
