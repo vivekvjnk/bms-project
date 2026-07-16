@@ -5,17 +5,30 @@ import { UCC287506DBVR } from "./imports/UCC287506DBVR"
 import { FODM217AR2 } from "./imports/FODM217AR2"
 import { ATL431LIBQDBZR } from "./imports/ATL431LIBQDBZR"
 import { IPA65R400CE } from "./imports/IPA65R400CE"
-import { KF128_5_08_2P_AA } from "./imports/KF128_5_08_2P_AA"
 import { L78L05ACD13TR } from "./imports/L78L05ACD13TR"
 import { LM1117S_3_3 } from "./imports/LM1117S_3_3"
 import { TLV70012DDCR } from "./imports/TLV70012DDCR"
 
-export const LowVoltagePowerSupply = () => {
+interface ModuleProps {
+  name?: string;
+  schX?: number;
+  schY?: number;
+  showAsSchematicBox?: boolean;
+}
+
+export const LowVoltagePowerSupply = ({ name, schX, schY, showAsSchematicBox }:ModuleProps) => {
   return (
-    <board width="120mm" height="120mm" routingDisabled={true}>
-      {/* Primary Input Connector */}
-      <KF128_5_08_2P_AA name="J_VIN" schX={0} schY={5} />
-      
+    <group name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
+      {/* Ports replacing physical input/output connectors */}
+      <port name="VIN_P" direction="left" connectsTo={["C_in.pin1"]} />
+      <port name="PRI_GND" direction="left" connectsTo={["C_in.pin2"]} />
+
+      <port name="VOUT_12V" direction="right" connectsTo={["C13.pin1"]} />
+      <port name="VOUT_5V" direction="right" connectsTo={["C_5v_2.pin1"]} />
+      <port name="VOUT_3V3" direction="right" connectsTo={["C18.pin1"]} />
+      <port name="VOUT_1V2" direction="right" connectsTo={["C19.pin1"]} />
+      <port name="SEC_GND" direction="right" connectsTo={["C19.pin2"]} />
+
       {/* Input Filtering */}
       <capacitor name="C_in" capacitance="10uF" voltageRating="450V" footprint="1206" schX={2} schY={5} />
 
@@ -105,16 +118,9 @@ export const LowVoltagePowerSupply = () => {
       <capacitor name="C18" capacitance="1uF" footprint="0603" schX={26} schY={20} />
       <capacitor name="C19" capacitance="1uF" footprint="0603" schX={30} schY={20} />
 
-      {/* Output Connectors */}
-      <KF128_5_08_2P_AA name="J_OUT_12V" schX={35} schY={10} />
-      <KF128_5_08_2P_AA name="J_OUT_5V" schX={35} schY={12} />
-      <KF128_5_08_2P_AA name="J_OUT_3V3" schX={35} schY={14} />
-      <KF128_5_08_2P_AA name="J_OUT_1V2" schX={35} schY={16} />
-
       {/* ================= NETS & CONNECTIONS ================= */}
 
       {/* Net: PRI_GND */}
-      <trace name="tr_pgnd_jvin_cin" from=".J_VIN .pin2" to=".C_in .pin2" />
       <trace name="tr_pgnd_cin_r15" from=".C_in .pin2" to=".R15 .pin2" />
       <trace name="tr_pgnd_r15_r13" from=".R15 .pin2" to=".R13 .pin2" />
       <trace name="tr_pgnd_r13_c8" from=".R13 .pin2" to=".C8 .pin2" />
@@ -145,10 +151,6 @@ export const LowVoltagePowerSupply = () => {
       <trace name="tr_sgnd_c17_u6" from=".C17 .pin2" to=".U6 .GND" />
       <trace name="tr_sgnd_u6_c18" from=".U6 .GND" to=".C18 .pin2" />
       <trace name="tr_sgnd_c18_c19" from=".C18 .pin2" to=".C19 .pin2" />
-      <trace name="tr_sgnd_c19_j12" from=".C19 .pin2" to=".J_OUT_12V .pin2" />
-      <trace name="tr_sgnd_j12_j5" from=".J_OUT_12V .pin2" to=".J_OUT_5V .pin2" />
-      <trace name="tr_sgnd_j5_j33" from=".J_OUT_5V .pin2" to=".J_OUT_3V3 .pin2" />
-      <trace name="tr_sgnd_j33_j12" from=".J_OUT_3V3 .pin2" to=".J_OUT_1V2 .pin2" />
 
       {/* Net: VOUT_12V */}
       <trace name="tr_v12_d3_c9" from=".D3 .pin2" to=".C9 .pin1" />
@@ -160,7 +162,6 @@ export const LowVoltagePowerSupply = () => {
       <trace name="tr_v12_c14_rfilter" from=".C14 .pin1" to=".R_filter_51 .pin1" />
       <trace name="tr_v12_rfilter_r21" from=".R_filter_51 .pin2" to=".R21 .pin1" />
       <trace name="tr_v12_r21_rled" from=".R21 .pin1" to=".R_led .pin1" />
-      <trace name="tr_v12_c13_j12" from=".C13 .pin1" to=".J_OUT_12V .pin1" />
       <trace name="tr_v12_u4_vin" from=".U4 .VIN" to=".C13 .pin1" />
       <trace name="tr_v12_c5v1_u5" from=".C_5v_1 .pin1" to=".U5 .IN" />
       <trace name="tr_v12_u5_c16" from=".U5 .IN" to=".C16 .pin1" />
@@ -168,7 +169,6 @@ export const LowVoltagePowerSupply = () => {
 
       {/* Net: VOUT_5V */}
       <trace name="tr_v5_u4_c5v2" from=".U4 .VOUT" to=".C_5v_2 .pin1" />
-      <trace name="tr_v5_c5v2_j5" from=".C_5v_2 .pin1" to=".J_OUT_5V .pin1" />
 
       {/* Net: VOUT_3V3 */}
       <trace name="tr_v33_u5_u5t" from=".U5 .OUT" to=".U5 .TAB" />
@@ -176,20 +176,16 @@ export const LowVoltagePowerSupply = () => {
       <trace name="tr_v33_c17_u6" from=".C17 .pin1" to=".U6 .IN" />
       <trace name="tr_v33_u6_en" from=".U6 .IN" to=".U6 .EN" />
       <trace name="tr_v33_u6_c18" from=".U6 .EN" to=".C18 .pin1" />
-      <trace name="tr_v33_c18_j33" from=".C18 .pin1" to=".J_OUT_3V3 .pin1" />
 
       {/* Net: VOUT_1V2 */}
       <trace name="tr_v12_u6_c19" from=".U6 .OUT" to=".C19 .pin1" />
-      <trace name="tr_v12_c19_j12" from=".C19 .pin1" to=".J_OUT_1V2 .pin1" />
 
       {/* VIN_pos */}
-      <trace name="tr_vinp_jvin_cin" from=".J_VIN .pin1" to=".C_in .pin1" />
       <trace name="tr_vinp_cin_t1" from=".C_in .pin1" to=".T1 .PRI_1" />
       <trace name="tr_vinp_t1_r6" from=".T1 .PRI_1" to=".R6 .pin2" />
       <trace name="tr_vinp_r6_c5" from=".R6 .pin2" to=".C5 .pin2" />
       <trace name="tr_vinp_c5_r8" from=".C5 .pin2" to=".R8 .pin1" />
       <trace name="tr_vinp_r8_rst1" from=".R8 .pin1" to=".R_startup1 .pin1" />
-
 
       {/* ================= EXPLICIT TRACES ================= */}
 
@@ -266,6 +262,6 @@ export const LowVoltagePowerSupply = () => {
       <trace name="tr_fb_r23_c15" from=".R23 .pin2" to=".C15 .pin1" />
       <trace name="tr_fb_c15_u3" from=".C15 .pin2" to=".U3 .REF" />
 
-    </board>
+    </group>
   )
 }
