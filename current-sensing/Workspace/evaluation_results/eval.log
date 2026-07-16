@@ -1,0 +1,49 @@
+Building 1 file(s)...
+Building current-sensing/Workspace/current-sensing.tsx...
+Generating circuit JSON...
+Dispatch phase complete. Created 2 sub-solvers.
+All sub-solvers finished.
+Circuit JSON written to dist/current-sensing/Workspace/current-sensing/circuit.json
+[33mAll pins on P1 are underspecified (no pinAttributes set)[39m
+[33mAll pins on P2 are underspecified (no pinAttributes set)[39m
+[33mAll pins on U2 are underspecified (no pinAttributes set)[39m
+[33mP1 has no pin with requires_power=true[39m
+[33mP2 has no pin with requires_power=true[39m
+[33mU2 has no pin with requires_power=true[39m
+[33mP1 has no pin with requires_ground=true[39m
+[33mP2 has no pin with requires_ground=true[39m
+[33mU2 has no pin with requires_ground=true[39m
+[0m[31m[31mPCB trace trace[.U2 > port.pin2, .R1 > port.cathode] is too close to pcb_smtpad "pcb_port[.U2 > .VDD2]" (gap: 0.029mm)[39m[0m
+[0m[31m[31mPCB trace trace[.P2 > port.3, .C9 > port.pos] is too close to pcb_smtpad "pcb_port[.U2 > .VINN]" (gap: 0.081mm)[39m[0m
+[0m[31m[31mPCB trace trace[.U2 > port.pin8, .P2 > port.3] overlaps with pcb_smtpad "pcb_port[.R1 > .pin2]" (accidental contact)[39m[0m
+[0m[31m[31mPCB trace trace[.U2 > port.pin8, .P2 > port.3] is too close to pcb_smtpad "pcb_port[.U2 > .VINN]" (gap: 0.081mm)[39m[0m
+[0m[31m[31mTrace [trace[.U2 > port.pin3]] is missing a connection to smtpad[.R2 > .pin2][39m[0m
+[0m[31m[31mpcb_smtpad P2.pin5 overlaps with pcb_smtpad U2.VDD1[39m[0m
+[0m[31m[31mpcb_smtpad P2.pin6 overlaps with pcb_smtpad U2.GND1[39m[0m
+[0m[31m[31mpcb_smtpad P2.pin1 overlaps with pcb_smtpad U2.VDD1[39m[0m
+[0m[31m[31mpcb_smtpad P2.pin2 overlaps with pcb_smtpad U2.VINP[39m[0m
+[0m[31m[31mpcb_smtpad P2.pin3 overlaps with pcb_smtpad U2.VINN[39m[0m
+[0m[31m[31mpcb_smtpad P2.pin4 overlaps with pcb_smtpad U2.GND1[39m[0m
+[0m[31m[31mpcb_smtpad U2.VDD2 overlaps with pcb_smtpad R1.pin2[39m[0m
+[0m[31m[31mPads pcb_port[.P2 > .pin5] and pcb_port[.U2 > .VDD1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.P2 > .pin6] and pcb_port[.U2 > .GND1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.P2 > .pin1] and pcb_port[.U2 > .VDD1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.P2 > .pin2] and pcb_port[.U2 > .VINP] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.P2 > .pin3] and pcb_port[.U2 > .VINN] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.P2 > .pin4] and pcb_port[.U2 > .GND1] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U2 > .VOUTP] and pcb_port[.R1 > .pin2] are too close (clearance: 0.091mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPads pcb_port[.U2 > .VDD2] and pcb_port[.R1 > .pin2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPad pcb_port[.U2 > .VDD2] and trace trace[.U2 > port.pin2, .R1 > port.cathode] are too close (clearance: 0.029mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPad pcb_port[.U2 > .VINN] and trace trace[.P2 > port.3, .C9 > port.pos] are too close (clearance: 0.081mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPad pcb_port[.R1 > .pin2] and trace trace[.U2 > port.pin8, .P2 > port.3] are too close (clearance: -0.075mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mPad pcb_port[.U2 > .VINN] and trace trace[.U2 > port.pin8, .P2 > port.3] are too close (clearance: 0.081mm, minimum: 0.1mm)[39m[0m
+[0m[31m[31mCourtyard of P1 overlaps with courtyard of U2[39m[0m
+[0m[31m[31mCourtyard of P2 overlaps with courtyard of U2[39m[0m
+[0m[31m[31mCourtyard of U2 overlaps with courtyard of R1[39m[0m
+[0m[31m[31mCourtyard of U2 overlaps with courtyard of R2[39m[0m
+[1mBuild complete[22m
+Circuits  [32m1 passed[39m
+Output    [2m../../dist[22m
+[33m
+⚠ Build completed with errors[39m
+[2mBuild exiting with code 0: build finished successfully[22m
