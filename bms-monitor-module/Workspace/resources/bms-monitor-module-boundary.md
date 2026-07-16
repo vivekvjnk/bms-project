@@ -1,9 +1,9 @@
 # Module Boundary: bms-monitor-module
 
 > **System:** BMS High Level Design (MVP Architecture)  
-> **Document Version:** 1.0  
+> **Document Version:** 1.1  
 > **Source Documents Ingested:** [BMS-design.md, bq79616-datasheet.md, BQ79616-eval-board.md]  
-> **Last Updated:** 2025-05-22  
+> **Last Updated:** 2026-07-16  
 
 ---
 
@@ -26,17 +26,18 @@
 | Port ID | Direction | Signal Type | Voltage Level | Mapped Resource | Function & Logic |
 |:---|:---|:---|:---|:---|:---|
 | **P1.1** | Input | Power | 0V - 80V (Max) | BAT | Main power supply input from the top of the 16-cell stack. |
-| **P1.2** | Input | Analog | 0V - 5V per cell | VC0 - VC16 | Cell voltage sense inputs for 16 series cells. |
-| **P1.3** | Output | Power | 0V - 5V per cell | CB0 - CB16 | Cell balancing control outputs (internal MOSFETs). |
-| **P1.4** | Passive | Ground | HV- Ref | AVSS / CVSS | Local module ground reference (negative of the lowest cell). |
-| **P1.5** | I/O | Analog | 0V - 5V | GPIO1 - GPIO8 | Configurable for external thermistor (NTC) temperature sensing. |
-| **P1.6** | Output | Power | 5V | TSREF | Bias voltage for external NTC thermistor networks. |
+| **P1.2** | Input/Output | Analog/Power | 0V - 5V per cell | CELL_TAP_0 - CELL_TAP_16 | Unified cell interface for both voltage sensing and passive balancing. |
+| **P1.3** | Passive | Ground | HV- Ref | AVSS / CVSS | Local module ground reference (negative of the lowest cell). |
+| **P1.4** | Input | Analog | 0V - 5V | NTC_CH1 - NTC_CH8 | External thermistor (NTC) temperature sensing inputs. |
+| **P1.5** | Output | Power | 5V | VREF_NTC | Precision bias voltage for external NTC thermistor networks. |
+| **P1.6** | Passive | Ground | HV- Ref | GND_NTC | Ground reference for thermistor network. |
+| **P1.7** | Passive | Ground | HV- Ref | PAD / GND_ANCILLARY | Thermal pad and ancillary ground connections. |
 
 ### 2.2 Domain: High-Voltage (Communication Daisy Chain)
 | Port ID | Direction | Signal Type | Voltage Level | Mapped Resource | Function & Logic |
 |:---|:---|:---|:---|:---|:---|
-| **P2.1** | I/O | Diff Signal | Isolated | COMHP, COMHN | High-side isolated differential daisy chain interface. |
-| **P2.2** | I/O | Diff Signal | Isolated | COMLP, COMLN | Low-side isolated differential daisy chain interface. |
+| **P2.1** | I/O | Diff Signal | Isolated | COM_HP, COM_HN | High-side isolated differential daisy chain interface. |
+| **P2.2** | I/O | Diff Signal | Isolated | COM_LP, COM_LN | Low-side isolated differential daisy chain interface. |
 
 ### 2.3 Domain: Module Internal/Supporting
 | Port ID | Direction | Signal Type | Voltage Level | Mapped Resource | Function & Logic |
@@ -94,7 +95,7 @@
 | Rail | Voltage | Max Current | Load Regulation | Consumer(s) |
 |:---|:---|:---|:---|:---|
 | CVDD | 5V | Not specified | LDO | Current Sensing (AMC1301 hot side) |
-| TSREF | 5V | Not specified | Precision Ref | External Thermistors |
+| VREF_NTC | 5V | Not specified | Precision Ref | External Thermistors |
 
 ### 4.2 Signals & Data Outputs
 | Signal / Bus | Direction | Protocol / Format | Update Rate | Consumer(s) |
@@ -120,9 +121,9 @@
 
 | Connected Module | Resource Exchanged | Direction | Interface Type |
 |:---|:---|:---|:---|
-| Battery Cells | Voltage/Balancing | Bi-directional | Multi-pin Sense Lead |
-| Communication Bridge | Daisy Chain Data | Bi-directional | Isolated Differential |
-| BMS Monitor Module (Stack) | Daisy Chain Data | Bi-directional | Isolated Differential |
+| Battery Cells | Voltage/Balancing (CELL_TAP_x) | Bi-directional | Multi-pin Sense Lead |
+| Communication Bridge | Daisy Chain Data (COM_HP/N, COM_LP/N) | Bi-directional | Isolated Differential |
+| BMS Monitor Module (Stack) | Daisy Chain Data (COM_HP/N, COM_LP/N) | Bi-directional | Isolated Differential |
 | Current Sensing | Power (CVDD) | Output | DC Power Rail |
 
 ---
