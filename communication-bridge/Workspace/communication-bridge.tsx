@@ -11,15 +11,15 @@ interface ModuleProps {
 export const CommunicationBridge = ({ showAsSchematicBox, name, schX, schY }:ModuleProps) => {
   return (
     <group name={name} schX={schX} schY={schY} showAsSchematicBox={showAsSchematicBox}>
-      {/* External Interface Ports (P1 Replacement) */}
+      {/* External Interface Ports */}
       <port name="COMH_P" direction="right" connectsTo={["R4.pin1", "C3.pin1", "D1.pin1"]} />
       <port name="COMH_N" direction="right" connectsTo={["R5.pin1", "C4.pin1", "D1.pin2"]} />
       <port name="COML_P" direction="right" connectsTo={["R6.pin1", "C5.pin1", "D3.pin1"]} />
       <port name="COML_N" direction="right" connectsTo={["R7.pin1", "C6.pin1", "D3.pin2"]} />
-      <port name="BAT_POWER" direction="right" connectsTo={["R15.pin1"]} />
-      <port name="INH_OUT" direction="right" connectsTo={["R20.pin1", "U1.pin16"]} />
+      <port name="BAT" direction="right" connectsTo={["R15.pin1"]} />
+      <port name="INH" direction="right" connectsTo={["R20.pin1", "U1.pin16"]} />
 
-      {/* Host Interface Ports (P2 Replacement) */}
+      {/* Host Interface Ports */}
       <port name="VIO" direction="left" connectsTo={["R12.pin2", "R13.pin1"]} />
       <port name="GND" direction="left" connectsTo={["R3.pin2", "C3.pin2", "D1.pin3", "C4.pin2", "R5.pin2", "C5.pin2", "D3.pin3", "C6.pin2", "R7.pin2", "R20.pin2"]} />
       <port name="SCLK" direction="left" connectsTo={["U1.pin6"]} />

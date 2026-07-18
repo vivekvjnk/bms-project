@@ -1,7 +1,7 @@
 # microcontroller-module.scud
 
 ## 1. Module Overview & System Context
-The `microcontroller-module` acts as the central intelligence of the Battery Management System (BMS). It resides in the Low-Voltage (LV) Domain and is responsible for safety logic, State of Charge (SOC) / State of Health (SOH) estimation, contactor control, and communication with the vehicle's external system. It interfaces with the Communication Bridge for cell data, the Current Sensing module for pack current, and the Low-Voltage Power Supply (LVPS) for its regulated power rails (3.3V).
+The `microcontroller-module` acts as the central intelligence of the Battery Management System (BMS). It resides in the Low-Voltage (LV) Domain and is responsible for safety logic and State of Charge (SOC) / State of Health (SOH) estimation. It interfaces with the Communication Bridge for cell data, the Current Sensing module for pack current, and the Low-Voltage Power Supply (LVPS) for its regulated power rails (3.3V).
 
 ## 2. Architectural Deviations (Baseline vs. Target)
 *   **Removed components/blocks:**
@@ -9,31 +9,23 @@ The `microcontroller-module` acts as the central intelligence of the Battery Man
     *   Evaluation User Buttons (removed as not required by system boundary).
     *   Excessive test headers (pruned to optimize form factor).
 *   **Added components/blocks:**
-    *   System interface header for 12V Aux, Contactor Control, and external communication.
-    *   Module interface header for internal signal exchange (Bridge data, Current Sensing analog, Sync signal).
-    *   Signal conditioning for AMC1301 differential analog current signal (if needed, pending buffer verification).
+    *   Signal conditioning for Current Sensing analog signal.
 
 ## 3. Components Inventory
 *   **ASIC:** STM32F411CEU6 (Arm Cortex-M4, UFQFPN48 package).
 *   **Power Filtering:** Standard decoupling (0.1uF, 4.7uF) for VDD; Ferrite Bead + 0.1uF for VDDA/VREF+ as per datasheet (removes noise).
 *   **Oscillator:** 8MHz Crystal (or 25MHz) for HSE, with 20pF load capacitors.
 *   **Passive Support:** BOOT0 pull-down (10k); NRST pull-up (10k) and capacitor (100nF) for stable reset.
-*   **Connectors:**
-    *   SWD header (5-pin: VCC, GND, SWDIO, SWCLK, NRST).
-    *   Module Interface Header (Power, UART/SPI, GPIO, ADC).
 
 ## 4. Connectivity & Signal Flow
-*   **Internal:** 3.3V from LVPS powers MCU and peripherals. MCU UART/SPI connects to Communication Bridge. MCU GPIO provides Sync signal (Output) to Bridge/Current Sense. ADC input receives Current Sense analog signal through a passive RC filter (to be implemented on-module, e.g., 1k/100nF).
+*   **Internal:** 3.3V from LVPS powers MCU and peripherals. MCU UART/SPI connects to Communication Bridge. MCU GPIO provides Sync signal (Output) to Bridge/Current Sense. ADC input receives Current Sensing single-ended analog signal through a passive RC filter (to be implemented on-module, e.g., 1k/100nF).
 *   **Interface Mapping (Optimal):**
     *   PA9/PA10: USART1 (Communication Bridge)
     *   PA5/PA6/PA7: SPI1 (Backup/Alternative Bridge)
     *   PA1: GPIO (Contactor Control)
     *   PA2: GPIO (Sync Signal)
-    *   PA0: ADC1 (Isolated Current Input)
-*   **External:** 12V Aux input (to LVPS). Contactor Control (GPIO). Debug (SWD). Host Communication (USB/UART).
-
+    *   PA0: ADC1 (Current Input)
 
 ## 5. Uncertainties, Assumptions & Confidence
-*   **Assumptions:** Assuming standard automotive-grade decoupling and passive components. Pin mapping will be optimized based on STM32F411 peripheral capabilities. Passive filtering is sufficient for the AMC1301 interface.
+*   **Assumptions:** Assuming standard automotive-grade decoupling and passive components. Pin mapping will be optimized based on STM32F411 peripheral capabilities. Passive filtering is sufficient for the Current Sensing interface.
 *   **Confidence:** High regarding all design aspects.
-

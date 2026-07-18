@@ -40,7 +40,7 @@ The module is positioned in the "Isolation Boundary" zone, providing galvanic is
 | D1, D3 | TVS Diode | PESD5V0L2BTN | - | Daisy Chain ESD Protection |
 | R1, R2, R12 | Resistor | 10k | 0402 | Pull-ups (nCS, MOSI, nUART_SPI) |
 | R3 | Resistor | 10k | 0402 | SCLK Pull-down |
-| R13 | Resistor | 10k | 0402 | NFAULT Pull-up |
+| R13 | Resistor | 100k | 0402 | NFAULT Pull-up |
 | R20 | Resistor | 100k | 0402 | INH Pull-down |
 | R15 | Resistor | 10 | 0402 | BAT Current Limiting |
 | R16-R19 | Resistor | 51 | 0402 | Daisy Chain Series Matching |
@@ -58,18 +58,18 @@ The module is positioned in the "Isolation Boundary" zone, providing galvanic is
 - **COML_P/N:** Low-side differential pair for ring architecture support, connected via isolation transformer T2.
 
 **Signal Mapping to Ports:**
-- **P1.1 (COMHP/N):** BQ79600 COMHP/N -> Isolation T1 -> Connector.
-- **P1.2 (COMLP/N):** BQ79600 COMLP/N -> Isolation T2 -> Connector.
-- **P2.1 (BAT):** System 12V -> Filtering -> Pin 1 (BAT).
-- **P2.2 (VIO):** System 3.3V/5V -> Pin 11 (VIO).
+- **P1.1 (COMHP/N):** BQ79600 COMHP/N -> Isolation T1 -> Daisy Chain Interface.
+- **P1.2 (COMLP/N):** BQ79600 COMLP/N -> Isolation T2 -> Daisy Chain Interface.
+- **P2.1 (BAT):** System 12V Input -> Filtering.
+- **P2.2 (VIO):** System 3.3V/5V Input.
 - **P2.4 - P2.7 (SPI):** MCU SPI Bus -> BQ79600 Host Pins (SCLK, nCS, MOSI, MISO).
-- **P2.8 (nUART/SPI):** Configuration signal/SPI_RDY -> MCU Pin.
-- **P2.9 (NFAULT):** BQ79600 NFAULT -> MCU Interrupt Pin.
+- **P2.8 (nUART/SPI):** Configuration signal/SPI_RDY -> MCU Interface.
+- **P2.9 (NFAULT):** BQ79600 NFAULT -> MCU Interrupt.
 
-- **P2.10 (INH):** BQ79600 INH -> P1.pin6 (to PMIC/LVPS Enable).
-- **P2.11 (DVDD):** Internal 1.8V Output -> C12 -> Test Point/Internal use.
+- **P2.10 (INH):** BQ79600 INH -> System Inhibit Signal (to PMIC/LVPS Enable).
+- **P2.11 (DVDD):** Internal 1.8V Output -> C12 -> Internal use.
 
 ## 5. Uncertainties, Assumptions & Confidence
-- **Uncertainty:** Final connector selection for the Daisy Chain (P1.1, P1.2) is not defined in the module boundary but inferred as high-voltage rated automotive connectors.
+- **Uncertainty:** Final interface hardware (connectors/cables) is defined at the system level.
 - **Assumption:** SPI interface is the primary host communication protocol (nCS pulled high, nUART/SPI used for mode selection/SPI_RDY).
 - **Confidence:** High for core functional blocks and ASIC implementation. Medium for EMC-specific component values (chokes, TVS) which are not explicitly detailed in the baseline schematic segments but are standard for automotive bridge designs.
