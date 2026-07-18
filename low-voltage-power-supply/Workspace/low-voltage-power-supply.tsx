@@ -53,12 +53,13 @@ export const LowVoltagePowerSupply = ({ name, schX, schY, showAsSchematicBox }:M
 
       {/* Primary Current Sense */}
       <resistor name="R15" resistance="0.390" footprint="1206" schX={13} schY={3} />
-      <resistor name="R11" resistance="1k" footprint="0603" schX={10} schY={14} />
+      <resistor name="R11" resistance="1k" footprint="0603" schX={10} schY={13} />
       <capacitor name="C8" capacitance="22pF" footprint="0603" schX={10} schY={16} />
 
       {/* Gate Drive */}
       <resistor name="R14" resistance="22" footprint="0603" schX={12} schY={14} />
       <resistor name="R13" resistance="10k" footprint="0603" schX={8} schY={9} />
+      <trace name="tr_pri_sw_r13_gnd" from=".R13 .pin2" to=".U1 .GND" />
 
       {/* Auxiliary Power */}
       <diode name="D2" footprint="SOD123" schX={3} schY={21} />
