@@ -50,86 +50,20 @@ MultiOffsetIrlsSolver ran out of iterations
 MultiOffsetIrlsSolver ran out of iterations
 MultiOffsetIrlsSolver ran out of iterations
 MultiOffsetIrlsSolver ran out of iterations
+(source_port_id: source_port_22) for trace source_trace_5 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_22) for trace source_trace_6 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_19) for trace source_trace_10 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_15) for trace source_trace_49 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_15) for trace source_trace_50 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_16) for trace source_trace_54 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_16) for trace source_trace_59 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_21) for trace source_trace_75 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_18) for trace source_trace_85 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_18) for trace source_trace_88 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_18) for trace source_trace_89 does not have x/y coordinates. Skipping this trace.
 Circuit JSON written to dist/low-voltage-power-supply/Workspace/low-voltage-power-supply/circuit.json
 Component ZD1 has ftype="simple_diode" but reference designator should start with D
-All pins on J_VIN are underspecified (no pinAttributes set)
-All pins on T1 are underspecified (no pinAttributes set)
-All pins on U1 are underspecified (no pinAttributes set)
-All pins on Q1 are underspecified (no pinAttributes set)
-All pins on U2 are underspecified (no pinAttributes set)
-All pins on D3 are underspecified (no pinAttributes set)
-All pins on U3 are underspecified (no pinAttributes set)
-All pins on U4 are underspecified (no pinAttributes set)
-All pins on U5 are underspecified (no pinAttributes set)
-All pins on U6 are underspecified (no pinAttributes set)
-All pins on J_OUT_12V are underspecified (no pinAttributes set)
-All pins on J_OUT_5V are underspecified (no pinAttributes set)
-All pins on J_OUT_3V3 are underspecified (no pinAttributes set)
-All pins on J_OUT_1V2 are underspecified (no pinAttributes set)
-J_VIN has no pin with requires_power=true
-T1 has no pin with requires_power=true
-U1 has no pin with requires_power=true
-Q1 has no pin with requires_power=true
-U2 has no pin with requires_power=true
-D3 has no pin with requires_power=true
-U3 has no pin with requires_power=true
-U4 has no pin with requires_power=true
-U5 has no pin with requires_power=true
-U6 has no pin with requires_power=true
-J_OUT_12V has no pin with requires_power=true
-J_OUT_5V has no pin with requires_power=true
-J_OUT_3V3 has no pin with requires_power=true
-J_OUT_1V2 has no pin with requires_power=true
-J_VIN has no pin with requires_ground=true
-T1 has no pin with requires_ground=true
-U1 has no pin with requires_ground=true
-Q1 has no pin with requires_ground=true
-U2 has no pin with requires_ground=true
-D3 has no pin with requires_ground=true
-U3 has no pin with requires_ground=true
-U4 has no pin with requires_ground=true
-U5 has no pin with requires_ground=true
-U6 has no pin with requires_ground=true
-J_OUT_12V has no pin with requires_ground=true
-J_OUT_5V has no pin with requires_ground=true
-J_OUT_3V3 has no pin with requires_ground=true
-J_OUT_1V2 has no pin with requires_ground=true
 Invalid footprint prop on chip "T1": "SUOT-EE16V-12". Parser details: Invalid footprint function, got "suot", from string "SUOT-EE16V-12"
-pcb_smtpad C8.pin1 overlaps with pcb_smtpad U2.pin3
-pcb_smtpad C8.pin1 overlaps with pcb_smtpad U4.GND4
-pcb_smtpad ZD1.pin2 overlaps with pcb_smtpad U4.VIN
-pcb_smtpad U2.pin1 overlaps with pcb_smtpad U4.GND1
-pcb_smtpad U2.pin2 overlaps with pcb_smtpad U4.GND2
-pcb_smtpad U2.pin4 overlaps with pcb_smtpad U4.GND3
-pcb_smtpad U2.pin3 overlaps with pcb_smtpad U4.GND4
-pcb_smtpad U2.pin1 overlaps with pcb_smtpad U6.OUT
-pcb_smtpad U2.pin2 overlaps with pcb_smtpad U6.pin4
-pcb_smtpad U4.GND1 overlaps with pcb_smtpad U6.OUT
-pcb_smtpad U4.GND2 overlaps with pcb_smtpad U6.pin4
-Pads pcb_port[.U1 > .DRV] and pcb_port[.U4 > .GND3] are too close (clearance: 0.049mm, minimum: 0.1mm)
-Pads pcb_port[.U1 > .CS] and pcb_port[.U4 > .GND4] are too close (clearance: 0.049mm, minimum: 0.1mm)
-Pads pcb_port[.U1 > .FLT] and pcb_port[.U4 > .GND2] are too close (clearance: 0.049mm, minimum: 0.1mm)
-Pads pcb_port[.U1 > .GND] and pcb_port[.U4 > .GND1] are too close (clearance: 0.049mm, minimum: 0.1mm)
-Pads pcb_port[.C8 > .pin1] and pcb_port[.U2 > .pin3] are too close (clearance: -0.28mm, minimum: 0.1mm)
-Pads pcb_port[.C8 > .pin1] and pcb_port[.U4 > .GND4] are too close (clearance: -0.284mm, minimum: 0.1mm)
-Pads pcb_port[.ZD1 > .pin2] and pcb_port[.U4 > .VIN] are too close (clearance: -0.198mm, minimum: 0.1mm)
-Pads pcb_port[.U2 > .pin1] and pcb_port[.U6 > .OUT] are too close (clearance: -0.073mm, minimum: 0.1mm)
-Pads pcb_port[.U2 > .pin1] and pcb_port[.U4 > .GND1] are too close (clearance: -0.564mm, minimum: 0.1mm)
-Pads pcb_port[.U2 > .pin2] and pcb_port[.U4 > .GND2] are too close (clearance: -0.564mm, minimum: 0.1mm)
-Pads pcb_port[.U2 > .pin2] and pcb_port[.U6 > .pin4] are too close (clearance: -0.28mm, minimum: 0.1mm)
-Pads pcb_port[.U2 > .pin4] and pcb_port[.U4 > .GND3] are too close (clearance: -0.564mm, minimum: 0.1mm)
-Pads pcb_port[.U2 > .pin3] and pcb_port[.U4 > .GND4] are too close (clearance: -0.564mm, minimum: 0.1mm)
-Pads pcb_port[.U4 > .GND1] and pcb_port[.U6 > .OUT] are too close (clearance: -0.077mm, minimum: 0.1mm)
-Pads pcb_port[.U4 > .GND2] and pcb_port[.U6 > .pin4] are too close (clearance: -0.284mm, minimum: 0.1mm)
-Courtyard of U1 overlaps with courtyard of U2
-Courtyard of U1 overlaps with courtyard of U4
-Courtyard of C8 overlaps with courtyard of U2
-Courtyard of C8 overlaps with courtyard of U4
-Courtyard of ZD1 overlaps with courtyard of U2
-Courtyard of ZD1 overlaps with courtyard of U4
-Courtyard of U2 overlaps with courtyard of U4
-Courtyard of U2 overlaps with courtyard of U6
-Courtyard of U4 overlaps with courtyard of U6
 Build complete
 Circuits  1 passed
 Output    ../../dist

@@ -48,7 +48,11 @@ export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:M
       <resistor name="R2" resistance="10kohm" footprint="0402" schX={-4} schY={-5} /> {/* NRST pull-up */}
       <capacitor name="C10" capacitance="0.1uF" footprint="0402" schX={-5} schY={-2} /> {/* NRST cap */}
 
-      {/* 6. Internal Power Connections (3V3 Net) */}
+      {/* 6. ADC Input Filter */}
+      <resistor name="R3" resistance="1kohm" footprint="0402" schX={8} schY={0} />
+      <capacitor name="C11" capacitance="100nF" footprint="0402" schX={8} schY={1} />
+
+      {/* 7. Internal Power Connections (3V3 Net) */}
       <trace name="t3v3_2" path={["C6.pin1", "C5.pin1"]} />
       <trace name="t3v3_3" path={["C5.pin1", "C4.pin1"]} />
       <trace name="t3v3_4" path={["C4.pin1", "C3.pin1"]} />
@@ -86,6 +90,12 @@ export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:M
       
       <trace name="tnrst_1" path={["U1.pin7", "R2.pin2"]} />
       <trace name="tnrst_2" path={["R2.pin2", "C10.pin1"]} />
+      
+      {/* 9. ADC Input Filter Connections */}
+      <trace name="tadc_filter" path={["ADC_IN", "R3.pin1"]} />
+      <trace name="tadc_to_mcu" path={["R3.pin2", "U1.pin10"]} />
+      <trace name="tadc_cap" path={["R3.pin2", "C11.pin1"]} />
+      <trace name="tadc_gnd" path={["C11.pin2", "U1.pin23"]} />
     </group>
   )
 }
