@@ -1,1 +1,1 @@
-../boundary_alignment_document.md
+../../boundary_alignment_document.md
