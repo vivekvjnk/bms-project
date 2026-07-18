@@ -13,8 +13,8 @@ The low-voltage-power-supply (LVPS) is a singleton module in the Low-Voltage (LV
 - Evaluation-specific test points and headers.
 
 *Added components/blocks:*
-- High-Voltage DC input connectors, protection, and filtering suitable for a 64V-400V DC bus.
-- Secondary step-down regulators (LDOs or buck converters) to derive 5V, 3.3V, and 1.2V from the main 12V isolated flyback output to meet the system boundary logic rail requirements.
+    - High-Voltage DC input connectors, protection, and filtering suitable for a 64V-400V DC bus.
+    - Secondary step-down regulators (LDOs or buck converters) to derive 5V, 3.3V, and 1.2V from the main 12V isolated flyback output to meet the system boundary logic rail requirements.
 
 ## 3. Components Inventory
 - **Controller:** UCC28750 (U1). Variant to be confirmed depending on required protection features and switching frequency (65kHz or 100kHz).
