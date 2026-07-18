@@ -4,9 +4,9 @@
 The `high-voltage-power-supply` (HVPS) is a non-isolated DC-DC buck converter situated in the High-Voltage (HV) domain. It is designed to step down the Traction Pack HV Bus voltage (85V - 400V DC) to a stable 5.0V DC rail (VDD1). This rail provides bias power for the "hot-side" logic of the `current-sensing` module (specifically the AMC1301 isolated amplifier).
 
 **System Context:**
-*   **Input Interface (P1.1, P1.2):** Connects to the Traction Pack HV Bus. P1.1 is HV+, P1.2 is HV- (Reference).
-*   **Output Interface (P1.3, P1.2):** Provides the regulated 5.0V rail (VDD1) relative to HV- (GND_HV).
-*   **Feedback (P1.4):** Internal feedback node for output regulation.
+*   **Input Interface:** Connects to the Traction Pack HV Bus (HV+ and HV-).
+*   **Output Interface:** Provides the regulated 5.0V rail (VDD1) relative to the HV- reference (GND_HV).
+*   **Feedback:** Internal feedback node for output regulation.
 *   **Isolation:** Non-isolated topology (referenced to HV-). Galvanic isolation is provided downstream by the `current-sensing` module.
 
 ## 2. Architectural Deviations (Baseline vs. Target)
@@ -14,7 +14,6 @@ Synthesized from the UCC28881EVM-680 reference design and tailored for the BMS H
 
 *   **Removed Components/Blocks:**
     *   **AC Rectification:** D1 and D2 half-wave stage removed and replaced with a single DC-input protection diode (D_IN). The EVM required AC rectification, but the system's DC Traction Bus renders this redundant. D_IN provides necessary reverse polarity protection with minimal power dissipation.
-    *   **EVM Connectors/Test Points:** P1, P2 (EVM headers) and TP1-TP5 removed for integrated system headers.
     *   **13V Control Loop:** R3/R4 feedback network modified to target 5.0V.
 
 *   **Added/Modified Components/Blocks:**
@@ -40,18 +39,17 @@ Synthesized from the UCC28881EVM-680 reference design and tailored for the BMS H
 
 ## 4. Connectivity & Signal Flow
 **Internal Signal Flow:**
-1.  **HV Input Stage:** HV_IN+ (P1.1) flows through Fuse F1 and Diode D_IN to the LC filter (C1-L1-C2).
+1.  **HV Input Stage:** HV_IN+ flows through Fuse F1 and Diode D_IN to the LC filter (C1-L1-C2).
 2.  **Conversion Stage:** Filtered HV enters U1 (DRAIN/HVIN). U1 performs high-side switching to the SOURCE node (Switch Node).
 3.  **Output Stage:** The Switch Node drives Inductor L2 and is clamped by D4. L2 and C5 filter the pulses into a stable 5.0V DC rail (VDD1).
 4.  **Feedback Loop:** VDD1 is rectified by D3, smoothed by C4, and divided by R3/R4 to the FB pin of U1 to maintain regulation.
 
-**External Port Mapping:**
-| Port ID | Port Name | Direction | Level | Description |
-|:---|:---|:---|:---|:---|
-| P1.1 | HV_IN+ | Input | 85-400V | Traction Bus Positive. |
-| P1.2 | HV_IN- | Passive | 0V (Ref) | Traction Bus Negative / GND_HV. |
-| P1.3 | VDD1 | Output | 5.0V | Regulated Output for Current Sensing. |
-| P1.4 | FB | Internal/Input | ~1.0V | Feedback Control Node. |
+**Port Mapping:**
+| Port Name | Direction | Level | Description |
+|:---|:---|:---|:---|
+| HV_IN+ | Input | 85-400V | Traction Bus Positive. |
+| HV_IN- | Passive | 0V (Ref) | Traction Bus Negative / GND_HV. |
+| VDD1 | Output | 5.0V | Regulated Output for Current Sensing. |
 
 ## 5. Uncertainties, Assumptions & Confidence
 *   **Output Voltage Selection:** Confirmed 5.0V to satisfy the AMC1301 requirement in the `current-sensing` module. Confidence: High.
