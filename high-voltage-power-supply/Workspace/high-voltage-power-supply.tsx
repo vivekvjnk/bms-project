@@ -13,10 +13,9 @@ interface ModuleProps {
 export const HighVoltagePowerSupply = ({ name, schX, schY, showAsSchematicBox }:ModuleProps) => (
   <group name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
     {/* Ports replacing physical pinheaders */}
-    <port name="HV_IN" direction="left" connectsTo={["F1.pin1"]} />
-    <port name="HV_GND_IN" direction="left" connectsTo={["C1.pin2", "C2.pin2", "D4.anode", "C5.pin2", "D5.anode"]} />
-    <port name="LV_OUT" direction="right" connectsTo={["L2.pin2", "C5.pin1", "D3.anode", "D5.cathode"]} />
-    <port name="LV_GND_OUT" direction="right" connectsTo={["C1.pin2", "C2.pin2", "D4.anode", "C5.pin2", "D5.anode"]} />
+    <port name="HV_IN_POS" direction="left" connectsTo={["F1.pin1"]} />
+    <port name="HV_IN_NEG" direction="left" connectsTo={["C1.pin2", "C2.pin2", "D4.anode", "C5.pin2", "D5.anode"]} />
+    <port name="VDD1" direction="right" connectsTo={["L2.pin2", "C5.pin1", "D3.anode", "D5.cathode"]} />
 
     {/* Primary Controller */}
     <UCC28881DR name="U1" schX={17} schY={0} />
