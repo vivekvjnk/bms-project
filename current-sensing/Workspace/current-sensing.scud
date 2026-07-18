@@ -9,14 +9,18 @@ The module spans the High-Voltage (HV) and Low-Voltage (LV) domains, providing r
 *   **Removed Components/Blocks (Evaluation Features):**
     *   **Isolated Power Generation:** The SN6501 transformer driver (U3), DA2303-ALB isolation transformer (T1), and TPS76350 5V LDO (U1) are removed. VDD1 is now supplied by the `BMS Monitor Module` (VREG5 from BQ79616) or the `High-Voltage Power Supply` (UCC28881 output).
     *   **Power Selection Logic:** Jumper JP1 and associated selection circuitry are removed; VDD1 is hard-wired to the selected isolated source.
-    *   **Evaluation Interfaces:** Screw terminals J1, J2, J3, J4 and all test points are removed in favor of integrated system interconnects (Kelvin sense terminals for shunt connection).
+    *   **Evaluation Interfaces:** All evaluation screw terminals (J1-J4) and test points are removed. External hardware connectors are defined at the system level.
 *   **Added/Modified Components/Blocks (Target Synthesis):**
     *   **Optimized Input Filter:** The baseline placeholders (R1, R2, C4, C5, C8) are populated with active values (typically 10Ω/1nF/100pF), specifically tuned for inverter noise suppression.
-    *   **Interface to MCU:** A dedicated differential analog port is established. A signal scaling buffer (Op-Amp) may be required depending on the MCU ADC full-scale range (Open Item).
+    *   **Interface to MCU:** A dedicated single-ended analog port is established. Differential-to-single-ended conversion stage added to match the single-ended ADC interface required by the `microcontroller-module`.
     *   **Direct Port Mapping:** Signals and power are mapped to specific ports (P1.x for HV, P2.x for LV) as defined in the Module Boundary.
 
 ## 3. Components Inventory
 *   **U2: AMC1301DWV** - Precision Isolated Amplifier, ±250-mV Input Range, Fixed Gain 8.2 V/V. Package: Wide-body SOIC-8 (DWV).
+*   **Signal Conditioning Buffer:** Precision Op-Amp (e.g., similar to TLV6001 or equivalent RRIO Op-Amp) in a difference amplifier configuration for differential-to-single-ended conversion.
+    *   **Gain Stage Design**: Designed as a difference amplifier with $A_V \approx 0.805$ (mapping $\pm 2.05\text{V}$ differential swing to $0\text{V} - 3.3\text{V}$ ADC input).
+    *   **Resistors**: $R_G = 10\text{k}\Omega$, $R_F = 8.06\text{k}\Omega$ (standard E96 values). Requires 0.1% tolerance resistors for gain matching to ensure high CMRR.
+*   **External Shunt Resistor** - Sub-milliohm Manganin Shunt (0.1mΩ to 0.5mΩ), Kelvin sense connections.
 *   **C7: 0.1µF / 50V** - X7R Ceramic capacitor, VDD1 local bypass.
 *   **C10: 1.0µF / 16V** - X7R Ceramic capacitor, VDD1 bulk bypass.
 *   **C9: 0.1µF / 50V** - X7R Ceramic capacitor, VDD2 local bypass.
@@ -30,6 +34,7 @@ The module spans the High-Voltage (HV) and Low-Voltage (LV) domains, providing r
 | Component Name | Imported Component Name | Status |
 |---|---|---|
 | AMC1301DWV | AMC1301DWVR | local |
+| Op-Amp | TLV6001IDBVR | imported |
 
 ## 4. Connectivity & Signal Flow
 *   **External Port Mapping (Ref: current-sensing-boundary.md):**
@@ -38,13 +43,14 @@ The module spans the High-Voltage (HV) and Low-Voltage (LV) domains, providing r
         *   **P1.2 (VDD1)**: Input | Power | 3.3V - 5.5V | Sourced from BQ79616 (VREG5) or UCC28881.
         *   **P1.3 (GND1)**: Ground | HV- Ref | Isolated reference ground.
     *   **Domain: Low-Voltage / Cold Side (LV GND)**
-        *   **P2.1 (OUTP/OUTN)**: Output | Diff Analog | 0V - 5V | Proportional to shunt current (Fixed Gain 8.2x). Updated real-time (210kHz BW).
+        *   **P2.1 (OUTP/OUTN -> Single-Ended)**: Output | Single-ended Analog | 0V - 3.3V | Proportional to shunt current (Fixed Gain 8.2x + conditioning). Updated real-time (210kHz BW).
         *   **P2.2 (VDD2)**: Input | Power | 3.3V / 5V | Logic supply from Microcontroller Module / PMIC.
         *   **P2.3 (GND2)**: Ground | LV GND | System digital ground reference.
 *   **Internal Signal Path:**
-    *   [External Shunt] ➔ [Ports: P1.1 (INP/INN)] ➔ [RC Filter: R1, R2, C5, C4, C8] ➔ [U2 (Pins 2, 3)] ➔ [Isolation Barrier] ➔ [U2 (Pins 7, 6)] ➔ [Port: P2.1 (OUTP/OUTN)] ➔ [MCU ADC].
-*   **Signal Transfer Function:** Vout(diff) = 8.2 * Vin(diff). Output common-mode is VDD2/2.
-*   **Diagnostics:** Missing VDD1 detection is integrated; output OUTP/OUTN will transition to a detectable fail-safe state if high-side power is lost.
+    *   [External Shunt] ➔ [Ports: P1.1 (INP/INN)] ➔ [RC Filter] ➔ [U2 (Pins 2, 3)] ➔ [Isolation Barrier] ➔ [U2 (Pins 7, 6)] ➔ [Signal Conditioning Buffer] ➔ [Port: P2.1 (Single-Ended)] ➔ [MCU ADC].
+*   **Signal Transfer Function:** Vout(SE) = f(Vout(diff) * 8.2). Output scaled to MCU ADC range.
+*   **Diagnostics:** Missing VDD1 detection is integrated; output will transition to a detectable fail-safe state if high-side power is lost.
+*   **VCM Bias:** $V_{CM}$ bias for signal conditioning stage derived from precision voltage divider (provided by system/MCU supply).
 
 ## 5. Uncertainties, Assumptions & Confidence
 *   **VDD1 Power Source:** Selection between `BMS Monitor Module` (VREG5) and `High-Voltage Power Supply` (UCC28881) is a design decision based on pack voltage and power architecture (Open Item).

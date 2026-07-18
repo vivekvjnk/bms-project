@@ -1,79 +1,44 @@
 Building 1 file(s)...
 Building communication-bridge/Workspace/communication-bridge.tsx...
 Generating circuit JSON...
-Dispatch phase complete. Created 11 sub-solvers.
-All sub-solvers finished.
 Circuit JSON written to dist/communication-bridge/Workspace/communication-bridge/circuit.json
-[33m<resistor#153 name=".R13" /> footprint "0402" does not match supplier footprint jlcpcb:C25741 (copper IoU 0.7741).[39m
-[33m<resistor#127 name=".R3" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).[39m
-[33m<resistor#257 name=".R5" /> footprint "0402" does not match supplier footprint jlcpcb:C25120 (copper IoU 0.7741).[39m
-[33m<resistor#192 name=".R16" /> footprint "0402" does not match supplier footprint jlcpcb:C25125 (copper IoU 0.7741).[39m
-[33m<capacitor#77 name=".C11" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).[39m
-[33m<capacitor#332 name=".C6" /> footprint "0402" does not match supplier footprint jlcpcb:C1546 (copper IoU 0.7249).[39m
-[33m<resistor#114 name=".R2" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).[39m
-[33m<resistor#101 name=".R1" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).[39m
-[33m<resistor#283 name=".R7" /> footprint "0402" does not match supplier footprint jlcpcb:C25120 (copper IoU 0.7741).[39m
-[33m<resistor#231 name=".R19" /> footprint "0402" does not match supplier footprint jlcpcb:C25125 (copper IoU 0.7741).[39m
-[33m<resistor#166 name=".R15" /> footprint "0402" does not match supplier footprint jlcpcb:C25077 (copper IoU 0.7741).[39m
-[33m<capacitor#320 name=".C5" /> footprint "0402" does not match supplier footprint jlcpcb:C1546 (copper IoU 0.7249).[39m
-[33m<resistor#179 name=".R20" /> footprint "0402" does not match supplier footprint jlcpcb:C25741 (copper IoU 0.7741).[39m
-[33m<resistor#218 name=".R18" /> footprint "0402" does not match supplier footprint jlcpcb:C25125 (copper IoU 0.7741).[39m
-[33m<capacitor#89 name=".C12" /> footprint "0402" does not match supplier footprint jlcpcb:C52923 (copper IoU 0.7249).[39m
-[33m<resistor#205 name=".R17" /> footprint "0402" does not match supplier footprint jlcpcb:C25125 (copper IoU 0.7741).[39m
-[33m<capacitor#308 name=".C4" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).[39m
-[33m<capacitor#296 name=".C3" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).[39m
-[33m<resistor#270 name=".R6" /> footprint "0402" does not match supplier footprint jlcpcb:C25120 (copper IoU 0.7741).[39m
-[33m<resistor#140 name=".R12" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).[39m
-[33m<resistor#244 name=".R4" /> footprint "0402" does not match supplier footprint jlcpcb:C25120 (copper IoU 0.7741).[39m
-[33mAll pins on P1 are underspecified (no pinAttributes set)[39m
-[33mAll pins on P2 are underspecified (no pinAttributes set)[39m
-[33mAll pins on U1 are underspecified (no pinAttributes set)[39m
-[33mAll pins on T1 are underspecified (no pinAttributes set)[39m
-[33mAll pins on T2 are underspecified (no pinAttributes set)[39m
-[33mAll pins on D1 are underspecified (no pinAttributes set)[39m
-[33mAll pins on D3 are underspecified (no pinAttributes set)[39m
-[33mP1 has no pin with requires_power=true[39m
-[33mP2 has no pin with requires_power=true[39m
-[33mU1 has no pin with requires_power=true[39m
-[33mT1 has no pin with requires_power=true[39m
-[33mT2 has no pin with requires_power=true[39m
-[33mD1 has no pin with requires_power=true[39m
-[33mD3 has no pin with requires_power=true[39m
-[33mP1 has no pin with requires_ground=true[39m
-[33mP2 has no pin with requires_ground=true[39m
-[33mU1 has no pin with requires_ground=true[39m
-[33mT1 has no pin with requires_ground=true[39m
-[33mT2 has no pin with requires_ground=true[39m
-[33mD1 has no pin with requires_ground=true[39m
-[33mD3 has no pin with requires_ground=true[39m
-[0m[31m[31mPCB trace trace[.C4 > port.neg, .R20 > port.cathode] overlaps with pcb_smtpad "pcb_port[.P1 > .pin4]" (accidental contact)[39m[0m
-[0m[31m[31mTrace too close to board edge (0.000mm < 0.275mm required, margin: 0.2mm)[39m[0m
-[0m[31m[31mTrace too close to board edge (0.000mm < 0.275mm required, margin: 0.2mm)[39m[0m
-[0m[31m[31mTrace too close to board edge (0.000mm < 0.275mm required, margin: 0.2mm)[39m[0m
-[0m[31m[31mTrace too close to board edge (0.000mm < 0.275mm required, margin: 0.2mm)[39m[0m
-[0m[31m[31mTrace too close to board edge (0.000mm < 0.275mm required, margin: 0.2mm)[39m[0m
-[0m[31m[31mTrace too close to board edge (0.000mm < 0.275mm required, margin: 0.2mm)[39m[0m
-[0m[31m[31mTrace too close to board edge (0.000mm < 0.275mm required, margin: 0.2mm)[39m[0m
-[0m[31m[31mTrace too close to board edge (0.000mm < 0.275mm required, margin: 0.2mm)[39m[0m
-[0m[31m[31mTrace too close to board edge (0.000mm < 0.275mm required, margin: 0.2mm)[39m[0m
-[0m[31m[31mVia pcb_via[#pcb_via_59] is outside or crossing the board boundary[39m[0m
-[0m[31m[31mComponent P1 extends outside board boundaries by 8.43mm. Try moving it 8.43mm left to fit within the board edge.[39m[0m
-[0m[31m[31mComponent P2 extends outside board boundaries by 6.3mm. Try moving it 6.3mm right to fit within the board edge.[39m[0m
-[0m[31m[31mComponent R20 extends outside board boundaries by 0.78mm. Try moving it 0.78mm left to fit within the board edge.[39m[0m
-[0m[31m[31mpcb_smtpad P1.pin4 overlaps with pcb_smtpad R20.pin2[39m[0m
-[0m[31m[31mPads pcb_port[.P1 > .pin4] and pcb_port[.R20 > .pin2] are too close (clearance: 0mm, minimum: 0.1mm)[39m[0m
-[0m[31m[31mPads pcb_port[.P1 > .MNT1] and pcb_port[.D3 > .pin2] are too close (clearance: 0.019mm, minimum: 0.1mm)[39m[0m
-[0m[31m[31mPad pcb_port[.P1 > .pin4] and trace trace[.C4 > port.neg, .R20 > port.cathode] are too close (clearance: -0.075mm, minimum: 0.1mm)[39m[0m
-[0m[31m[31mCourtyard of P1 overlaps with courtyard of R20[39m[0m
-[0m[31m[31mCourtyard of P1 overlaps with courtyard of D3[39m[0m
-[0m[31m[31mCourtyard of T1 overlaps with courtyard of R15[39m[0m
-[0m[31m[31mCourtyard of R17 overlaps with courtyard of D1[39m[0m
-[0m[31m[31mCourtyard of R18 overlaps with courtyard of D3[39m[0m
-[0m[31m[31mCourtyard of C4 overlaps with courtyard of D1[39m[0m
-[0m[31m[31mCourtyard of C5 overlaps with courtyard of D3[39m[0m
-[1mBuild complete[22m
-Circuits  [32m1 passed[39m
-Output    [2m../../dist[22m
-[33m
-⚠ Build completed with errors[39m
-[2mBuild exiting with code 0: build finished successfully[22m
+Port pin1 on R12 is missing a trace
+Port pin1 on R13 is missing a trace
+Port pin2 on R13 is missing a trace
+Port pin1 on R15 is missing a trace
+Port pin1 on R20 is missing a trace
+Port pin2 on R20 is missing a trace
+Port pin1 on C3 is missing a trace
+Port pin2 on C3 is missing a trace
+Port pin1 on C4 is missing a trace
+Port pin2 on C4 is missing a trace
+Port pin1 on C5 is missing a trace
+Port pin2 on C5 is missing a trace
+Port pin1 on C6 is missing a trace
+Port pin2 on C6 is missing a trace
+<resistor#120 name=".R3" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
+<resistor#133 name=".R12" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
+<resistor#107 name=".R2" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
+<resistor#211 name=".R18" /> footprint "0402" does not match supplier footprint jlcpcb:C25125 (copper IoU 0.7741).
+<resistor#94 name=".R1" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
+<resistor#198 name=".R17" /> footprint "0402" does not match supplier footprint jlcpcb:C25125 (copper IoU 0.7741).
+<resistor#146 name=".R13" /> footprint "0402" does not match supplier footprint jlcpcb:C25741 (copper IoU 0.7741).
+<resistor#276 name=".R7" /> footprint "0402" does not match supplier footprint jlcpcb:C25120 (copper IoU 0.7741).
+<capacitor#289 name=".C3" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.0234).
+<resistor#159 name=".R15" /> footprint "0402" does not match supplier footprint jlcpcb:C25077 (copper IoU 0.7741).
+<capacitor#301 name=".C4" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.0234).
+<resistor#224 name=".R19" /> footprint "0402" does not match supplier footprint jlcpcb:C25125 (copper IoU 0.7741).
+<capacitor#325 name=".C6" /> footprint "0402" does not match supplier footprint jlcpcb:C1546 (copper IoU 0.7249).
+<resistor#185 name=".R16" /> footprint "0402" does not match supplier footprint jlcpcb:C25125 (copper IoU 0.7741).
+<resistor#250 name=".R5" /> footprint "0402" does not match supplier footprint jlcpcb:C25120 (copper IoU 0.7741).
+<resistor#172 name=".R20" /> footprint "0402" does not match supplier footprint jlcpcb:C25741 (copper IoU 0.7741).
+<capacitor#70 name=".C11" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
+<resistor#263 name=".R6" /> footprint "0402" does not match supplier footprint jlcpcb:C25120 (copper IoU 0.7741).
+<resistor#237 name=".R4" /> footprint "0402" does not match supplier footprint jlcpcb:C25120 (copper IoU 0.7741).
+<capacitor#313 name=".C5" /> footprint "0402" does not match supplier footprint jlcpcb:C1546 (copper IoU 0.7249).
+<capacitor#82 name=".C12" /> footprint "0402" does not match supplier footprint jlcpcb:C52923 (copper IoU 0.7249).
+Build complete
+Circuits  1 passed
+Output    ../../dist
+✓ Done
+Build exiting with code 0: build finished successfully

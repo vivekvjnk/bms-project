@@ -19,27 +19,30 @@ export const BmsMonitorModule = ({ name, schX, schY, showAsSchematicBox }: BmsMo
     <group name={name} schX={schX} schY={schY} showAsSchematicBox={showAsSchematicBox}>
         
         {/* ==========================================
-           EXTERNAL INTERFACE PORTS (Replaced Connectors)
+           EXTERNAL INTERFACE PORTS
            ========================================== */}
         
-        {/* Legacy P1: Cell Taps Interface (17 Taps + 3 Unused/GND Grounding Pins) */}
-        {Array.from({ length: 20 }).map((_, i) => (
-          <port key={`port_cell_tap_${i + 1}`} name={`CELL_TAP_${i + 1}`} direction="left" />
+        {/* Interface: Battery Stack Power */}
+        <port name="BAT" direction="left" />
+
+        {/* Interface: Cell Taps (17 Taps: 0-16) */}
+        {Array.from({ length: 17 }).map((_, i) => (
+          <port key={`port_cell_tap_${i}`} name={`CELL_TAP_${i}`} direction="left" />
         ))}
 
-        {/* Legacy P2: Daisy Chain Communications Interface */}
+        {/* Interface: Daisy Chain Communications */}
         <port name="COM_HP" direction="right" />
         <port name="COM_HN" direction="right" />
         <port name="COM_LP" direction="right" />
         <port name="COM_LN" direction="right" />
 
-        {/* Legacy P3: Ancillary Signals / Power Rail Breakouts */}
+        {/* Interface: Ancillary Signals / Power Rail Breakouts */}
         <port name="CVDD" direction="right" connectsTo={["U1.pin45"]} />
         <port name="NFAULT" direction="right" connectsTo={["U1.pin62"]} />
         <port name="PAD" direction="right" connectsTo={["U1.pin65"]} />
         <port name="GND_ANCILLARY" direction="right" />
 
-        {/* Legacy P4: Thermistor Channels (8 Analog Inputs + VREF + GND) */}
+        {/* Interface: Thermistor Channels (8 Analog Inputs + VREF + GND) */}
         {Array.from({ length: 8 }).map((_, i) => (
           <port key={`port_ntc_${i + 1}`} name={`NTC_CH${i + 1}`} direction="right" />
         ))}
@@ -56,38 +59,37 @@ export const BmsMonitorModule = ({ name, schX, schY, showAsSchematicBox }: BmsMo
            CELL SENSING & BALANCING INTERFACE
            ========================================== */}
         {Array.from({ length: 17 }).map((_, i) => {
-          const nodeIndex = 16 - i;
-          const tapPinNumber = i + 1;
+          const tapIndex = i; // CELL_TAP_0 to CELL_TAP_16
           const yPos = 12 - i * 1.5;
           
-          const cbPin = 2 + (16 - nodeIndex) * 2;
-          const vcPin = 3 + (16 - nodeIndex) * 2;
-
           return (
-            <group key={`cell_node_${nodeIndex}`}>
-               {/* Balancing components */}
-               <resistor name={`R_CB${nodeIndex}`} resistance="22ohm" footprint="0603" schX={-11} schY={yPos + 0.3} />
-               {/* Route from explicit port to balancing resistor */}
-               <trace name={`t_cbp_${nodeIndex}`} from={`CELL_TAP_${tapPinNumber}`} to={`R_CB${nodeIndex}.1`} />
-               <trace name={`t_cbu_${nodeIndex}`} from={`R_CB${nodeIndex}.2`} to={`U1.pin${cbPin}`} />
-
-               {/* Sensing components */}
-               <BSMD0603_010_33V name={`F${nodeIndex + 1}`} schX={-12.5} schY={yPos} />
-               {/* Route from explicit port to input fuse */}
-               <trace name={`t_fin_${nodeIndex}`} from={`CELL_TAP_${tapPinNumber}`} to={`F${nodeIndex + 1}.pin1`} />
-               
-               {nodeIndex > 0 ? (
+            <group key={`cell_tap_${tapIndex}`}>
+               {tapIndex > 0 ? (
                  <group>
-                   <resistor name={`R_VC${nodeIndex}`} resistance="1kohm" footprint="0603" schX={-9.5} schY={yPos - 0.3} />
-                   <trace name={`t_fout_${nodeIndex}`} from={`F${nodeIndex + 1}.pin2`} to={`R_VC${nodeIndex}.1`} />
-                   <trace name={`t_vcu_${nodeIndex}`} from={`R_VC${nodeIndex}.2`} to={`U1.pin${vcPin}`} />
+                   {/* Balancing components */}
+                   <resistor name={`R_CB${tapIndex}`} resistance="22ohm" footprint="0603" schX={-11} schY={yPos + 0.3} />
+                   <trace name={`t_cbp_${tapIndex}`} from={`CELL_TAP_${tapIndex}`} to={`R_CB${tapIndex}.1`} />
+                   <trace name={`t_cbu_${tapIndex}`} from={`R_CB${tapIndex}.2`} to={`U1.pin${4 + (tapIndex - 1) * 2}`} />
+
+                   {/* Sensing components */}
+                   <BSMD0603_010_33V name={`F${tapIndex}`} schX={-12.5} schY={yPos} />
+                   <trace name={`t_fin_${tapIndex}`} from={`CELL_TAP_${tapIndex}`} to={`F${tapIndex}.pin1`} />
                    
-                   <capacitor name={`C_VC${nodeIndex}`} capacitance="100nF" footprint="0603" schX={-7} schY={yPos - 0.6} />
-                   <trace name={`t_cvcu1_${nodeIndex}`} from={`U1.pin${vcPin}`} to={`C_VC${nodeIndex}.1`} />
-                   <trace name={`t_cvcu2_${nodeIndex}`} from={`U1.pin${3 + (16 - (nodeIndex - 1)) * 2}`} to={`C_VC${nodeIndex}.2`} />
+                   <resistor name={`R_VC${tapIndex}`} resistance="1kohm" footprint="0603" schX={-9.5} schY={yPos - 0.3} />
+                   <trace name={`t_fout_${tapIndex}`} from={`F${tapIndex}.pin2`} to={`R_VC${tapIndex}.1`} />
+                   <trace name={`t_vcu_${tapIndex}`} from={`R_VC${tapIndex}.2`} to={`U1.pin${5 + (tapIndex - 1) * 2}`} />
+                   
+                   <capacitor name={`C_VC${tapIndex}`} capacitance="100nF" footprint="0603" schX={-7} schY={yPos - 0.6} />
+                   <trace name={`t_cvcu1_${tapIndex}`} from={`U1.pin${5 + (tapIndex - 1) * 2}`} to={`C_VC${tapIndex}.1`} />
+                   <trace name={`t_cvcu2_${tapIndex}`} from={`U1.pin${tapIndex === 1 ? 39 : 5 + (tapIndex - 2) * 2}`} to={`C_VC${tapIndex}.2`} />
                  </group>
                ) : (
-                 <trace name="t_f0out" from={`F${nodeIndex + 1}.pin2`} to={`U1.pin${vcPin}`} />
+                 /* Ground Tap */
+                 <group>
+                   <BSMD0603_010_33V name={`F0`} schX={-12.5} schY={yPos} />
+                   <trace name={`t_fin_0`} from={`CELL_TAP_0`} to={`F0.pin1`} />
+                   <trace name={`t_f0out`} from={`F0.pin2`} to={`U1.pin39`} />
+                 </group>
                )}
             </group>
           );
@@ -95,7 +97,7 @@ export const BmsMonitorModule = ({ name, schX, schY, showAsSchematicBox }: BmsMo
 
         {/* Power Supply Components */}
         <capacitor name="C_BAT" capacitance="10uF" footprint="0603" schX={-3} schY={6} />
-        <trace name="t_p1_1_u1_1" from="CELL_TAP_1" to="U1.pin1" />
+        <trace name="t_bat_u1_1" from="BAT" to="U1.pin1" />
         <trace name="t_u1_1_cbat1" from="U1.pin1" to="C_BAT.1" />
         <trace name="t_u1_39_cbat2" from="U1.pin39" to="C_BAT.2" />
 
