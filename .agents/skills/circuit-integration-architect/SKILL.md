@@ -2,8 +2,8 @@
 name: circuit-integration-architect
 description: Synthesizes interconnects, power distribution, signal conditioning, and glue logic to integrate multiple independent hardware modules under a master system contract. Generates the master circuit_design.scud (Shared Circuit Understanding Document) reference file. Trigger this skill when asked to integrate hardware subsystems, analyze multi-module pinouts, reconcile electrical interfaces, or design bridging circuitry.
 triggers:
-  - scud
-  - circuit understanding
+  - "scud document"
+  - "circuit understanding"
 ---
 
 # Circuit Integration Architect (SCUD Generation)
