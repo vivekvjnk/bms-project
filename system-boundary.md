@@ -48,7 +48,7 @@
 
 | Resource | Class | Consuming Module(s) | Specification | Notes |
 |:---|:---|:---|:---|:---|
-| 12V Aux Power | Power | microcontroller-module, LVPS | Vehicle Auxiliary Battery | Primary LV source |
+| 12V Aux Power | Power | LVPS | Vehicle Auxiliary Battery | Primary LV source |
 | 16-Cell Battery Stack | Cell Tap | bms-monitor-module | Nom ~59V (16S) | Unified sensing and balancing paths |
 | Traction Pack HV Bus | Power | HVPS | 85V - 400V DC | High-voltage supply input |
 | Low-Voltage Pack Bus | Power | LVPS | 64V DC | Optional LV source |

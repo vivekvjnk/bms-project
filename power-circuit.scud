@@ -1,0 +1,57 @@
+# Shared Circuit Understanding Document (SCUD): power-circuit
+
+## 1. Circuit Overview & System Context
+The `power-circuit` is the primary high-voltage and isolation interface of the `stackable-bms` system. It integrates four specialized modules to provide battery monitoring, current sensing, isolated communication, and internal power distribution.
+
+**Integration Strategy:**
+- **Sensing:** The `bms-monitor-module` handles cell-level voltage and temperature, while the `current-sensing` module monitors total pack current via an external shunt.
+- **Communication:** The `communication-bridge` serves as the gateway between the low-voltage control domain and the high-voltage daisy chain.
+- **Power:** The `high-voltage-power-supply` (HVPS) converts traction bus voltage into regulated logic power for the isolated sensing front-end.
+
+## 2. Architectural Deviations & Integration Logic
+- **Isolated Power Domain (VDD1_ISO):** To ensure reliable current sensing even when the main BMS monitor might be in a low-power state or fault, the `high-voltage-power-supply` is designated as the primary provider for the `current-sensing` module's hot-side power (`VDD1`).
+    - *Logic:* `HVPS.VDD1` (5.0V) is connected to `current-sensing.VDD1`.
+- **Daisy Chain Topology:** The `communication-bridge` is configured as the daisy chain master. Its High-side communication port (`COMH`) is connected to the Low-side port (`COM_L`) of the first `bms-monitor-module` in the stack.
+    - *Logic:* `communication-bridge.COMH_P/N` <-> `bms-monitor-module.COM_LP/N`.
+- **Ground Referencing:** The High-Voltage Negative (HV-) traction bus serves as the common reference (`GND_HV`) for the `HVPS`, the `current-sensing` hot-side, and the negative terminal of the 16-cell battery stack monitored by the `bms-monitor-module`.
+
+## 3. Comprehensive Components Inventory
+The power circuit consists of the following integrated modules and their supporting interconnects:
+- **Module 1:** `bms-monitor-module` (Stackable 16-cell monitor).
+- **Module 2:** `communication-bridge` (Isolated SPI/UART to Daisy Chain bridge).
+- **Module 3:** `current-sensing` (Isolated shunt-based current sensor).
+- **Module 4:** `high-voltage-power-supply` (Non-isolated HV buck converter).
+
+## 4. Topology, Interconnect & Signal Flow
+
+### 4.1 Power Distribution Nets
+| Net Name | Origin | Destination(s) | Description |
+|:---|:---|:---|:---|
+| **HV_BUS_POS** | External Port | `HVPS.HV_IN_POS` | Traction Pack Positive (85V-400V). |
+| **HV_BUS_NEG** | External Port | `HVPS.HV_IN_NEG`, `CS.GND1`, `BMM.CELL_TAP_0` | Traction Pack Negative / System HV Reference. |
+| **VDD1_ISO** | `HVPS.VDD1` | `CS.VDD1` | Isolated 5V rail for current sensing. |
+| **BAT_12V** | External/LVPS | `CB.BAT` | 12V Logic Supply. |
+| **VIO_3V3** | External/LVPS | `CB.VIO`, `CS.VDD2` | IO and Logic supply for cold-side. |
+| **GND_LV** | External/LVPS | `CB.GND`, `CS.GND2` | Low-voltage system ground. |
+
+### 4.2 Signal Interconnects
+| Signal Group | From | To | Type |
+|:---|:---|:---|:---|
+| **Daisy Chain (Head)** | `CB.COMH_P/N` | `BMM.COM_LP/N` | Isolated Differential |
+| **Current Sense Input** | External Shunt | `CS.INP/INN` | Kelvin Analog |
+| **Cell Taps** | Battery Stack | `BMM.CELL_TAP_0-16` | Voltage Sense / Balancing |
+| **Isolated Current Out**| `CS.OUT` | System MCU | Single-ended Analog |
+| **Host Control** | `CB.SPI/UART` | System MCU | Digital Communication |
+
+### 4.3 Pin-to-Pin Mapping (Module Integration)
+| Port A (Source) | Port B (Destination) | Function |
+|:---|:---|:---|
+| `HVPS.VDD1` | `current-sensing.VDD1` | Isolated Power Supply |
+| `HVPS.HV_IN_NEG`| `current-sensing.GND1` | Isolated Power Return |
+| `communication-bridge.COMH_P` | `bms-monitor-module.COM_LP` | Daisy Chain High-Side Positive |
+| `communication-bridge.COMH_N` | `bms-monitor-module.COM_LN` | Daisy Chain High-Side Negative |
+
+## 5. Uncertainties, Engineering Assumptions & Risks
+- **Daisy Chain Return:** In a single-module configuration, `bms-monitor-module.COM_HP/N` may need to be looped back to `communication-bridge.COML_P/N` if a ring topology is desired for redundancy.
+- **Redundant VDD1:** The `bms-monitor-module` offers a `CVDD` (5V) output which could serve as a redundant power source for `current-sensing.VDD1`. This integration assumes the `HVPS` is the primary source to reduce load on the `BMM` internal LDOs.
+- **Isolation Rating:** The system relies on the isolation barriers within `communication-bridge` (transformers) and `current-sensing` (amplifier barrier) to protect the LV domain. Correct PCB clearance/creepage must be maintained between the HV and LV nets.
