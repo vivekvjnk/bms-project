@@ -1,0 +1,44 @@
+# Shared Circuit Understanding Document (SCUD)
+## control-circuit
+
+### 1. Circuit Overview & System Context
+The `control-circuit` is the central command and power distribution hub for the BMS. It integrates the `microcontroller-module` (central intelligence) and the `low-voltage-power-supply` (LVPS) module. The LVPS converts high-voltage DC (64V-400V) from the traction battery into regulated low-voltage rails (12V, 5V, 3.3V, 1.2V). The `microcontroller-module` consumes the 3.3V rail to execute safety algorithms, estimate SOC/SOH, and control system-level contactors. This integrated unit serves as the master logic controller for the entire stackable-bms system.
+
+### 2. Architectural Deviations & Integration Logic
+*   **Direct Power Coupling:** The `microcontroller-module` is powered directly from the `low-voltage-power-supply`'s 3.3V output rail. 
+*   **Common Ground Strategy:** Both modules share a common secondary/logic ground (`SEC_GND` on LVPS and `GND` on MCU), ensuring signal integrity for all internal LV communications.
+*   **Pruned Evaluation Infrastructure:** Both modules have been stripped of evaluation-board-specific components (e.g., user LEDs, buttons, AC rectification stages) to meet system-level efficiency and form-factor requirements.
+*   **No Bridging Required:** Since the MCU logic and the LVPS secondary regulators operate within the same 3.3V logic domain, no level translation or galvanic isolation is required between these two specific modules. Isolation is maintained at the system boundary (LVPS Flyback Transformer).
+
+### 3. Comprehensive Components Inventory
+*   **Modules:**
+    *   `microcontroller-module`: Singleton MCU block.
+    *   `low-voltage-power-supply`: Singleton flyback converter and regulator block.
+*   **Core ICs:**
+    *   STM32F411CEU6: 32-bit Arm Cortex-M4 MCU.
+    *   UCC28750: Current-mode flyback controller.
+*   **Secondary Regulators (within LVPS):**
+    *   L78L05: 5V Linear Regulator.
+    *   LM1117-3.3: 3.3V Linear Regulator.
+    *   TLV70012: 1.2V Linear Regulator.
+*   **Key Passives:**
+    *   Custom Isolated Flyback Transformer (1000V DC rated).
+    *   MCU Decoupling (0.1uF, 4.7uF) and 8MHz HSE Crystal.
+    *   Current Sensing filter components (1k / 100nF) for MCU ADC input.
+
+### 4. Topology, Interconnect & Signal Flow
+*   **Power Distribution:**
+    *   `LVPS.VOUT_3V3` -> `microcontroller-module.3V3` (Primary logic supply)
+    *   `LVPS.SEC_GND` -> `microcontroller-module.GND` (Shared logic ground)
+*   **External System Interfaces (to be routed to system ports):**
+    *   `LVPS.VIN_P` / `LVPS.PRI_GND`: 64V-400V DC Input from Traction Pack.
+    *   `LVPS.VOUT_12V`, `LVPS.VOUT_5V`, `LVPS.VOUT_1V2`: Available for other modules (Communication Bridge, Current Sensing).
+    *   `microcontroller-module.UART_TX/RX`: To Communication Bridge.
+    *   `microcontroller-module.ADC_IN`: From Current Sensing module.
+    *   `microcontroller-module.CONTACTOR_GPIO`: To external safety contactors.
+    *   `microcontroller-module.SYNC_GPIO`: To system-wide synchronization bus.
+
+### 5. Uncertainties, Engineering Assumptions & Risks
+*   **Power Budget Assumption:** It is assumed that the `LM1117-3.3` regulator on the LVPS module provides sufficient current (~800mA max) to power both the MCU (~50mA) and other potential 3.3V consumers in the system.
+*   **Thermal Risk:** Linear regulators (L78L05, LM1117) on the LVPS module may experience significant heat dissipation if the current draw on 5V/3.3V rails is high, especially since they are derived from a 12V rail. This may require thermal via arrays or heat sinking on the final PCB.
+*   **Signal Integrity:** The ADC input to the MCU relies on a passive RC filter. If the environment is extremely noisy, active buffering or differential-to-single-ended conversion might be needed, though not currently implemented.
