@@ -1,6 +1,6 @@
 # System Boundary Document: stackable-bms
 
-> **Document Version:** 1.6  
+> **Document Version:** 1.7  
 > **Constituent Module Boundary Docs:** 
 > - bms-monitor-module-boundary.md (v1.1)
 > - communication-bridge-boundary.md (v1.0)
@@ -8,7 +8,8 @@
 > - high-voltage-power-supply-boundary.md (v1.1)
 > - low-voltage-power-supply-boundary.md (v1.1)
 > - microcontroller-module-boundary.md (v1.1)
-> **Last Updated:** 2026-07-16
+> - switching-circuit-boundary.md (v1.0)
+> **Last Updated:** 2026-07-20
 
 ---
 
@@ -22,6 +23,7 @@
 | high-voltage-power-supply| HV Domain | Converts HV traction bus to LV DC for isolated sensing hot-side power. | Singleton | high-voltage-power-supply-boundary.md |
 | low-voltage-power-supply | LV Domain | Converts 12V aux or LV pack bus into regulated logic rails (12V/5V/3.3V). | Singleton | low-voltage-power-supply-boundary.md |
 | microcontroller-module | LV Domain | Executes safety logic and SOC/SOH estimation. | Singleton | microcontroller-module-boundary.md |
+| switching-circuit | Spans HV/LV | Performs low-side power switching (CHG/DSG) and provides integrated shunt current sensing. | Singleton | switching-circuit-boundary.md |
 
 ---
 
@@ -32,6 +34,7 @@
 | microcontroller-module | 3.3V Rail | Power | low-voltage-power-supply | Resolved |
 | microcontroller-module | Cell Data | Data | communication-bridge | Resolved |
 | microcontroller-module | Current Sample | Signal | current-sensing | Resolved |
+| microcontroller-module | FET Status (CHG/DSG) | Signal | switching-circuit | Resolved |
 | bms-monitor-module | Wake-up Ping | Signal | communication-bridge | Resolved |
 | bms-monitor-module | Daisy Chain Data | Data | communication-bridge | Resolved |
 | bms-monitor-module | Global Cell Sample | Sync | communication-bridge | Resolved |
@@ -41,6 +44,9 @@
 | current-sensing | VDD1 (HV-side) | Power | high-voltage-power-supply | Resolved (Conditional) |
 | current-sensing | VDD2 (LV-side) | Power | low-voltage-power-supply | Resolved |
 | current-sensing | Sync Command | Sync | microcontroller-module | Resolved |
+| current-sensing | Shunt Voltage (SRP/SRN) | Signal | switching-circuit | Resolved |
+| switching-circuit | Gate Drive (12V) | Power | high-voltage-power-supply | Resolved |
+| switching-circuit | FET Control (CHG/DSG) | Signal | microcontroller-module | Resolved |
 
 ---
 
@@ -52,9 +58,10 @@
 | 16-Cell Battery Stack | Cell Tap | bms-monitor-module | Nom ~59V (16S) | Unified sensing and balancing paths |
 | Traction Pack HV Bus | Power | HVPS | 85V - 400V DC | High-voltage supply input |
 | Low-Voltage Pack Bus | Power | LVPS | 64V DC | Optional LV source |
-| Shunt Voltage | Signal | current-sensing | +/- 250mV | From external shunt resistor |
+| BAT- Terminal | Power | switching-circuit | 0V - 100V DC | Primary battery negative connection |
+| PACK- Terminal | Power | switching-circuit | 0V - 100V DC | System return (to Load/Charger) |
 | Thermistors | Signal | bms-monitor-module | NTC Sensors | For cell temp monitoring |
-| Battery Contactors | Capability | microcontroller-module | High-level disconnect | External safety actuator |
+| Battery Contactors | Capability | microcontroller-module | High-level disconnect | External safety actuator (optional if SWC used) |
 
 ---
 
@@ -76,11 +83,12 @@ graph TD
   subgraph ISO_Zone ["Zone: Isolation Boundary"]
     CB[communication-bridge]
     CS[current-sensing]
+    SWC[switching-circuit]
   end
 
   EXT_AUX([External: 12V Aux])
   EXT_CELLS([External: Battery Cells])
-  EXT_SHUNT([External: Shunt])
+  EXT_LOAD([External: Load/Charger])
   EXT_CONT([External: Contactors])
 
   EXT_AUX -->|Power: 12V| LVPS
@@ -93,12 +101,17 @@ graph TD
   
   EXT_CELLS -->|Unified: Cell Tap| BMM
   EXT_CELLS -->|Power: HV Bus| HVPS
+  EXT_CELLS ---|Power: BAT-| SWC
+  SWC ---|Power: PACK-| EXT_LOAD
   HVPS -->|Power: 3.3V/5V| CS
+  HVPS -->|Power: 12V| SWC
   
-  EXT_SHUNT -->|Signal: +/-250mV| CS
+  SWC -->|Signal: SRP/SRN| CS
   CS -->|Signal: Single-ended Analog| MCU
   
   MCU -->|Sync: ADC Trigger| CS
+  MCU -->|Signal: CHG/DSG CTRL| SWC
+  SWC -->|Signal: CHG/DSG STAT| MCU
   MCU -->|Capability: Trip| EXT_CONT
 ```
 
@@ -115,7 +128,8 @@ graph TD
                   → bms-monitor-module(s) wake up sequentially
                       → microcontroller-module performs auto-addressing and node validation
                           → current-sensing performs Zero-Point Calibration
-                              → [System ready state]
+                              → microcontroller-module enables switching-circuit (DSG/CHG FETs)
+                                  → [System ready state]
 ```
 
 ---
@@ -128,23 +142,25 @@ graph TD
 | LV to HV (Sense) | CS / MCU | SiO2 Barrier (AMC1301) | 1000V DC | Single-ended Analog Current |
 | LV to HV (Power) | LVPS (Pri/Sec) | Isolated Flyback | 1000V DC | Logic Power Rails |
 | HV to LV (Logic) | HVPS / CS | Non-Isolated Buck | 700V (MOSFET) | Hot-side Bias (VDD1) |
+| LV to HV (Switching) | MCU / SWC | Optocoupler | 1000V DC | CHG/DSG Control & Status |
 
 ---
 
-## 2. System-Level Constraints
+## 7. System-Level Constraints
 
 | Constraint | Modules Involved | Description |
 |:---|:---|:---|
-| Safety Trip Time | MCU, CB, BMM | Max time from OVP/UVP detection to contactor trip (TBD ms). |
+| Safety Trip Time | MCU, CB, BMM, SWC | Max time from OVP/UVP detection to contactor/FET trip (TBD ms). |
 | Sampling Jitter | MCU, CS, BMM | Synchronization of V/I samples for accurate Internal Resistance calculation. |
 | Creepage/Clearance| All | Mandatory 400V system safety spacing (e.g., 9.1mm for AMC1301). |
 
 ---
 
-## 3. Open Items (System-Level)
+## 8. Open Items (System-Level)
 
 | Item | Originating Module Doc | Type | Status |
 |:---|:---|:---|:---|
 | VDD1 Power Source | current-sensing | Decision | Ambiguous: BMM vs HVPS depending on pack voltage. |
 | Safety trip response time | microcontroller-module | Constraint | TBD |
 | Exact daisy chain connector | bms-monitor-module | Constraint | Unspecified |
+| FET Thermal Performance | switching-circuit | Verification | Confirm 50A continuous load thermal stability in enclosure. |

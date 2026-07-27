@@ -12,7 +12,7 @@
 | Field | Value |
 |:---|:---|
 | **Module Name** | high-voltage-power-supply |
-| **Role** | Converts high-voltage (HV) traction pack bus voltage into a stable low-voltage DC rail (3.3V or 5V) to power the isolated current-sensing "hot side." |
+| **Role** | Converts high-voltage (HV) traction pack bus voltage into stable low-voltage DC rails (3.3V/5V and 12V) to power the isolated current-sensing and gate drive stages. |
 | **Domain / Zone** | High-Voltage (HV) / Hot Side |
 | **Instantiation** | Singleton (per pack or per shunt location) |
 | **Primary Component(s)** | UCC28881 (700-V, 225-mA Off-Line Converter) |
@@ -29,6 +29,7 @@
 | **P1.1** | Input | Power | 85V - 400V (700V Max) | HVIN / DRAIN | Input from High-Voltage Bus (+). |
 | **P1.2** | Passive | Ground | HV- Ref | GND | High-Voltage Return (HV-) reference. |
 | **P1.3** | Output | Power | 3.3V / 5V | VOUT / VDD | Regulated output to power current-sensing "hot side." |
+| **P1.4** | Output | Power | 12V DC | Gate Drive (12V) | Regulated output to power switching-circuit gate drivers. |
 
 
 ## 3. Consumed Resources _(what this module needs)_
@@ -76,6 +77,7 @@ For each entry: name the resource, classify it, specify its requirement, and sta
 | Rail | Voltage | Max Current | Load Regulation | Consumer(s) |
 |:---|:---|:---|:---|:---|
 | VOUT (Hot Side Rail) | 3.3V or 5V DC | 225 mA | Stable regulated output | current-sensing (AMC1301 hot side) |
+| Gate Drive (12V) | 12V DC | ~100 mA | Regulated output | switching-circuit |
 
 ### 4.2 Signals & Data Outputs
 | Signal / Bus | Direction | Protocol / Format | Update Rate | Consumer(s) |
@@ -85,7 +87,7 @@ For each entry: name the resource, classify it, specify its requirement, and sta
 ### 4.3 Capability Outputs
 | Capability | Trigger Condition | Effect on System | Consumer(s) |
 |:---|:---|:---|:---|
-| Hot-Side Power | HV Bus energized | Provides bias for current sensing. | current-sensing (AMC1301) |
+| Hot-Side Power | HV Bus energized | Provides bias for current sensing and FET gate drive. | current-sensing, switching-circuit |
 
 ### 4.4 Physical Interfaces Offered
 | Interface | Type | Mating Requirement |
@@ -102,6 +104,7 @@ For each entry: name the resource, classify it, specify its requirement, and sta
 |:---|:---|:---|:---|
 | Traction Pack Bus | HV Power | Input | Terminal Connectors |
 | current-sensing | 3.3V/5V DC Power | Output | PCB Trace / Rail |
+| switching-circuit | 12V DC Gate Drive | Output | PCB Trace / Rail |
 
 ---
 
