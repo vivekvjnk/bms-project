@@ -1,0 +1,107 @@
+Building 1 file(s)...
+Building switching_circuit/Workspace/switching_circuit.tsx...
+Generating circuit JSON...
+Circuit JSON written to dist/switching_circuit/Workspace/switching_circuit/circuit.json
+Port pin1 on R_GATE_1 is missing a trace
+Port pin2 on R_GATE_1 is missing a trace
+Port pin1 on R_GATE_2 is missing a trace
+Port pin2 on R_GATE_2 is missing a trace
+Port pin1 on R_GATE_3 is missing a trace
+Port pin2 on R_GATE_3 is missing a trace
+Port pin1 on R_GATE_4 is missing a trace
+Port pin2 on R_GATE_4 is missing a trace
+Port pin1 on R_GATE_5 is missing a trace
+Port pin2 on R_GATE_5 is missing a trace
+Port pin1 on R_GATE_6 is missing a trace
+Port pin2 on R_GATE_6 is missing a trace
+Port pin1 on R_GATE_7 is missing a trace
+Port pin2 on R_GATE_7 is missing a trace
+Port pin1 on R_GATE_8 is missing a trace
+Port pin2 on R_GATE_8 is missing a trace
+Port pin1 on R_PD_1 is missing a trace
+Port pin2 on R_PD_1 is missing a trace
+Port pin1 on R_PD_2 is missing a trace
+Port pin2 on R_PD_2 is missing a trace
+Port pin1 on R_PD_3 is missing a trace
+Port pin2 on R_PD_3 is missing a trace
+Port pin1 on R_PD_4 is missing a trace
+Port pin2 on R_PD_4 is missing a trace
+Port pin1 on R_PD_5 is missing a trace
+Port pin2 on R_PD_5 is missing a trace
+Port pin1 on R_PD_6 is missing a trace
+Port pin2 on R_PD_6 is missing a trace
+Port pin1 on R_PD_7 is missing a trace
+Port pin2 on R_PD_7 is missing a trace
+Port pin1 on R_PD_8 is missing a trace
+Port pin2 on R_PD_8 is missing a trace
+All pins on Q1 are underspecified (no pinAttributes set)
+All pins on Q2 are underspecified (no pinAttributes set)
+All pins on Q3 are underspecified (no pinAttributes set)
+All pins on Q4 are underspecified (no pinAttributes set)
+All pins on Q5 are underspecified (no pinAttributes set)
+All pins on Q6 are underspecified (no pinAttributes set)
+All pins on Q7 are underspecified (no pinAttributes set)
+All pins on Q8 are underspecified (no pinAttributes set)
+All pins on U1 are underspecified (no pinAttributes set)
+Q1 has no pin with requires_power=true
+Q2 has no pin with requires_power=true
+Q3 has no pin with requires_power=true
+Q4 has no pin with requires_power=true
+Q5 has no pin with requires_power=true
+Q6 has no pin with requires_power=true
+Q7 has no pin with requires_power=true
+Q8 has no pin with requires_power=true
+U1 has no pin with requires_power=true
+Q1 has no pin with requires_ground=true
+Q2 has no pin with requires_ground=true
+Q3 has no pin with requires_ground=true
+Q4 has no pin with requires_ground=true
+Q5 has no pin with requires_ground=true
+Q6 has no pin with requires_ground=true
+Q7 has no pin with requires_ground=true
+Q8 has no pin with requires_ground=true
+U1 has no pin with requires_ground=true
+Could not find port for selector ".U1.VOA". Component "U1" found, but does not have pin "VOA". It has [VIA, pin1, 1, VIB, pin2, 2, VDDI1, pin3, 3, GNDI, pin4, 4, DISABLE, pin5, 5, DT, pin6, 6, NC1, pin7, 7, VDDI2, pin8, 8, GNDB, pin9, 9, VOB, pin10, 10, VDDB, pin11, 11, NC3, pin12, 12, NC2, pin13, 13, GNDA, pin14, 14, VOA, pin15, 15, VDDA, pin16, 16]
+Could not find port for selector ".R_GATE_1.2". Component "R_GATE_1" found, but does not have pin "2". It has [pin1, anode, pos, left, 1, pin2, cathode, neg, right, 2]
+Could not find port for selector ".Q1.pin1". Component "Q1" found, but does not have pin "pin1". It has [G, pin1, 1, D, pin2, 2, S, pin3, 3]
+Could not find port for selector ".R_PD_1.2". Component "R_PD_1" found, but does not have pin "2". It has [pin1, anode, pos, left, 1, pin2, cathode, neg, right, 2]
+No footprint specified for component: <resistor#49 name=".R_GATE_1" />
+No footprint specified for component: <resistor#52 name=".R_GATE_2" />
+No footprint specified for component: <resistor#55 name=".R_GATE_3" />
+No footprint specified for component: <resistor#58 name=".R_GATE_4" />
+No footprint specified for component: <resistor#61 name=".R_GATE_5" />
+No footprint specified for component: <resistor#64 name=".R_GATE_6" />
+No footprint specified for component: <resistor#67 name=".R_GATE_7" />
+No footprint specified for component: <resistor#70 name=".R_GATE_8" />
+No footprint specified for component: <resistor#73 name=".R_PD_1" />
+No footprint specified for component: <resistor#76 name=".R_PD_2" />
+No footprint specified for component: <resistor#79 name=".R_PD_3" />
+No footprint specified for component: <resistor#82 name=".R_PD_4" />
+No footprint specified for component: <resistor#85 name=".R_PD_5" />
+No footprint specified for component: <resistor#88 name=".R_PD_6" />
+No footprint specified for component: <resistor#91 name=".R_PD_7" />
+No footprint specified for component: <resistor#94 name=".R_PD_8" />
+pcb_smtpad Q1.D overlaps with pcb_smtpad U1.DISABLE
+pcb_smtpad Q1.D overlaps with pcb_smtpad U1.DT
+pcb_smtpad Q1.D overlaps with pcb_smtpad U1.NC1
+pcb_smtpad Q1.D overlaps with pcb_smtpad U1.VDDI2
+pcb_smtpad Q1.D overlaps with pcb_smtpad U1.NC3
+pcb_smtpad Q1.D overlaps with pcb_smtpad U1.VDDB
+pcb_smtpad Q1.D overlaps with pcb_smtpad U1.VOB
+pcb_smtpad Q1.D overlaps with pcb_smtpad U1.GNDB
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .GNDI] are too close (clearance: 0.045mm, minimum: 0.1mm)
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .NC2] are too close (clearance: 0.045mm, minimum: 0.1mm)
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .DISABLE] are too close (clearance: -0.287mm, minimum: 0.1mm)
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .NC3] are too close (clearance: -0.287mm, minimum: 0.1mm)
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .DT] are too close (clearance: -0.287mm, minimum: 0.1mm)
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .VDDB] are too close (clearance: -0.287mm, minimum: 0.1mm)
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .NC1] are too close (clearance: -0.287mm, minimum: 0.1mm)
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .VOB] are too close (clearance: -0.287mm, minimum: 0.1mm)
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .VDDI2] are too close (clearance: -0.287mm, minimum: 0.1mm)
+Pads pcb_port[.Q1 > .D] and pcb_port[.U1 > .GNDB] are too close (clearance: -0.287mm, minimum: 0.1mm)
+Courtyard of Q1 overlaps with courtyard of U1
+Build complete
+Circuits  1 passed
+Output    ../../dist
+⚠ Build completed with errors
+Build exiting with code 0: build finished successfully
