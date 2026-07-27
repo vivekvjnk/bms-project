@@ -10,7 +10,7 @@ interface ModuleProps {
 }
 export const CommunicationBridge = ({ showAsSchematicBox, name, schX, schY }:ModuleProps) => {
   return (
-    <group name={name} schX={schX} schY={schY} showAsSchematicBox={showAsSchematicBox}>
+    <subcircuit exposeNets name={name} schX={schX} schY={schY} showAsSchematicBox={showAsSchematicBox}>
       {/* External Interface Ports */}
       <port name="COMH_P" direction="right" connectsTo={["R4.pin1", "C3.pin1", "D1.pin1"]} />
       <port name="COMH_N" direction="right" connectsTo={["R5.pin1", "C4.pin1", "D1.pin2"]} />
@@ -114,7 +114,7 @@ export const CommunicationBridge = ({ showAsSchematicBox, name, schX, schY }:Mod
       <trace name="COML_SEC_N_R" from="R19.pin2" to="R7.pin1" />
 
       <trace name="COML_TERM" from="R6.pin2" to="R7.pin2" />
-    </group>
+    </subcircuit>
   )
 }
 

@@ -18,7 +18,7 @@ interface ModuleProps {
 
 export const LowVoltagePowerSupply = ({ name, schX, schY, showAsSchematicBox }:ModuleProps) => {
   return (
-    <group name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
+    <subcircuit exposeNets name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
       {/* Ports replacing physical input/output connectors */}
       <port name="VIN_P" direction="left" connectsTo={["C_in.pin1"]} />
       <port name="PRI_GND" direction="left" connectsTo={["C_in.pin2"]} />
@@ -263,6 +263,6 @@ export const LowVoltagePowerSupply = ({ name, schX, schY, showAsSchematicBox }:M
       <trace name="tr_fb_r23_c15" from=".R23 .pin2" to=".C15 .pin1" />
       <trace name="tr_fb_c15_u3" from=".C15 .pin2" to=".U3 .REF" />
 
-    </group>
+    </subcircuit>
   )
 }
