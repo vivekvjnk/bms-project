@@ -26,7 +26,7 @@ Primary interfaces include:
 - MOSFETs (Primary): 8x Vishay-SUM70040E (100V, 40A, TO-263).
 - MOSFETs (Fallback): 8x CRSS042N10N (100V, 120A, TO-263).
 - Shunt Resistor: 1.0mΩ Precision Shunt.
-- Isolated Gate Drivers: High-speed, isolated gate driver ICs (e.g., Si823x or equivalent) to translate 3.3V control to 12V gate drive.
+- Isolated Gate Drivers: TLP250(F) optocouplers to translate 3.3V control to 12V gate drive.
 - Gate Resistors: 10Ω - 22Ω for MOSFET gate impedance matching and ringing suppression.
 - Gate Pull-downs: 10kΩ resistors to GND_B.
 - TVS Diodes: ESD/transient protection on control lines.
@@ -50,5 +50,6 @@ Note: FET thermal performance and VDD1 power source ambiguity are considered han
 | Vishay-SUM70040E | | missing |
 | CRSS042N10N | CRSS042N10N | imported |
 | Si823x | SI8233BD_D_ISR | imported |
+| TLP250 | TLP250_F_ | imported |
 | Optocouplers | ADUM1201ARZ_RL7 | imported |
 

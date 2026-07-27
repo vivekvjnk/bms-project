@@ -23,22 +23,35 @@ Primary interfaces include:
 - Kelvin connections for shunt sensing to minimize measurement errors.
 
 ## 3. Components Inventory
-- MOSFETs (Primary): 8x Vishay-SUM70040E (100V, 40A, TO-263).
-- MOSFETs (Fallback): 8x CRSS042N10N (100V, 120A, TO-263).
-- Shunt Resistor: 1.0mΩ Precision Shunt.
-- Isolated Gate Drivers: High-speed, isolated gate driver ICs (e.g., Si823x or equivalent) to translate 3.3V control to 12V gate drive.
-- Gate Resistors: 10Ω - 22Ω for MOSFET gate impedance matching and ringing suppression.
-- Gate Pull-downs: 10kΩ resistors to GND_B.
-- TVS Diodes: ESD/transient protection on control lines.
-- Optocouplers: High-speed digital isolators for status signals back to MCU.
+- MOSFETs (Implemented in TSX): 8x CRSS042N10N (100V, 120A, TO-263). (Primary design target Vishay-SUM70040E).
+- Shunt Resistor: 1.0mΩ Precision Shunt (2512 footprint).
+- Isolated Gate Drivers: TLP250 Photocoupler (`TLP250_F_`, ±1.5A peak output current, 0.5µs propagation delay), driving the 4-MOSFET bank within the 1µs target.
+- Gate Resistors: 330Ω (`R_GATE_CHG`, `R_GATE_DSG`) implemented in TSX (Note: SCUD design target 10Ω - 22Ω for fast switching; 330Ω will increase switching times).
+- Gate Pull-downs: 5.1MΩ (`R_PD_CHG`, `R_PD_DSG`) implemented in TSX (Note: SCUD design target 10kΩ for noise immunity).
+- Current Sense RC Filter: 100Ω resistors (`R_FILTER_SRP`, `R_FILTER_SRN`) and 100nF capacitors (`C_FILTER_SRP`, `C_FILTER_SRN`).
 
 ## 4. Connectivity & Signal Flow
-- HV Power Path: BAT- -> [Switching Array] -> PACK-.
-- Current Sensing: Shunt placed in the path, with Kelvin taps (SRP/SRN) routed to the `current-sensing` module.
-- Control Flow: MCU (LV) -> [Opto-Isolation] -> Gate Drivers (HV) -> MOSFET Gates.
-- Status Flow: MOSFET Gates -> [Opto-Isolation] -> MCU (LV).
+- HV Power Path: BAT- Terminal -> [Switching Array] -> PACK- Terminal.
+- Current Sensing: Shunt placed in the path, with Kelvin taps (SRP/SRN) routed through RC filter to the `current-sensing` module.
+- Control Flow: MCU (LV) -> Opto-isolated Digital Control -> Gate Drivers (HV) -> MOSFET Gates.
+- Status Flow: MOSFET Gate/Source Voltage Monitoring -> Opto-isolated Digital Status -> MCU (LV).
+- Gate Drive Power: Isolated 12V Power Trace from `high-voltage-power-supply` to Gate Drivers.
 
 ## 5. Uncertainties, Assumptions & Confidence
-- Status logic threshold levels need definition.
+- Status logic threshold levels need definition (exact $V_{DS}$ for logic high/low).
+- Gate Driver Sizing: The driver IC must support a peak source/sink current of at least 360mA to charge the combined gate capacitance of 4 MOSFETs in 1 µs ($Q_{g,total} = 360 \text{nC}$).
+- Gate Resistor & Pull-down Values: The initial design adopts 330Ω gate resistors and 5.1MΩ pull-down resistors directly from the baseline reference circuit. These values will be evaluated and optimized during bench testing to balance switching speed (1 µs target) and noise immunity.
 
 Note: FET thermal performance and VDD1 power source ambiguity are considered handled by system-level design evolution.
+
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| Vishay-SUM70040E | | missing |
+| CRSS042N10N | CRSS042N10N | imported |
+| Si823x | SI8233BD_D_ISR | imported |
+| TLP250 | TLP250_F_ | imported |
+| Optocouplers | ADUM1201ARZ_RL7 | imported |
+
