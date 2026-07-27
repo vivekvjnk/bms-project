@@ -9,7 +9,7 @@ interface ModuleProps {
 
 export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:ModuleProps) => {
   return (
-    <group name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
+    <subcircuit exposeNets name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
       {/* 1. Module Ports (Automatically route to target pins) */}
       <port name="SWDIO" direction="left" connectsTo={["U1.pin34"]} />
       <port name="SWCLK" direction="left" connectsTo={["U1.pin37"]} />
@@ -96,6 +96,6 @@ export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:M
       <trace name="tadc_to_mcu" path={["R3.pin2", "U1.pin10"]} />
       <trace name="tadc_cap" path={["R3.pin2", "C11.pin1"]} />
       <trace name="tadc_gnd" path={["C11.pin2", "U1.pin23"]} />
-    </group>
+    </subcircuit>
   )
 }
