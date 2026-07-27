@@ -14,7 +14,7 @@ import { HighVoltagePowerSupply } from "high-voltage-power-supply/Workspace/high
  */
 export const PowerCircuit = () => {
   return (
-    <board name="power-circuit">
+    <group name="power-circuit">
       {/* 1. Module Instantiation */}
       <BmsMonitorModule 
         name="BMM" 
@@ -24,19 +24,19 @@ export const PowerCircuit = () => {
       />
       <CommunicationBridge 
         name="CB" 
-        schX={20} 
+        schX={10} 
         schY={0} 
         showAsSchematicBox={true} 
       />
       <CurrentSensing 
         name="CS" 
         schX={0} 
-        schY={-20} 
+        schY={-10} 
         showAsSchematicBox={true} 
       />
       <HighVoltagePowerSupply 
         name="HVPS" 
-        schX={-20} 
+        schX={-10} 
         schY={0} 
         showAsSchematicBox={true} 
       />
@@ -113,7 +113,7 @@ export const PowerCircuit = () => {
       <trace name="t_spi_mosi" path={["CB.MOSI", "HOST_MOSI"]} />
       <trace name="t_spi_miso" path={["CB.MISO", "HOST_MISO"]} />
 
-    </board>
+    </group>
   );
 };
 
