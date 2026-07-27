@@ -43,6 +43,10 @@
 | **P2.3** | Bi-Di | Digital Bus | 3.3V | UART/SPI | Data link to Communication Bridge (BQ79600). |
 | **P2.4** | Input | Analog | 0V - 3.3V | Isolated Current | Single-ended current measurement signal from Current Sensing module. |
 | **P2.5** | Output | Digital | 3.3V | Sync Signal | Synchronization trigger for BQ79616 "Global Cell Sample". |
+| **P2.6** | Output | Digital | 3.3V | CTRL_DSG | Control signal for discharge MOSFET bank. |
+| **P2.7** | Output | Digital | 3.3V | CTRL_CHG | Control signal for charge MOSFET bank. |
+| **P2.8** | Input | Digital | 3.3V | STAT_DSG | Status feedback from discharge MOSFET bank. |
+| **P2.9** | Input | Digital | 3.3V | STAT_CHG | Status feedback from charge MOSFET bank. |
 
 
 ## 3. Consumed Resources _(what this module needs)_
@@ -58,6 +62,7 @@
 | Cell Data | Input | UART/SPI | Periodic Update | Communication Bridge |
 | Current Sample | Input | Single-ended Analog | 1kHz Sampling | Current Sensing Module |
 | Fault Signal | Input | Discrete (Low) | Asynchronous | Communication Bridge (NFAULT) |
+| FET Status (CHG/DSG) | Input | Discrete Logic | Periodic/Async | switching-circuit |
 
 ### 3.3 Clock & Synchronisation
 | Clock / Trigger | Frequency / Period | Edge / Polarity | Provider |
@@ -99,11 +104,12 @@
 | Wake-up Ping | Output | UART/SPI | On Boot/Wakeup | Communication Bridge |
 | Pack Status | Output | UART/USB/SPI | 10Hz - 100Hz | External Monitoring System |
 | Sync Command | Output | GPIO Pulse | 1kHz | Current Sensing / Daisy Chain |
+| FET Control (CHG/DSG) | Output | Discrete Logic | Async | switching-circuit |
 
 ### 4.3 Capability Outputs
 | Capability | Trigger Condition | Effect on System | Consumer(s) |
 |:---|:---|:---|:---|
-| Safety Trip | OV/UV/OC detected | Opens contactors to isolate pack | External Contactors |
+| Safety Trip | OV/UV/OC detected | Opens contactors or FET banks to isolate pack | External Contactors / switching-circuit |
 | SOC/SOH Est. | Continuous | Calculates state for system monitoring | Internal/External System |
 
 ### 4.4 Physical Interfaces Offered
@@ -122,6 +128,7 @@
 | Communication Bridge | Data, Faults, Wakeup | Bi-Di | UART/SPI / Discrete |
 | Current Sensing | Isolated Current | Input | Single-ended Analog |
 | External Contactors | Safety Trip | Output | Digital/Discrete |
+| switching-circuit | FET Control & Status | Bi-Di | Opto-isolated Digital |
 
 ---
 
