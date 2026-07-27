@@ -1,0 +1,9 @@
+Building 1 file(s)...
+Building switching_circuit/Workspace/switching_circuit.tsx...
+Generating circuit JSON...
+Circuit JSON written to dist/switching_circuit/Workspace/switching_circuit/circuit.json
+Build complete
+Circuits  1 passed
+Output    ../../dist
+✓ Done
+Build exiting with code 0: build finished successfully
