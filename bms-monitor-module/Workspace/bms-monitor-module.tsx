@@ -16,7 +16,7 @@ interface BmsMonitorModuleProps {
  */
 export const BmsMonitorModule = ({ name, schX, schY, showAsSchematicBox }: BmsMonitorModuleProps) => {
   return (
-    <group name={name} schX={schX} schY={schY} showAsSchematicBox={showAsSchematicBox}>
+    <subcircuit exposeNets name={name} schX={schX} schY={schY} showAsSchematicBox={showAsSchematicBox}>
         
         {/* ==========================================
            EXTERNAL INTERFACE PORTS
@@ -183,6 +183,6 @@ export const BmsMonitorModule = ({ name, schX, schY, showAsSchematicBox }: BmsMo
             </group>
           );
         })}
-    </group>
+    </subcircuit>
   );
 };

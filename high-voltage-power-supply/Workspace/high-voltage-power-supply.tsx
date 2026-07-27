@@ -11,7 +11,7 @@ interface ModuleProps {
 }
 
 export const HighVoltagePowerSupply = ({ name, schX, schY, showAsSchematicBox }:ModuleProps) => (
-  <group name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
+  <subcircuit exposeNets name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
     {/* Ports replacing physical pinheaders */}
     <port name="HV_IN_POS" direction="left" connectsTo={["F1.pin1"]} />
     <port name="HV_IN_NEG" direction="left" connectsTo={["C1.pin2", "C2.pin2", "D4.anode", "C5.pin2", "D5.anode"]} />
@@ -78,7 +78,7 @@ export const HighVoltagePowerSupply = ({ name, schX, schY, showAsSchematicBox }:
     {/* 6. VDD decoupling internal connections */}
     <trace name="t_vdd_decouple" path={["U1.VDD", "C_VDD.pin1"]} />
     <trace name="t_vdd_gnd" path={["C_VDD.pin2", "U1.GND1"]} />
-  </group>
+  </subcircuit>
 )
 
 export default HighVoltagePowerSupply
