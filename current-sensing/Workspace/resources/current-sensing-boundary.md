@@ -29,7 +29,7 @@
 ### 2.1 Domain: High-Voltage / Hot Side
 | Port ID | Direction | Signal Type | Voltage Level | Mapped Resource | Function & Logic |
 |:---|:---|:---|:---|:---|:---|
-| **P1.1** | Input | Analog | $\pm 250$ mV | Shunt Voltage (INP/INN) | Kelvin sense connection for current measurement. |
+| **P1.1** | Input | Analog | $\pm 250$ mV | Shunt Voltage (SRP/SRN) | Kelvin sense connection for current measurement (from switching-circuit). |
 | **P1.2** | Input | Power | 3.3V - 5.5V | VDD1 | Supply for isolated front-end logic. |
 | **P1.3** | Passive | Ground | HV- Ref | GND1 | Isolated reference ground for the HV domain. |
 
@@ -52,7 +52,7 @@
 ### 3.2 Signals & Data
 | Signal / Bus | Direction | Protocol / Format | Timing Constraint | Provider |
 |:---|:---|:---|:---|:---|
-| Shunt Voltage | Input | Differential Analog | High Bandwidth (210kHz) | External Shunt Resistor |
+| Shunt Voltage | Input | Differential Analog | High Bandwidth (210kHz) | switching-circuit |
 
 ### 3.3 Clock & Synchronisation
 | Clock / Trigger | Frequency / Period | Edge / Polarity | Provider |
@@ -75,7 +75,7 @@
 ### 3.6 Unresolvable Dependencies _(system boundary surface)_
 | Resource | Class | External Source | Specification |
 |:---|:---|:---|:---|
-| Shunt Voltage | Sensing | Battery Pack Bus | Derived from low-side shunt in traction path |
+| N/A | | | |
 
 ---
 
@@ -100,7 +100,7 @@
 ### 4.4 Physical Interfaces Offered
 | Interface | Type | Mating Requirement |
 |:---|:---|:---|
-| Kelvin Sense Terminals | Screw Terminals (EVM) | Direct Shunt Connection |
+| Internal Header / PCB Traces | Analog | Connection to switching-circuit shunt taps |
 
 ---
 
@@ -113,6 +113,7 @@
 | Microcontroller Module | Isolated Current Signal | Output | Single-ended Analog |
 | Microcontroller Module | VDD2 Power | Input | 3.3V/5V Rail |
 | Microcontroller Module | Sync Command | Input | ADC Trigger |
+| switching-circuit | Shunt Voltage (SRP/SRN) | Input | Kelvin Pair |
 
 ---
 

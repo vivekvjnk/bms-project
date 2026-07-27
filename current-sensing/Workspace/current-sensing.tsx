@@ -20,7 +20,7 @@ interface ModuleProps {
  */
 export const CurrentSensing = ({ name, schX, schY, showAsSchematicBox }:ModuleProps) => {
   return (
-    <group name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
+    <subcircuit exposeNets name={name} showAsSchematicBox={showAsSchematicBox} schX={schX} schY={schY}>
       {/* High-Voltage (HV) Side Ports */}
       <port name="INP" direction="left" connectsTo={["R1.pin1"]} />
       <port name="INN" direction="left" connectsTo={["R2.pin1"]} />
@@ -118,7 +118,7 @@ export const CurrentSensing = ({ name, schX, schY, showAsSchematicBox }:ModulePr
       <trace name="INN_F_R2_U2" from="R2.pin2" to="U2.pin3" />
       <trace name="INN_F_U2_C5" from="U2.pin3" to="C5.pin2" />
       <trace name="INN_F_C5_C8" from="C5.pin2" to="C8.pin1" />
-    </group>
+    </subcircuit>
   )
 }
 
