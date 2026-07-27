@@ -42,3 +42,13 @@ Primary interfaces include:
 - Status logic threshold levels need definition.
 
 Note: FET thermal performance and VDD1 power source ambiguity are considered handled by system-level design evolution.
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| Vishay-SUM70040E | | missing |
+| CRSS042N10N | CRSS042N10N | imported |
+| Si823x | SI8233BD_D_ISR | imported |
+| Optocouplers | ADUM1201ARZ_RL7 | imported |
+
