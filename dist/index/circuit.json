@@ -692,7 +692,7 @@
   },
   {
     "type": "supplier_footprint_mismatch_warning",
-    "supplier_footprint_mismatch_warning_id": "supplier_footprint_mismatch_warning_3186IdeA4J",
+    "supplier_footprint_mismatch_warning_id": "supplier_footprint_mismatch_warning_UcciK8fPyp",
     "warning_type": "supplier_footprint_mismatch_warning",
     "message": "<resistor#0 name=\".R1\" /> footprint \"0402\" does not match supplier footprint jlcpcb:C11702 (copper IoU 0.7741).",
     "source_component_id": "source_component_0",
@@ -704,7 +704,7 @@
   },
   {
     "type": "supplier_footprint_mismatch_warning",
-    "supplier_footprint_mismatch_warning_id": "supplier_footprint_mismatch_warning_CjIydsqzpj",
+    "supplier_footprint_mismatch_warning_id": "supplier_footprint_mismatch_warning_Tn8DJmaGop",
     "warning_type": "supplier_footprint_mismatch_warning",
     "message": "<capacitor#13 name=\".C1\" /> footprint \"0402\" does not match supplier footprint jlcpcb:C1523 (copper IoU 0.7249).",
     "source_component_id": "source_component_1",
