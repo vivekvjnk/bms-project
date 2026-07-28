@@ -26,6 +26,12 @@ export const SwitchingCircuit = ({ name, schX, schY, showAsSchematicBox }: Modul
       <TLP250_F_ name="U_CHG" pcbX="-30mm" pcbY="0mm" schX="-9" schY="-5" />
       <TLP250_F_ name="U_DSG" pcbX="30mm" pcbY="0mm" schX="-9" schY="5" />
 
+      {/* Driver Decoupling Capacitors (10uF & 0.1uF 0805 25V) */}
+      <capacitor name="C_BULK_CHG" capacitance="10uF" voltage="25V" footprint="0805" pcbX="-35mm" pcbY="-5mm" schX="-11" schY="-7" />
+      <capacitor name="C_BYP_CHG" capacitance="100nF" voltage="25V" footprint="0805" pcbX="-25mm" pcbY="-5mm" schX="-11" schY="-4" />
+      <capacitor name="C_BULK_DSG" capacitance="10uF" voltage="25V" footprint="0805" pcbX="25mm" pcbY="-5mm" schX="-11" schY="3" />
+      <capacitor name="C_BYP_DSG" capacitance="100nF" voltage="25V" footprint="0805" pcbX="35mm" pcbY="-5mm" schX="-11" schY="6" />
+
       {/* MOSFET Array (CHG: Q1-Q4, DSG: Q5-Q8) */}
       {Array.from({ length: 4 }).map((_, i) => (
         <CRSS042N10N key={i} name={`Q${i + 1}`} pcbX={`${(i - 2) * 15}mm`} pcbY="15mm" schX="2" schY={`${-8 + i * 2}`} />
@@ -105,6 +111,17 @@ export const SwitchingCircuit = ({ name, schX, schY, showAsSchematicBox }: Modul
       <trace name="TR_FILTER_SRN_OUT" from="R_FILTER_SRN.pin2" to="C_FILTER_SRN.pin1" />
       <trace name="TR_C_FILTER_SRP_GND" from="C_FILTER_SRP.pin2" to="U_CHG.pin5" />
       <trace name="TR_C_FILTER_SRN_GND" from="C_FILTER_SRN.pin2" to="U_CHG.pin5" />
+
+      {/* Decoupling Capacitor Connections */}
+      <trace name="TR_BULK_CHG_VDD" from="C_BULK_CHG.pin1" to="U_CHG.pin8" />
+      <trace name="TR_BULK_CHG_GND" from="C_BULK_CHG.pin2" to="U_CHG.pin5" />
+      <trace name="TR_BYP_CHG_VDD" from="C_BYP_CHG.pin1" to="U_CHG.pin8" />
+      <trace name="TR_BYP_CHG_GND" from="C_BYP_CHG.pin2" to="U_CHG.pin5" />
+
+      <trace name="TR_BULK_DSG_VDD" from="C_BULK_DSG.pin1" to="U_DSG.pin8" />
+      <trace name="TR_BULK_DSG_GND" from="C_BULK_DSG.pin2" to="U_DSG.pin5" />
+      <trace name="TR_BYP_DSG_VDD" from="C_BYP_DSG.pin1" to="U_DSG.pin8" />
+      <trace name="TR_BYP_DSG_GND" from="C_BYP_DSG.pin2" to="U_DSG.pin5" />
 
     </subcircuit>
   );
