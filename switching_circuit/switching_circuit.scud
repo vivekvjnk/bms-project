@@ -1,0 +1,55 @@
+# switching_circuit.scud
+
+## 1. Module Overview & System Context
+The `switching_circuit` module acts as a critical interface between the Battery Management System (BMS) and the external Load/Charger. It performs low-side power switching (charge/discharge control) and provides integrated precision shunt current sensing. It spans the High-Voltage (HV) and Low-Voltage (LV) domains, requiring robust isolation for control signals and power supplies.
+
+Primary interfaces include:
+- HV side: Battery negative terminal (BAT-), System return (PACK-).
+- LV side: Control signals from the microcontroller (CTRL_CHG/DSG, STAT_CHG/DSG).
+- Power: Isolated 12V gate drive from HVPS.
+- Sense: Precision current sensing via a shunt resistor (SRP/SRN) provided to the `current-sensing` module.
+
+## 2. Architectural Deviations (Baseline vs. Target)
+*Baseline Reference:* `low-side-switch-reference-circuit.png`
+
+*Removed components/blocks:*
+- Evaluation-specific test headers and connectors (J1, J2, J3) used for bench testing.
+- Evaluation status LEDs (D1, D2) for CHG/DSG state.
+
+*Added components/blocks:*
+- Opto-isolated level shifters for CHG/DSG control signals to interface LV (MCU) to HV.
+- Gate drive protection circuitry (TVS diodes) for transient voltage spikes.
+- Passive pull-down resistors ($10k\Omega$) on FET gates to ensure safety OFF-state.
+- Kelvin connections for shunt sensing to minimize measurement errors.
+
+## 3. Components Inventory
+- MOSFETs (Primary): 8x Vishay-SUM70040E (100V, 40A, TO-263).
+- MOSFETs (Fallback): 8x CRSS042N10N (100V, 120A, TO-263).
+- Shunt Resistor: 1.0mΩ Precision Shunt.
+- Isolated Gate Drivers: TLP250(F) optocouplers to translate 3.3V control to 12V gate drive.
+- Gate Resistors: 10Ω - 22Ω for MOSFET gate impedance matching and ringing suppression.
+- Gate Pull-downs: 10kΩ resistors to GND_B.
+- TVS Diodes: ESD/transient protection on control lines.
+- Optocouplers: High-speed digital isolators for status signals back to MCU.
+
+## 4. Connectivity & Signal Flow
+- HV Power Path: BAT- -> [Switching Array] -> PACK-.
+- Current Sensing: Shunt placed in the path, with Kelvin taps (SRP/SRN) routed to the `current-sensing` module.
+- Control Flow: MCU (LV) -> [Opto-Isolation] -> Gate Drivers (HV) -> MOSFET Gates.
+- Status Flow: MOSFET Gates -> [Opto-Isolation] -> MCU (LV).
+
+## 5. Uncertainties, Assumptions & Confidence
+- Status logic threshold levels need definition.
+
+Note: FET thermal performance and VDD1 power source ambiguity are considered handled by system-level design evolution.
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| Vishay-SUM70040E | | missing |
+| CRSS042N10N | CRSS042N10N | imported |
+| Si823x | SI8233BD_D_ISR | imported |
+| TLP250 | TLP250_F_ | imported |
+| Optocouplers | ADUM1201ARZ_RL7 | imported |
+
