@@ -1,35 +1,35 @@
 Building 1 file(s)...
 Building microcontroller-module/Workspace/microcontroller-module.tsx...
 Generating circuit JSON...
-(source_port_id: source_port_76) for trace source_trace_26 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_76) for trace source_trace_27 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_77) for trace source_trace_27 does not have x/y coordinates. Skipping this trace.
 (source_port_id: source_port_77) for trace source_trace_28 does not have x/y coordinates. Skipping this trace.
-(source_port_id: source_port_77) for trace source_trace_29 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_78) for trace source_trace_29 does not have x/y coordinates. Skipping this trace.
+(source_port_id: source_port_78) for trace source_trace_30 does not have x/y coordinates. Skipping this trace.
 Async effect error in PcbTraceRender "capacity-mesh-autorouting":
-AutorouterError: oz ran out of iterations (capacity-autorouter@0.0.640)
+AutorouterError: Static reachability precheck failed: 1 route(s) have no legal path under the current reservation and start-region rules source_trace_43 (pcb_port_12->pcb_port_82) (capacity-autorouter@0.0.640)
 at runCycleAndQueueNextCycle (/app/node_modules/.pnpm/@tscircuit+core@0.0.1403_82d8d0a66294d6326ce8a9a23c002eda/node_modules/@tscircuit/core/dist/index.js:15448:24)
 at <anonymous> (/app/node_modules/.pnpm/@tscircuit+core@0.0.1403_82d8d0a66294d6326ce8a9a23c002eda/node_modules/@tscircuit/core/dist/index.js:15483:27)
 Circuit JSON written to dist/microcontroller-module/Workspace/microcontroller-module/circuit.json
 Port pin1 on R3 is missing a trace
 Port pin1 on R6 is missing a trace
-<capacitor#200 name=".C10" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
-<capacitor#225 name=".C11" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
-<capacitor#111 name=".C5" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
-<capacitor#87 name=".C3" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
-<resistor#212 name=".R3" /> footprint "0402" does not match supplier footprint jlcpcb:C11702 (copper IoU 0.7741).
-<capacitor#63 name=".C1" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
-<capacitor#288 name=".C12" /> footprint "0402" does not match supplier footprint jlcpcb:C1546 (copper IoU 0.7249).
-<resistor#174 name=".R1" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
-<resistor#249 name=".R4" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
-<resistor#275 name=".R6" /> footprint "0402" does not match supplier footprint jlcpcb:C25076 (copper IoU 0.7741).
-<resistor#187 name=".R2" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
-<resistor#262 name=".R5" /> footprint "0402" does not match supplier footprint jlcpcb:C327323 (copper IoU 0.7741).
-<capacitor#162 name=".C9" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).
-<capacitor#150 name=".C8" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).
+<resistor#188 name=".R2" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
+<resistor#175 name=".R1" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
+<resistor#256 name=".R4" /> footprint "0402" does not match supplier footprint jlcpcb:C25744 (copper IoU 0.7741).
+<resistor#269 name=".R5" /> footprint "0402" does not match supplier footprint jlcpcb:C327323 (copper IoU 0.7741).
+<capacitor#112 name=".C5" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
+<resistor#282 name=".R6" /> footprint "0402" does not match supplier footprint jlcpcb:C25076 (copper IoU 0.7741).
+<capacitor#88 name=".C3" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
+<capacitor#201 name=".C10" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
+<capacitor#295 name=".C12" /> footprint "0402" does not match supplier footprint jlcpcb:C1546 (copper IoU 0.7249).
+<resistor#213 name=".R3" /> footprint "0402" does not match supplier footprint jlcpcb:C11702 (copper IoU 0.7741).
+<capacitor#64 name=".C1" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
+<capacitor#163 name=".C9" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).
+<capacitor#151 name=".C8" /> footprint "0402" does not match supplier footprint jlcpcb:C1555 (copper IoU 0.1081).
+<capacitor#226 name=".C11" /> footprint "0402" does not match supplier footprint jlcpcb:C1525 (copper IoU 0.7249).
 Invalid footprint prop on crystal "X1": "crystal_smd_3225". Parser details: Invalid footprint function, got "crystal", from string "crystal_smd_3225"
 Could not find port for selector "ADC_IN"
 Could not find port for selector "ADC_IN"
-oz ran out of iterations (capacity-autorouter@0.0.640)
+Static reachability precheck failed: 1 route(s) have no legal path under the current reservation and start-region rules source_trace_43 (pcb_port_12->pcb_port_82) (capacity-autorouter@0.0.640)
 Build complete
 Circuits  1 passed
 Output    ../../dist

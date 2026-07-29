@@ -26,7 +26,8 @@ export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:M
       <port name="SPI_MISO" direction="right" connectsTo={["U1.pin16"]} />
       <port name="SPI_MOSI" direction="right" connectsTo={["U1.pin17"]} />
       <port name="SYNC_GPIO" direction="right" connectsTo={["U1.pin21"]} />
-      <port name="CONTACTOR_GPIO" direction="right" connectsTo={["U3.pin4"]} />
+      <port name="CTRL_CHG" direction="right" connectsTo={["U3.pin4"]} />
+      <port name="CTRL_DSG" direction="right" connectsTo={["U4.pin4"]} />
 
       {/* 2. Microcontroller */}
       <STM32F411CEU6 name="U1" schX={0} schY={0} />
@@ -56,7 +57,8 @@ export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:M
 
       {/* 7. Fast Hardware Overcurrent Protection Circuit */}
       <TLV3201AIDBVR name="U2" schX={10} schY={-3} /> {/* High-Speed Comparator */}
-      <NC7SZ08M5X name="U3" schX={13} schY={-3} />    {/* High-Speed AND Gate */}
+      <NC7SZ08M5X name="U3" schX={13} schY={-3} />    {/* High-Speed AND Gate (CHG) */}
+      <NC7SZ08M5X name="U4" schX={13} schY={0} />     {/* High-Speed AND Gate (DSG) */}
       <resistor name="R4" resistance="10kohm" footprint="0402" schX={8} schY={-5} />  {/* Precision Reference Divider R1 */}
       <resistor name="R5" resistance="91kohm" footprint="0402" schX={10} schY={-5} /> {/* Precision Reference Divider R2 (90.1% VDD) */}
       <resistor name="R6" resistance="100ohm" footprint="0402" schX={6} schY={-3} />  {/* Fast Path Filter Resistor */}
@@ -73,7 +75,8 @@ export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:M
       <trace name="t3v3_9" path={["U1.pin36", "U1.pin48"]} />
       <trace name="t3v3_10" path={["U1.pin48", "R2.pin1"]} />
       <trace name="t3v3_comp" path={["R2.pin1", "U2.pin5"]} />
-      <trace name="t3v3_gate" path={["U2.pin5", "U3.pin5"]} />
+      <trace name="t3v3_gate_chg" path={["U2.pin5", "U3.pin5"]} />
+      <trace name="t3v3_gate_dsg" path={["U3.pin5", "U4.pin5"]} />
       <trace name="t3v3_ref" path={["U2.pin5", "R4.pin1"]} />
       
       {/* 7. Internal Ground Connections (GND Net) */}
@@ -116,14 +119,17 @@ export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:M
       <trace name="tfast_filter_cap" path={["R6.pin2", "C12.pin1"]} />
       <trace name="tref_div" path={["R4.pin2", "R5.pin1"]} />
       <trace name="tref_comp" path={["R4.pin2", "U2.pin4"]} />
-      <trace name="tcomp_out" path={["U2.pin1", "U3.pin2"]} />
-      <trace name="tmcu_trip" path={["U1.pin11", "U3.pin1"]} />
+      <trace name="tcomp_out_chg" path={["U2.pin1", "U3.pin2"]} />
+      <trace name="tcomp_out_dsg" path={["U3.pin2", "U4.pin2"]} />
+      <trace name="tmcu_chg_en" path={["U1.pin13", "U3.pin1"]} />
+      <trace name="tmcu_dsg_en" path={["U1.pin11", "U4.pin1"]} />
 
       {/* 11. Additional Ground Connections for Protection Circuit */}
       <trace name="tgnd_prot_1" path={["U1.pin23", "C12.pin2"]} />
       <trace name="tgnd_prot_2" path={["C12.pin2", "U2.pin2"]} />
       <trace name="tgnd_prot_3" path={["U2.pin2", "R5.pin2"]} />
       <trace name="tgnd_prot_4" path={["R5.pin2", "U3.pin3"]} />
+      <trace name="tgnd_prot_5" path={["U3.pin3", "U4.pin3"]} />
     </subcircuit>
   )
 }
