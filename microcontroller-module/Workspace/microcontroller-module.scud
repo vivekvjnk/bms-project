@@ -1,7 +1,7 @@
 # microcontroller-module.scud
 
 ## 1. Module Overview & System Context
-The `microcontroller-module` acts as the central intelligence of the Battery Management System (BMS). It resides in the Low-Voltage (LV) Domain and is responsible for safety logic and State of Charge (SOC) / State of Health (SOH) estimation. It interfaces with the Communication Bridge for cell data, the Current Sensing module for pack current, and the Low-Voltage Power Supply (LVPS) for its regulated power rails (3.3V).
+The `microcontroller-module` acts as the central intelligence of the Battery Management System (BMS). It resides in the Low-Voltage (LV) Domain and is responsible for safety logic, State of Charge (SOC) / State of Health (SOH) estimation, and fast hardware-level overcurrent/short-circuit protection. It interfaces with the Communication Bridge for cell data, the Current Sensing module for pack current, the Switching Circuit for contactor/FET control, and the Low-Voltage Power Supply (LVPS) for its regulated power rails (3.3V).
 
 ## 2. Architectural Deviations (Baseline vs. Target)
 *   **Removed components/blocks:**
@@ -9,23 +9,53 @@ The `microcontroller-module` acts as the central intelligence of the Battery Man
     *   Evaluation User Buttons (removed as not required by system boundary).
     *   Excessive test headers (pruned to optimize form factor).
 *   **Added components/blocks:**
-    *   Signal conditioning for Current Sensing analog signal.
+    *   Fast Hardware Comparator Circuit (Primary: TLV3201; Alternatives: LMV7211, MAX9031) for sub-microsecond overcurrent fault detection.
+    *   High-Speed 2-Input AND Gate (Primary: NC7SZ08; Alternatives: 74AHC1G08, TC7SZ08) combining MCU software safety trip GPIO and hardware comparator fault output to drive the contactor/FET control line (`CONTACTOR_CTRL`).
+    *   Precision Voltage Divider Reference Bridge (90% VDD threshold setting) supplying the comparator inverting input ($V_{\text{ref}} = 2.97\text{ V}$ at 3.3V VDD/VDDA).
+    *   Dedicated low-time-constant RC filter branch ($\tau \approx 10\text{ ns}$) for the comparator input to ensure fast fault propagation while maintaining noise immunity.
 
 ## 3. Components Inventory
 *   **ASIC:** STM32F411CEU6 (Arm Cortex-M4, UFQFPN48 package).
-*   **Power Filtering:** Standard decoupling (0.1uF, 4.7uF) for VDD; Ferrite Bead + 0.1uF for VDDA/VREF+ as per datasheet (removes noise).
-*   **Oscillator:** 8MHz Crystal (or 25MHz) for HSE, with 20pF load capacitors.
-*   **Passive Support:** BOOT0 pull-down (10k); NRST pull-up (10k) and capacitor (100nF) for stable reset.
+*   **Hardware Comparator:** TLV3201 (Push-Pull Output, ~40ns propagation delay) / Drop-in alternatives: LMV7211 (~75ns), MAX9031 (~180ns).
+*   **Logic Gate:** NC7SZ08 (TinyLogic UHS 2-Input AND Gate, ~2.5ns propagation delay at 3.3V) / Drop-in alternatives: 74AHC1G08 (~3.5ns), TC7SZ08 (~3.0ns).
+*   **Precision Reference Network:** 0.1% tolerance thin-film resistors configured as a voltage divider ($R_1 = 10.0\text{ k}\Omega$, $R_2 = 91.0\text{ k}\Omega$) yielding exactly $90.1\%$ of VDD ($2.973\text{ V}$) for the overcurrent trip threshold.
+*   **Power Filtering:** Standard decoupling (0.1uF, 4.7uF) for VDD; Ferrite Bead + 0.1uF for VDDA/VREF+ as per datasheet.
+*   **Oscillator:** 8MHz Crystal for HSE, with 20pF load capacitors.
+*   **Passive Support:** BOOT0 pull-down (10k); NRST pull-up (10k) and capacitor (100nF).
 
 ## 4. Connectivity & Signal Flow
-*   **Internal:** 3.3V from LVPS powers MCU and peripherals. MCU UART/SPI connects to Communication Bridge. MCU GPIO provides Sync signal (Output) to Bridge/Current Sense. ADC input receives Current Sensing single-ended analog signal through a passive RC filter (to be implemented on-module, e.g., 1k/100nF).
-*   **Interface Mapping (Optimal):**
+*   **Internal:** 3.3V from LVPS powers MCU, comparator, and AND gate. MCU UART/SPI connects to Communication Bridge. MCU GPIO provides Sync signal (Output) and Software Trip GPIO (`MCU_TRIP_EN`). Current Sense analog signal splits into:
+    1.  ADC Filter Branch ($1\text{k}\Omega / 100\text{nF}$, $\tau = 100\mu\text{s}$) for precise SOC/SOH sampling.
+    2.  Comparator Fast Path ($100\Omega / 100\text{pF}$, $\tau = 10\text{ ns}$) feeding the comparator non-inverting input.
+*   **Comparator Threshold & Logic:**
+    *   **Inverting Input ($V_{\text{ref}}$):** Connected to the precision voltage divider bridge tied to VDD (3.3V), generating a fixed trip reference of $90\%$ VDD ($2.97\text{ V}$).
+    *   **Non-Inverting Input ($V_{\text{in}}$):** Connected to the fast current sense analog path.
+    *   **Trip Condition:** When $V_{\text{in}} > 90\%$ VDD ($2.97\text{ V}$), representing an overcurrent or short-circuit fault condition, the comparator output asserts a logical fault state.
+*   **AND Gate Logic:** Input A: `MCU_TRIP_EN` (MCU safety enable, default HIGH). Input B: Comparator Fault Output. Combined output drives `CONTACTOR_CTRL` to instantly trip contactors/FETs during fault conditions independently of MCU firmware execution.
+*   **Interface Mapping:**
     *   PA9/PA10: USART1 (Communication Bridge)
     *   PA5/PA6/PA7: SPI1 (Backup/Alternative Bridge)
-    *   PA1: GPIO (Contactor Control)
+    *   PA1: GPIO (Software Contactor Enable / Trip)
     *   PA2: GPIO (Sync Signal)
-    *   PA0: ADC1 (Current Input)
+    *   PA0: ADC1 (Current Input - Buffered/Filtered)
+    *   Comparator Input: Tapped from Current Sense analog line via fast RC network.
+    *   AND Gate Output: Drives `CONTACTOR_CTRL` output port.
 
-## 5. Uncertainties, Assumptions & Confidence
-*   **Assumptions:** Assuming standard automotive-grade decoupling and passive components. Pin mapping will be optimized based on STM32F411 peripheral capabilities. Passive filtering is sufficient for the Current Sensing interface.
-*   **Confidence:** High regarding all design aspects.
+## 5. Propagation Delay Analysis & Target Specifications
+*   **Target Total Propagation Delay:** $< 1.0\,\mu\text{s}$ ($1000\text{ ns}$) from fault condition (short circuit) to contactor/FET de-energization.
+*   **Delay Breakdown Budget (Using TLV3201 & NC7SZ08):**
+    1.  *Fast RC Input Filter ($\tau = 10\text{ ns}$):* Settling time to threshold $\approx 22\text{ ns}$.
+    2.  *High-Speed Comparator (TLV3201):* Max propagation delay $\approx 40\text{ ns}$.
+    3.  *High-Speed AND Gate (NC7SZ08):* Max propagation delay $\approx 2.5\text{ ns}$.
+    4.  *Gate Driver / Optocoupler Isolation Stage:* $\approx 500\text{ ns}$.
+    5.  *Total Calculated Delay:* $\approx 564.5\text{ ns}$ (Comfortably within the $1000\text{ ns}$ target specification with a 435 ns margin).
+*   **Confidence:** High. Precision voltage divider network combined with multi-sourced drop-in IC alternatives ensures robust overcurrent protection and supply chain resilience.
+
+## Library Mapping
+
+| Component Name | Imported Component Name | Status |
+|---|---|---|
+| STM32F411CEU6 | STM32F411CEU6 | imported |
+| TLV3201 | TLV3201AIDBVR | imported |
+| NC7SZ08 | NC7SZ08M5X | imported |
+
