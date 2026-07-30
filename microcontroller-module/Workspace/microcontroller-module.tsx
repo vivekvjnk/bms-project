@@ -57,8 +57,8 @@ export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:M
       <capacitor name="C11" capacitance="100nF" footprint="0402" schX={8} schY={1} />
 
       {/* 7. Fast Hardware Overcurrent Protection Circuit */}
-      <TLV3201AIDBVR name="U2" schX={10} schY={-3} /> {/* High-Speed Comparator */}
-      <NC7SZ08M5X name="U3" schX={13} schY={-3} />    {/* High-Speed AND Gate (CHG) */}
+      <TLV3201AIDBVR name="U2" schX={11} schY={-2} /> {/* High-Speed Comparator */}
+      <NC7SZ08M5X name="U3" schX={15.5} schY={-2} />    {/* High-Speed AND Gate (CHG) */}
       <NC7SZ08M5X name="U4" schX={13} schY={0} />     {/* High-Speed AND Gate (DSG) */}
       <resistor name="R4" resistance="10kohm" footprint="0402" schX={8} schY={-5} />  {/* Precision Reference Divider R1 */}
       <resistor name="R5" resistance="91kohm" footprint="0402" schX={10} schY={-5} /> {/* Precision Reference Divider R2 (90.1% VDD) */}

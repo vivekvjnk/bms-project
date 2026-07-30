@@ -55,6 +55,22 @@ The `microcontroller-module` acts as the central intelligence of the Battery Man
     5.  *Total Calculated Delay:* $\approx 564.5\text{ ns}$ (Comfortably within the $1000\text{ ns}$ target specification with a 435 ns margin).
 *   **Confidence:** High. Dual-switch hardware trip architecture ensures complete system isolation (turning off both charge and discharge paths) under short-circuit conditions even during MCU lockup.
 
+## 6. Current Rating & Power Consumption Analysis
+*   **Nominal Operating Current ($I_{\text{nom}}$):**
+    *   *STM32F411CEU6 (Run mode @ 100MHz, peripherals enabled):* $\sim 21.4\text{ mA}$ (typical at $25^\circ\text{C}$), up to $25.0\text{ mA}$ (max at $125^\circ\text{C}$).
+    *   *TLV3201 Comparator:* Quiescent supply current $I_{\text{Q}} \approx 40\,\mu\text{A}$ typical ($55\,\mu\text{A}$ max).
+    *   *Dual NC7SZ08 AND Gates:* Quiescent supply current $I_{\text{Q}} \approx 1\,\mu\text{A}$ per gate ($2\,\mu\text{A}$ total).
+    *   *Precision Voltage Divider ($R_1 = 10\text{ k}\Omega, R_2 = 91\text{ k}\Omega$ across 3.3V):* $I_{\text{div}} = \frac{3.3\text{ V}}{101\text{ k}\Omega} \approx 32.7\,\mu\text{A}$.
+    *   *Total Nominal Module Current ($I_{\text{nom}}$):* $\approx 21.5\text{ mA}$ (dominated by the MCU).
+*   **Worst-Case Operating Current ($I_{\text{max}}$):**
+    *   *MCU Max Run Current (100MHz, max temperature $125^\circ\text{C}$, VDD = 3.6V):* $25.0\text{ mA}$.
+    *   *Max Peripheral & I/O Loading / Push-Pull Driving:* $\sim 10\text{ mA}$.
+    *   *Comparator & Logic Max Quiescent + Transition Current:* $\sim 0.5\text{ mA}$.
+    *   *Reference Divider Current (at max VDD = 3.6V):* $\frac{3.6\text{ V}}{101\text{ k}\Omega} \approx 35.6\,\mu\text{A}$.
+    *   *Total Worst-Case Module Supply Current ($I_{\text{max}}$):* $\approx 35.5\text{ mA}$.
+*   **In-Rush Characteristics:**
+    *   *MCU Internal Voltage Regulator In-Rush (POR / wakeup):* Peak $\approx 200\text{ mA}$ for a duration of $\sim 31\,\mu\text{s}$ (Energy $\approx 5.4\,\mu\text{C}$), handled by input bulk decoupling capacitors ($4.7\,\mu\text{F} + 0.1\,\mu\text{F}$ per rail).
+
 ## Library Mapping
 
 | Component Name | Imported Component Name | Status |
