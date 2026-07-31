@@ -69,7 +69,13 @@ The module is positioned in the "Isolation Boundary" zone, providing galvanic is
 - **P2.10 (INH):** BQ79600 INH -> System Inhibit Signal (to PMIC/LVPS Enable).
 - **P2.11 (DVDD):** Internal 1.8V Output -> C12 -> Internal use.
 
-## 5. Uncertainties, Assumptions & Confidence
+## 5. Power Consumption Analysis
+- **Average Operating Current:** ~15 mA - 25 mA (Active mode with periodic polling, baseline IC current plus moderate daisy-chain transmission activity).
+- **Worst-Case Operating Current:** Up to 40 mA - 50 mA (Active mode with continuous dual-channel daisy-chain transmission/reception and maximum I/O load).
+- **Sleep Mode Current:** ~50 µA - 100 µA (Low-power sleep state with monitoring active).
+- **Shutdown Mode Current:** < 10 µA (Complete low-power shutdown).
+
+## 6. Uncertainties, Assumptions & Confidence
 - **Uncertainty:** Final interface hardware (connectors/cables) is defined at the system level.
 - **Assumption:** SPI interface is the primary host communication protocol (nCS pulled high, nUART/SPI used for mode selection/SPI_RDY).
 - **Confidence:** High for core functional blocks and ASIC implementation. Medium for EMC-specific component values (chokes, TVS) which are not explicitly detailed in the baseline schematic segments but are standard for automotive bridge designs.
