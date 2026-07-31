@@ -3,6 +3,22 @@
 ## 1. Module Overview & System Context
 The `high-voltage-power-supply` (HVPS) is a non-isolated DC-DC buck converter situated in the High-Voltage (HV) domain. It is designed to step down the Traction Pack HV Bus voltage (85V - 400V DC) to a primary regulated 12V DC rail (~150-225 mA CCM capacity, supporting ~100 mA for the `switching-circuit` gate drivers, ~2.7W to 3.0W output power) and a secondary 5.0V DC rail (VDD1) generated via a local LDO regulator (L78L05) from the 12V rail to provide bias power for the hot-side logic of the `current-sensing` module (specifically the AMC1301 isolated amplifier).
 
+**Power & Current Capability Calculations:**
+*   **Normal Operating Point:**
+    *   Input Voltage ($V_{IN}$): 85VDC - 400VDC (Nominal ~300VDC).
+    *   Primary Output Voltage ($V_{OUT12}$): 12.0V DC.
+    *   Normal Load Current (12V rail): ~125 mA total (~100 mA gate drivers + ~25 mA equivalent for 5V LDO input power at light load).
+    *   Normal Output Power (12V rail): $P_{OUT12} = 12.0\text{V} \times 0.125\text{A} = 1.5\text{W}$.
+    *   Secondary Output Voltage ($V_{OUT5}$): 5.0V DC (via L78L05). Normal load: ~50 mA ($0.25\text{W}$). LDO power dissipation: $(12\text{V} - 5\text{V}) \times 0.05\text{A} = 0.35\text{W}$. Total power drawn from 12V rail by LDO branch = $0.6\text{W}$.
+    *   Total Normal Operating Output Power: ~1.75W to 2.0W.
+*   **Maximum Current & Power Source Capability:**
+    *   **IC Peak Current Limit ($I_{CL}$):** UCC28881 integrated MOSFET peak current limit is **225 mA**.
+    *   **Maximum Continuous Output Current ($I_{OUT\_max}$):** In continuous conduction mode (CCM) buck operation, the average output current capability is bounded by the integrated switch current limit: $I_{OUT\_max} \approx 225\text{mA}$ DC.
+    *   **Maximum Output Power ($P_{OUT\_max}$):** 
+        $$P_{OUT\_max} = V_{OUT} \times I_{OUT\_max} = 12.0\text{V} \times 0.225\text{A} = 2.7\text{W}\text{ (electrical output)}$$
+        Accounting for conversion efficiency ($\eta \approx 75\% - 80\%$), maximum total delivered output power is **2.7W - 3.0W**.
+    *   **Combined Rail Budget:** The 2.7W total 12V rail budget must supply both the gate drivers (~1.2W at 100mA) and the 5.0V LDO branch (delivering up to 100 mA / 0.5W output, consuming ~1.2W from the 12V rail), perfectly fitting within the 2.7W total capacity ($1.2\text{W} + 1.2\text{W} = 2.4\text{W} < 2.7\text{W}$).
+
 **System Context:**
 *   **Input Interface:** Connects to the Traction Pack HV Bus (85V - 400V DC via Fuse F1 and Diode D_IN).
 *   **Output Interface:** Provides the regulated 12V DC rail (VDD12V) and 5.0V rail (VDD1) relative to the HV- reference (GND_HV).
@@ -59,3 +75,25 @@ Synthesized from the UCC28881EVM-680 reference design and tailored for the BMS H
 *   **Low Input Voltage Analysis (64V Bus & Failure Threshold):**
     *   *Operation at 64V:* Required duty cycle $D = \frac{V_{OUT} + V_F}{V_{IN}} \approx \frac{12 + 0.9}{64} \approx 20.1\%$, which is well below $D_{MAX}$ (45%-55%). Mathematically, the module can supply the 100 mA load at 64V input since $100\text{mA} < 225\text{mA}$ current limit. However, noise and transient sag margins are severely constrained.
     *   *Absolute Failure Threshold (~55V DC):* Below ~55V DC, the internal HV startup current source fails to reliably maintain VDD above the UVLO turn-on threshold ($V_{VDD(on)} \approx 3.92\text{V}$), causing restart hiccup mode and loss of regulation. Thus, 55V is the absolute operational failure threshold, validating the system boundary minimum of 85V DC for robust operation. Confidence: High.
+
+*   **Limiting Factors for Continuous Power Output:**
+    1.  **Integrated MOSFET Current Limit ($I_{CL}$):** The UCC28881 integrates a 700V power MOSFET with a fixed internal peak current limit of **225 mA**, establishing a hard ceiling on average continuous output current (~225 mA CCM).
+    2.  **Thermal Dissipation & Package Limits:** In the SOIC-7 package, thermal resistance ($R_{\thetaJA}$) restricts continuous power dissipation. Furthermore, the linear regulator (L78L05) dissipates $P_{diss} = (12\text{V} - 5\text{V}) \times I_{5V}$, which generates notable heat if 5V load current is pushed to its maximum limit without adequate copper thermal planes.
+    3.  **Inductor Saturation:** Inductor L2 (1 mH) must maintain inductance without saturation under peak switching currents.
+
+*   **Power Scaling Analysis (Increasing Power Output > 3W to 10W+):**
+    To significantly increase power output, the following architectural and component changes are required:
+    1.  **Controller IC Replacement:** Replace the UCC28881 with an external MOSFET controller or a wide-$V_{IN}$ synchronous buck regulator (e.g., LM5017/LM5018 or an isolated flyback controller with an external high-voltage MOSFET) capable of higher switch current limits.
+    2.  **Power Inductor (L2):** Upgrade to a higher saturation current and lower DCR inductor.
+    3.  **Output Filter Capacitor (C5):** Increase capacitance and lower ESR to handle higher ripple currents and transient loads.
+    4.  **LDO Regulator Replacement:** Replace the linear L78L05 with a high-voltage step-down switching regulator (e.g., TPS62130A or equivalent DC-DC) to eliminate excessive thermal dissipation $(7\text{V} \times I_{5V})$ at higher 5V load currents.
+
+*   **Cost Optimization Analysis (Lower Power & Cost Efficiency):**
+    If power requirements are reduced, cost optimization can be achieved with minimal PCB layout changes:
+    1.  **Initial Cost (BOM Reduction):**
+        *   *Bulk Capacitors (C1, C2):* If input voltage transient and hold-up requirements are relaxed, evaluate smaller capacitance or single-capacitor configurations.
+        *   *Rectifier Diodes (D3, D4):* Maintain 600V rating due to 400V bus requirements, but optimize part selection for standard recovery or cost-optimized ultrafast diodes if permissible.
+        *   *5V Generation:* If 5V current draw is extremely low (<10 mA), replace the L78L05 LDO with a simple Zener diode shunt regulator or resistive drop, removing the LDO and decoupling capacitors entirely.
+    2.  **Running Cost & Standby Efficiency:**
+        *   The UCC28881 features built-in burst-mode operation and high-voltage startup current source that automatically disables after startup, ensuring extremely low standby power consumption (<100 mW), minimizing idle running cost on the high-voltage traction bus.
+
