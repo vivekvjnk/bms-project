@@ -44,7 +44,30 @@ The low-voltage-power-supply (LVPS) is a singleton module in the Low-Voltage (LV
 ## 4. Connectivity & Signal Flow
 - **Primary Input:** The module receives 64V to 400V DC at the input terminals (VIN+, VIN-). 
 - **Power Conversion:** The DC input voltage is applied to the primary winding of transformer T1. The UCC28750 (U1) controls the primary MOSFET (Q1) via the DRV pin (through R13 and R14).
-- **Current Sensing:** Primary current is sensed by R15 and fed to the CS pin of U1 through an RC filter (R11, C8).
+- **Current Sensing:** Primary current is sensed by R15 (0.390 Ω) and fed to the CS pin of U1 through an RC filter (R11, C8).
+- **Power & Current Capability Analysis:**
+    - **Primary Peak Current Limit:** Set by the current sense resistor $R_{CS} = R15 = 0.390\,\Omega$ and the UCC28750 internal current limit threshold ($V_{CS(max)} \approx 0.8\,V$). 
+      - $I_{pk(primary)} = \frac{V_{CS(max)}}{R_{CS}} = \frac{0.8\,V}{0.390\,\Omega} \approx 2.05\,A$.
+    - **Output Power Capability:** Based on the flyback transformer core (SUOT-EE16V-12) and primary peak current, the estimated normal continuous output power capability is **$Pout \approx 15W$ to $24W$** (e.g., providing up to 2.0A on the 12V rail, plus sufficient headroom for the derived 5V, 3.3V, and 1.2V logic rails).
+    - **Rail Current Capabilities:**
+        - **12V Main Rail (`VOUT_12V`):** Up to **2.0 A** (primary isolated output, limited by secondary diode SBR20U150CT and transformer winding limits).
+        - **5V Rail (`VOUT_5V` via U4 L78L05):** Up to **100 mA** (L78L05ACD13TR thermal/current rating).
+        - **3.3V Rail (`VOUT_3V3` via U5 LM1117-3.3):** Up to **800 mA** (LM1117S-3.3 linear regulator capability).
+        - **1.2V Rail (`VOUT_1V2` via U6 TLV70012):** Up to **200 mA** (TLV70012DDCR low-dropout regulator).
+    - **Limiting Factors for Continuous Power Output:**
+        1. **Transformer Saturation & Thermal Dissipation (T1 / SUOT-EE16V-12):** Core magnetic saturation limits and copper/core losses restrict maximum continuous flux throughput.
+        2. **Primary Peak Current Sense (R15):** The 0.390 Ω sense resistor limits the maximum primary switch current to ~2.05A, capping primary energy storage per cycle.
+        3. **Secondary Rectifier & Thermal Limits (D3 / SBR20U150CT):** Diode forward voltage drop and associated conduction/switching losses generate heat that must be dissipated via PCB copper.
+        4. **Secondary Linear Regulator Thermal Dissipation (U5 LM1117-3.3):** Dissipates $(12V - 3.3V) \times I_{load}$ as heat. At high load currents, thermal overload of the LDO becomes the primary bottleneck for the 3.3V rail unless replaced with a synchronous buck converter.
+    - **Scaling Up Power Output (Design Modifications):**
+        1. **Transformer (T1):** Upgrade from EE16V to a larger core size (e.g., EE19 or EPC19) to handle higher continuous magnetic flux and higher winding currents.
+        2. **Primary Current Sense (R15):** Decrease resistance (e.g., from 0.390 Ω to 0.20 Ω) to allow higher peak primary switch current.
+        3. **Primary MOSFET (Q1) & Snubber:** Ensure Q1 (IPA65R400CE) can handle higher rms currents and re-optimize the snubber network (R6, C5, D1) to handle increased leakage energy dissipation.
+        4. **Secondary Regulators (U4, U5):** Replace linear regulators (like LM1117 for 3.3V) with high-efficiency integrated step-down buck switching regulators to eliminate thermal throttling and improve overall conversion efficiency at higher loads.
+    - **Cost Optimization (Minimal PCB Changes):**
+        1. **Regulator Downsizing / Elimination:** If downstream modules draw less power, replace oversized LDOs/linear regulators with lower-cost, lower-current variants (or combine rails if permissible).
+        2. **Component Standardization:** Use high-volume standard passive components (resistors/capacitors) and standard low-cost diodes where tight tolerances aren't required.
+        3. **Optimized Magnetics:** Select a cost-optimized standard off-the-shelf flyback transformer rather than custom windings if electrical parameters permit.
 - **Auxiliary Power (VDD):** The auxiliary winding of T1 provides operating power to the VDD pin of U1 once switching commences, rectified by D2 and filtered by C6/C7.
 - **Output Rectification:** The isolated secondary winding output is rectified by D3 and filtered by output capacitors to generate the main 12V DC logic rail.
 - **Voltage Feedback:** The 12V output is divided by R21 and R24, feeding the reference pin of the TL431 (U3). The TL431 sinks current through the LED of the optocoupler (U2). The U2 phototransistor pulls down the FB pin of U1 to close the regulation loop.
