@@ -47,6 +47,15 @@ The `bms-monitor-module` is a high-voltage (HV) domain component within the stac
 - **Uncertainty:** Daisy chain and cell interface connection methods remain "TBD" at the system level.
 - **Assumption:** Balancing current is targeted at ~240mA as per datasheet, requiring 22Ω resistors (rated for 2W) to handle ~1.13W dissipation at 5V, balancing speed vs. thermal dissipation requirements (P3.4).
 - **Assumption:** NFAULT is an open-drain output requiring an external pull-up if monitored locally, though it is also communicated via the daisy chain heartbeat.
+- **Current Consumption Analysis:**
+    - **Baseline Active Idle Current ($I_{ACT(ID)$):** Typical 10.4 mA, Max 11.6 mA (sum of BAT and LDOIN).
+    - **Active Feature Adders:**
+        - ADC Conversion (2 ADCs active): +0.9 mA max.
+        - Balancing Overhead ($I_{CB\_EN}$): +1.5 mA when balancing FETs are active.
+        - Communication Transceiver Activity: ~2–5 mA.
+    - **Average Current Consumption:** ~12–14 mA during normal periodic active monitoring and communication polling.
+    - **Worst-Case Internal IC Current Consumption:** $\sim 19\text{ mA}$ ($11.6\text{ mA baseline} + 0.9\text{ mA ADC} + 1.5\text{ mA balancing overhead} + 5\text{ mA comm}$).
+    - **External Cell Balancing Current (Stack Load):** Up to ~190–240mA per active balancing channel through the 22Ω external resistors (drawn directly from balanced cells, not from module supply rails).
 
 ## Library Mapping
 
