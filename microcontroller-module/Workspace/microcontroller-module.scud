@@ -38,6 +38,7 @@ The `microcontroller-module` acts as the central intelligence of the Battery Man
 *   **Interface Mapping:**
     *   PA9/PA10: USART1 (Communication Bridge)
     *   PA5/PA6/PA7/PA4: SPI1 (SCK, MISO, MOSI, NSS/CS for Communication Bridge / Backup)
+    *   PB0: GPIO / External Interrupt (Input) for Communication Bridge `NFAULT` fault signal
     *   PA1: GPIO (`MCU_DSG_EN`)
     *   PA3: GPIO (`MCU_CHG_EN`)
     *   PA2: GPIO (Sync Signal)

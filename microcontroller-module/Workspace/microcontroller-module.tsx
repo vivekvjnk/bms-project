@@ -27,6 +27,7 @@ export const MicrocontrollerModule = ({ name, schX, schY, showAsSchematicBox }:M
       <port name="SPI_MOSI" direction="right" connectsTo={["U1.pin17"]} />
       <port name="SPI_CS" direction="right" connectsTo={["U1.pin14"]} />
       <port name="SYNC_GPIO" direction="right" connectsTo={["U1.pin21"]} />
+      <port name="NFAULT" direction="right" connectsTo={["U1.pin18"]} />
       <port name="CTRL_CHG" direction="right" connectsTo={["U3.pin4"]} />
       <port name="CTRL_DSG" direction="right" connectsTo={["U4.pin4"]} />
 
