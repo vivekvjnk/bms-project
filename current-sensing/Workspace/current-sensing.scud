@@ -51,6 +51,16 @@ The module spans the High-Voltage (HV) and Low-Voltage (LV) domains, providing r
 *   **Signal Transfer Function:** Vout(SE) = f(Vout(diff) * 8.2). Output scaled to MCU ADC range.
 *   **Diagnostics:** Missing VDD1 detection is integrated; output will transition to a detectable fail-safe state if high-side power is lost.
 *   **VCM Bias:** $V_{CM}$ bias for signal conditioning stage derived from precision voltage divider (provided by system/MCU supply).
+*   **Power Consumption Analysis (at 3.3V VDD1 / VDD2):**
+    *   **High-Side (HV) Domain (VDD1):**
+        *   **Typical Current:** 6.3 mA (AMC1301 $I_{DD1}$)
+        *   **Worst-Case Current (Max):** 8.5 mA
+    *   **Low-Voltage (LV) Domain (VDD2):**
+        *   **Typical Current:** ~5.39 mA (AMC1301 $I_{DD2}$ = 5.3 mA + TLV6001 $I_q$ ~0.075 mA + $V_{CM}$ divider ~0.0165 mA)
+        *   **Worst-Case Current (Max):** ~7.34 mA (AMC1301 $I_{DD2}$ = 7.2 mA + TLV6001 $I_q$ max 0.125 mA + $V_{CM}$ divider ~0.0165 mA)
+    *   **Total Module Consumption:**
+        *   **Typical:** ~11.69 mA (~38.6 mW at 3.3V)
+        *   **Worst-Case (Max):** ~15.84 mA (~52.3 mW at 3.3V)
 
 ## 5. Uncertainties, Assumptions & Confidence
 *   **VDD1 Power Source:** Selection between `BMS Monitor Module` (VREG5) and `High-Voltage Power Supply` (UCC28881) is a design decision based on pack voltage and power architecture (Open Item).
