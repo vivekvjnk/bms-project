@@ -2,11 +2,11 @@
 ## control-circuit
 
 ### 1. Circuit Overview & System Context
-The `control-circuit` is the central command and power distribution hub for the BMS. It integrates the `microcontroller-module` (central intelligence) and the `low-voltage-power-supply` (LVPS) module. The LVPS converts high-voltage DC (64V-400V) from the traction battery into regulated low-voltage rails (12V, 5V, 3.3V, 1.2V). The `microcontroller-module` consumes the 3.3V rail to execute safety algorithms, estimate SOC/SOH, and control system-level contactors. This integrated unit serves as the master logic controller for the entire stackable-bms system.
+The `control-circuit` is the central command and power distribution hub for the BMS. It integrates the `microcontroller-module` (central intelligence) and the `low-voltage-power-supply` (LVPS) module. The LVPS converts either 12V auxiliary power or 64V from the battery pack into regulated low-voltage rails (12V, 5V, 3.3V, 1.2V). The `microcontroller-module` consumes the 3.3V rail to execute safety algorithms, estimate SOC/SOH, and control system-level switching. This integrated unit serves as the master logic controller for the entire stackable-bms system.
 
 ### 2. Architectural Deviations & Integration Logic
-*   **Direct Power Coupling:** The `microcontroller-module` is powered directly from the `low-voltage-power-supply`'s 3.3V output rail. 
-*   **Common Ground Strategy:** Both modules share a common secondary/logic ground (`SEC_GND` on LVPS and `GND` on MCU), ensuring signal integrity for all internal LV communications.
+*   **Direct Power Coupling:** The `mcu` is powered directly from the `lvps`'s 3.3V output rail. 
+*   **Common Ground Strategy:** Both modules share a common secondary/logic ground (`SEC_GND` on lvps and `GND` on mcu), ensuring signal integrity for all internal LV communications.
 *   **Pruned Evaluation Infrastructure:** Both modules have been stripped of evaluation-board-specific components (e.g., user LEDs, buttons, AC rectification stages) to meet system-level efficiency and form-factor requirements.
 *   **No Bridging Required:** Since the MCU logic and the LVPS secondary regulators operate within the same 3.3V logic domain, no level translation or galvanic isolation is required between these two specific modules. Isolation is maintained at the system boundary (LVPS Flyback Transformer).
 
@@ -28,17 +28,29 @@ The `control-circuit` is the central command and power distribution hub for the 
 
 ### 4. Topology, Interconnect & Signal Flow
 *   **Power Distribution:**
-    *   `LVPS.VOUT_3V3` -> `microcontroller-module.3V3` (Primary logic supply)
-    *   `LVPS.SEC_GND` -> `microcontroller-module.GND` (Shared logic ground)
+    *   `lvps.VOUT_3V3` -> `mcu.3V3` (Primary logic supply)
+    *   `lvps.SEC_GND` -> `mcu.GND` (Shared logic ground)
 *   **External System Interfaces (to be routed to system ports):**
-    *   `LVPS.VIN_P` / `LVPS.PRI_GND`: 64V-400V DC Input from Traction Pack.
-    *   `LVPS.VOUT_12V`, `LVPS.VOUT_5V`, `LVPS.VOUT_1V2`: Available for other modules (Communication Bridge, Current Sensing).
-    *   `microcontroller-module.UART_TX/RX`: To Communication Bridge.
-    *   `microcontroller-module.ADC_IN`: From Current Sensing module.
-    *   `microcontroller-module.CONTACTOR_GPIO`: To external safety contactors.
-    *   `microcontroller-module.SYNC_GPIO`: To system-wide synchronization bus.
+    *   `lvps.VIN_P` / `lvps.PRI_GND`: 12V Aux or 64V DC Input.
+    *   `lvps.VOUT_12V`, `lvps.VOUT_5V`, `lvps.VOUT_1V2`: Available for other modules (Communication Bridge, Current Sensing).
+    *   `mcu.UART_TX/RX`: To Communication Bridge.
+    *   `mcu.ADC_IN`: From Current Sensing module.
+    *   `mcu.NFAULT`: From Communication Bridge (Isolated Fault Signal).
+    *   `mcu.CTRL_CHG / CTRL_DSG`: To switching-circuit (via opto-isolation).
+    *   `mcu.SYNC_GPIO`: To system-wide synchronization bus.
 
 ### 5. Uncertainties, Engineering Assumptions & Risks
-*   **Power Budget Assumption:** It is assumed that the `LM1117-3.3` regulator on the LVPS module provides sufficient current (~800mA max) to power both the MCU (~50mA) and other potential 3.3V consumers in the system.
-*   **Thermal Risk:** Linear regulators (L78L05, LM1117) on the LVPS module may experience significant heat dissipation if the current draw on 5V/3.3V rails is high, especially since they are derived from a 12V rail. This may require thermal via arrays or heat sinking on the final PCB.
-*   **Signal Integrity:** The ADC input to the MCU relies on a passive RC filter. If the environment is extremely noisy, active buffering or differential-to-single-ended conversion might be needed, though not currently implemented.
+
+#### 5.1 Power Budget & Compatibility Analysis
+Based on submodule SCUDs, the integrated power distribution is highly robust:
+*   **3.3V Logic Domain:** Total sink consumption is ~73mA (MCU: 35.5mA, CB: 10mA, CS: 7.4mA, SWC Optos: 20mA). LVPS provides 800mA max, representing >90% headroom.
+*   **12V Auxiliary Domain:** Total sink consumption is ~50mA (Communication Bridge BAT). LVPS provides 2.0A max, representing >97% headroom.
+*   **Thermal Consideration:** Linear regulator (LM1117-3.3) dissipation is estimated at 0.63W under worst-case load. This is safe but requires appropriate PCB copper area for heat spreading.
+
+#### 5.2 Risks & Engineering Assumptions
+*   **Power Budget Assumption:** It is assumed that the `LM1117-3.3` regulator on the `lvps` module provides sufficient current (~800mA max) to power both the `mcu` (~50mA) and other potential 3.3V consumers in the system.
+*   **Thermal Risk:** Linear regulators (L78L05, LM1117) on the `lvps` module may experience significant heat dissipation if the current draw on 5V/3.3V rails is high, especially since they are derived from a 12V rail. This may require thermal via arrays or heat sinking on the final PCB.
+*   **Signal Integrity:** The ADC input to the `mcu` is already a single-ended analog signal (0V-3.3V) provided by the `current-sensing` module's integrated differential-to-single-ended conversion stage. It relies on a passive RC filter within the MCU module for anti-aliasing. No further active buffering is required in the control circuit.
+*   **Critical Fault Handling:** The `mcu.NFAULT` input is a hardware-critical signal. It is assumed that the `communication-bridge` provides a reliable, debounced active-low signal. Upon assertion of `NFAULT`, the MCU must prioritize entering a safe state by de-asserting `CTRL_CHG` and `CTRL_DSG`.
+*   **Deferred Status Feedback:** FET status feedback (`STAT_CHG`, `STAT_DSG`) is explicitly excluded from this board revision. Safety logic is currently open-loop regarding FET state, relying on the hardware-level overcurrent trip.
+
